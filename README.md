@@ -2,7 +2,7 @@
 
 **How much does stack ageing change the life cycle assessment of a hydrogen mobility chain?**
 
-This repository contains the models, data and code behind the article *Effet du vieillissement d'un électrolyseur PEM et d'une pile à combustible PEM sur la performance environnementale d'une chaîne de mobilité hydrogène* (A. Bouhlila, H. Helbling, C. Viton, A. Sari) and chapters 3 and 4 of the corresponding PhD thesis.
+This repository contains the models, data and code of a life cycle assessment (LCA) that accounts for the ageing of the stacks of a hydrogen chain.
 
 The chain studied:
 
@@ -23,8 +23,8 @@ Everything is parameterised. **Change a quantity, an inventory, an ageing rate o
 git clone <this repository>
 cd h2-ageing-lca
 pip install -r requirements.txt
-python scripts/run.py                 # reproduces the article (about 3 s)
-python tests/test_reproduce_article.py
+python scripts/run.py                 # default configuration (about 3 s)
+python tests/test_reference_results.py
 ```
 
 Default results (climate change, EF 3.1, ecoinvent 3.11 cut-off, French residual mix 79.6 g CO2-eq/kWh, 200 000 km over 15 years):
@@ -87,7 +87,7 @@ scripts/
     fit_pemwe.py           fit the electrolyser model on the wind profile
     build_fabrication_brightway.py   recompute fabrication impacts from the inventories (needs ecoinvent)
 data/                      measurements, fitted parameters, impacts, inventories (see data/README.md)
-tests/                     the default configuration reproduces the article
+tests/                     the default configuration gives the reference results
 notebooks/                 the original research notebooks (French), see notebooks/README.md
 docs/                      method and customisation guide
 ```
@@ -98,11 +98,11 @@ No ecoinvent dataset is distributed. `data/impacts` contains characterised EF 3.
 
 ## Limits
 
-The models describe the stacks only: auxiliaries (balance of plant), the refuelling station apart from compression, the rest of the vehicle and end of life are outside the system. No degradation rate has been measured on the stacks studied: the linear cases use rates declared by the DOE, and the pessimistic case uses constants from laboratory cells, which are more stressed than commercial stacks. The fuel cell result changes by steps with the number of stacks. The limits are discussed in the article and in docs/METHOD.md.
+The models describe the stacks only: auxiliaries (balance of plant), the refuelling station apart from compression, the rest of the vehicle and end of life are outside the system. No degradation rate has been measured on the stacks studied: the linear cases use rates declared by the DOE, and the pessimistic case uses constants from laboratory cells, which are more stressed than commercial stacks. The fuel cell result changes by steps with the number of stacks. See docs/METHOD.md.
 
 ## How to cite
 
-See [CITATION.cff](CITATION.cff). Please cite the article when you use the code or the data.
+See [CITATION.cff](CITATION.cff). Please cite this repository when you use the code or the data.
 
 ## Licence
 

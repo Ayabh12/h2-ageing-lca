@@ -1,6 +1,6 @@
 """Fit the polarisation curve of the fuel cell stack on the road measurements.
 
-Method (same as the article):
+Method:
   1. split the signal file into recordings (time resets to zero) and keep the driving ones;
   2. keep quasi-steady points: current >= 30 A and less than 10 % change from the previous second;
   3. bin the current on a geometric grid (30 to 610 A) and take the median voltage of each bin

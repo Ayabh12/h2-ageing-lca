@@ -4,7 +4,7 @@
     python prepare_inputs.py
 
 Run the notebooks in this order: Fitting_polarisation_Mirai_II, AB_vieillissement_PEMWE,
-AB_vieillissement_PEMFC, then AB_vieillissement_trois_cas (results of the article) and the others.
+AB_vieillissement_PEMFC, then AB_vieillissement_trois_cas (reference results) and the others.
 """
 import shutil
 from pathlib import Path

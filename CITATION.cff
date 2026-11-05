@@ -1,8 +1,10 @@
 cff-version: 1.2.0
-message: "If you use this code or these data, please cite the article below."
+message: "If you use this code or these data, please cite this repository."
 title: "h2-ageing-lca: effect of stack ageing on the life cycle assessment of a hydrogen mobility chain"
 version: 1.0.0
 license: MIT
+repository-code: "https://github.com/Ayabh12/h2-ageing-lca"
+date-released: 2026-11-05
 authors:
   - family-names: Bouhlila
     given-names: Aya
@@ -12,17 +14,3 @@ authors:
     given-names: Christophe
   - family-names: Sari
     given-names: Ali
-preferred-citation:
-  type: article
-  title: "Effet du vieillissement d'un électrolyseur PEM et d'une pile à combustible PEM sur la performance environnementale d'une chaîne de mobilité hydrogène"
-  authors:
-    - family-names: Bouhlila
-      given-names: Aya
-    - family-names: Helbling
-      given-names: Hugo
-    - family-names: Viton
-      given-names: Christophe
-    - family-names: Sari
-      given-names: Ali
-  year: 2026
-  notes: "Submitted. Update with the journal, volume and DOI once published."

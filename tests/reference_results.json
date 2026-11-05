@@ -1,5 +1,5 @@
 {
- "source": "Results of the article and thesis (run/w_v3/V18*.json, compression 2.8 kWh/kg)",
+ "source": "Reference results of the default configuration (computed with the research notebooks)",
  "fuel_cell": {
   "optimistic": {
    "eol_h": 8000.0,

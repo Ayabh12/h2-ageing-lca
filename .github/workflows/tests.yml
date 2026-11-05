@@ -1,7 +1,7 @@
 name: tests
 on: [push, pull_request]
 jobs:
-  reproduce-article:
+  reference-results:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

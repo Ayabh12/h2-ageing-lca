@@ -1,6 +1,6 @@
-"""The default configuration must reproduce the results of the article.
+"""The default configuration must give the reference results.
 
-Run with ``pytest`` or simply ``python tests/test_reproduce_article.py``.
+Run with ``pytest`` or simply ``python tests/test_reference_results.py``.
 Tolerance: 0.05 % on absolute values, 0.05 point on percentage rises.
 """
 import json

@@ -1,6 +1,6 @@
 # Method
 
-This page summarises what the code computes. The full justification of each choice is in the article and in chapters 3 and 4 of the thesis.
+This page summarises what the code computes and why. Each value of `config/default.yaml` gives its source.
 
 ## 1. Functional units and system
 
