@@ -2,7 +2,7 @@
 
 ecoinvent is licensed, so this repository only ships the characterised results
 (data/impacts/fabrication_per_unit.csv). If you hold an ecoinvent 3.11 cut-off licence,
-this script rebuilds the stacks (and the tank, once its activities are filled in) from
+this script rebuilds the two stacks and the tank from
 data/inventories/*.csv in your own Brightway project, computes the 16 EF 3.1 categories
 and writes a new fabrication file. Change any amount in the CSV files first to test your
 own inventory.
@@ -19,7 +19,7 @@ Note: this script was written for this repository and has not been run by its au
 (no ecoinvent licence on the machine that built the repository). The impacts shipped in
 data/impacts were computed with Activity Browser on the same inventories. Check the
 climate change result of the default inventories against the shipped file (3 698, 39 509
-and 2 332 kg CO2-eq) before using your own values.
+and 2 332 kg CO2-eq, tank materials only) before using your own values.
 """
 import argparse
 from pathlib import Path
@@ -104,11 +104,21 @@ def main():
             lca.lcia()
             res[col][key] = lca.score
         print(col, "climate change:", round(res[col]["climate_change"], 1))
-    tank = pd.read_csv(ROOT / "data/inventories/tank_type_IV.csv").fillna("")
-    shipped = pd.read_csv(ROOT / "data/impacts/fabrication_per_unit.csv").set_index("category")
-    if (tank["ecoinvent_activity"] == "").any():
-        print("tank: ecoinvent activities not filled in data/inventories/tank_type_IV.csv -> shipped values kept")
-        res["tank_type_IV"] = shipped["tank_type_IV"].to_dict()
+    # tank: flows identified by their ecoinvent code; only the flows marked "yes" are in the
+    # shipped impact (materials). Set the manufacturing energy rows to "yes" to include them.
+    tank = pd.read_csv(ROOT / "data/inventories/tank_type_IV.csv")
+    tank = tank[tank["included_in_shipped_impact"] == "yes"]
+    demand = {}
+    for _, r in tank.iterrows():
+        act = bd.get_activity((r["database"], r["ecoinvent_code"]))
+        demand[act] = demand.get(act, 0) + float(r["amount"])
+    res["tank_type_IV"] = {}
+    for key in EF31:
+        lca = bc.LCA(demand, pick_method(bd, key))
+        lca.lci()
+        lca.lcia()
+        res["tank_type_IV"][key] = lca.score
+    print("tank_type_IV climate change:", round(res["tank_type_IV"]["climate_change"], 1))
     out = pd.DataFrame(res)
     out.index.name = "category"
     out.reset_index().to_csv(a.out, index=False, float_format="%.10g")

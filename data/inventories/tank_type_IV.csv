@@ -1,4 +1,6 @@
-material,mass_kg,ecoinvent_activity,note
-carbon fibre,76.0,,"Masses: Benitez et al. 2021, table 2 (5.6 kg H2, 700 bar). ecoinvent activities: to be filled by the author."
-epoxy resin,26.0,,"Masses: Benitez et al. 2021, table 2 (5.6 kg H2, 700 bar). ecoinvent activities: to be filled by the author."
-high-density polyethylene (liner),7.5,,"Masses: Benitez et al. 2021, table 2 (5.6 kg H2, 700 bar). ecoinvent activities: to be filled by the author."
+foreground_activity,flow,amount,unit,database,ecoinvent_code,included_in_shipped_impact,source
+Reservoir d'hydrogene,carbon fibre,76.0,kilogram,ecoinvent-3.11-cutoff,9ad0622039ac4282c6e2cb78654880f6,yes,"Benitez et al. 2021, table 2"
+Reservoir d'hydrogene,epoxy resin,26.0,kilogram,ecoinvent-3.11-cutoff,52da78750371215247dbfad4baa1dc95,yes,"Benitez et al. 2021, table 2"
+Reservoir d'hydrogene,high-density polyethylene (liner),7.5,kilogram,ecoinvent-3.11-cutoff,1cbbd15bec1cb7fc29ff986122237cb4,yes,"Benitez et al. 2021, table 2"
+Energy,manufacturing energy (1),43.2,see ecoinvent activity,ecoinvent-3.11-cutoff,1f3b8a354f9d87975d3d22863b764361,no,author's Brightway project
+Energy,manufacturing energy (2),338.64,see ecoinvent activity,ecoinvent-3.11-cutoff,8a929576a7a7baa207c06c6292ef4247,no,author's Brightway project
