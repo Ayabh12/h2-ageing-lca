@@ -1,0 +1,17 @@
+foreground_activity,exchange_name,amount,unit,database,location,reference_product,categories,type
+electricite,"electricity, high voltage, residual mix",1096.0,kilowatt hour,ecoinvent-3.11-cutoff,FR,"electricity, high voltage",,technosphere
+fabrication,electricite,1.0,unit,fabrication pile 128,GLO,electricite,,technosphere
+fabrication,stack,1.0,unit,fabrication pile 128,GLO,stack,,technosphere
+stack,market for acrylonitrile,3.33,kilogram,ecoinvent-3.11-cutoff,GLO,acrylonitrile,,technosphere
+stack,market for carbon black,0.104,kilogram,ecoinvent-3.11-cutoff,GLO,carbon black,,technosphere
+stack,"market for copper, cathode",2.53,kilogram,ecoinvent-3.11-cutoff,GLO,"copper, cathode",,technosphere
+stack,market for ethoxylated alcohol (AE11),0.587,kilogram,ecoinvent-3.11-cutoff,GLO,ethoxylated alcohol (AE11),,technosphere
+stack,market for glass fibre,10.1,kilogram,ecoinvent-3.11-cutoff,GLO,glass fibre,,technosphere
+stack,market for platinum,0.069,kilogram,ecoinvent-3.11-cutoff,GLO,platinum,,technosphere
+stack,market for silicone product,3.36,kilogram,ecoinvent-3.11-cutoff,RER,silicone product,,technosphere
+stack,"market for steel, chromium steel 18/8, hot rolled",59.87,kilogram,ecoinvent-3.11-cutoff,GLO,"steel, chromium steel 18/8, hot rolled",,technosphere
+stack,market for tetrafluoroethylene,0.384,kilogram,ecoinvent-3.11-cutoff,GLO,tetrafluoroethylene,,technosphere
+stack,"market for water, deionised",1.31,kilogram,ecoinvent-3.11-cutoff,RoW,"water, deionised",,technosphere
+stack,"market for wire drawing, copper",2.53,kilogram,ecoinvent-3.11-cutoff,GLO,"wire drawing, copper",,technosphere
+stack,"polyethylene terephthalate production, granulate, amorphous",4.85,kilogram,ecoinvent-3.11-cutoff,RER,"polyethylene terephthalate, granulate, amorphous",,technosphere
+stack,"steel production, low-alloyed, hot rolled",7.52,kilogram,ecoinvent-3.11-cutoff,RoW,"steel, low-alloyed, hot rolled",,technosphere

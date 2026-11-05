@@ -1,0 +1,125 @@
+# =============================================================================
+# h2-ageing-lca : default configuration
+# =============================================================================
+# This file reproduces the results of the article / thesis (three ageing cases:
+# optimistic, central, pessimistic). Copy it, change any value, and run
+#     python scripts/run.py --config config/my_case.yaml
+# or override single values from the command line:
+#     python scripts/run.py --set usage.compression_kWh_per_kg=3.0
+# Every value carries its source. Units are in the key names.
+# =============================================================================
+
+horizon:
+  years: 15                      # vehicle and equipment horizon
+  vehicle_km_total: 200000       # Takahashi et al. 2022 (Toyota target for the Mirai II stack)
+
+# -----------------------------------------------------------------------------
+# Usage (foreground flows that do not depend on ageing)
+# -----------------------------------------------------------------------------
+usage:
+  compression_kWh_per_kg: 2.8    # Magnaval et al. 2026 (DOE Program Record 9013 gives 2.9-3.2 kWh/kg, 20 -> 880 bar)
+  water_kg_per_kg_h2: 10.0       # Lundberg 2019 inventory (stoichiometric minimum: 8.9 kg)
+  electricity_electrolyser: residual_mix_FR   # column of data/impacts/electricity_per_kWh.csv
+  electricity_compression: residual_mix_FR    # idem (kept on the residual mix in the article)
+  electrolyser_hours_per_year: 6000           # hours at the measured profile (mean load 0.568)
+  stack_counting: integer        # "integer": n = ceil(L / t_EoL) ; "prorata": n = max(1, L / t_EoL)
+
+# -----------------------------------------------------------------------------
+# Fuel cell (Toyota Mirai II stack)
+# -----------------------------------------------------------------------------
+fuel_cell:
+  trip_file: data/measurements/mirai2_fuel_cell_trip.csv   # measured road trip (L2EP), time / current / voltage
+  trip_distance_km: 20.32349744662911                       # distance of the measured trip
+  trip_h2_measured_kg: 0.196     # tank level 56.0 % -> 52.5 % of 5.6 kg during the trip
+  n_cells: 330
+  active_area_cm2: 297.0         # Pielecha & Pielecha 2025 (Mirai I 237 cm2 x 1.12 x 1.12)
+  temperature_K: 343.15          # 70 C, close to the 71 C of the ID-FAST cycle (Colombo et al. 2023)
+  alpha_c: 1.0                   # Gerling et al. 2022 ; Vetter & Schumacher 2019
+  # Polarisation curve fitted on the road measurements (scripts/fit_pemfc.py)
+  polarisation:
+    i0c_A_cm2: 1.5249284032896347e-06
+    R0_ohm_cm2: 0.046227991773348694
+    Bc_V: 0.026458911532429897
+    ilim_A_cm2: 2.30179979134735
+  reference_current_A: 300.0     # current at which the voltage loss is followed
+  end_of_life_voltage_loss: 0.10 # DOE criterion: -10 % voltage
+  crossover_initial_A_cm2: 0.002 # DOE specification for a new membrane
+  crossover_law: linear          # linear | exponential | constant
+  current_bisection_iterations: 40
+  ages_per_life: 61              # ages at which the trip is simulated (trapezoidal averaging)
+
+# -----------------------------------------------------------------------------
+# Electrolyser (Nel MC250, wind profile from NLR data)
+# -----------------------------------------------------------------------------
+electrolyser:
+  params_file: data/parameters/pemwe_fit.json   # written by scripts/fit_pemwe.py
+  profile_hours: 4.0             # duration of the measured profile
+  nominal_power_kW: 1250.0
+  end_of_life_voltage_rise: 0.10 # DOE criterion: +10 % voltage at the mean current density
+  stack_inventory_scale: 1.0     # the inventory is already that of the 1.25 MW stack
+
+# -----------------------------------------------------------------------------
+# Tank (type IV, 142.2 L) : hydrogen permeation
+# -----------------------------------------------------------------------------
+tank:
+  volume_L: 142.2
+  h2_density_kg_per_NmL: 8.988e-8
+  certification_years: 15
+  # permeation at 55 C, full tank, linear from P0 to P15 (mL/h/L), UN R134 limit 46
+
+# -----------------------------------------------------------------------------
+# Fabrication impacts (one unit of each component, EF 3.1, ecoinvent 3.11 cut-off)
+# Recompute them from data/inventories/*.csv with scripts/build_fabrication_brightway.py
+# (needs your own ecoinvent licence), or edit data/impacts/fabrication_per_unit.csv.
+# -----------------------------------------------------------------------------
+fabrication:
+  file: data/impacts/fabrication_per_unit.csv
+  fuel_cell_stack: fuel_cell_stack_128kW
+  electrolyser_stack: electrolyser_stack_1p25MW
+  tank: tank_type_IV
+
+impacts:
+  electricity_file: data/impacts/electricity_per_kWh.csv
+  water_file: data/impacts/water_per_kg.csv
+  ef31_file: data/impacts/ef31_normalisation_weighting.csv
+
+# -----------------------------------------------------------------------------
+# Ageing cases
+#   model: linear      -> constant voltage drift (published rates)
+#   model: mechanistic -> laws (1)-(7) of the article, constants from laboratory cells
+# -----------------------------------------------------------------------------
+cases:
+  optimistic:
+    fuel_cell:
+      model: linear
+      hours_to_end_of_life: 8000       # DOE ultimate target, 10 % voltage loss (Program Record 20005)
+    electrolyser:
+      model: linear
+      rate_uV_per_h_per_cell: 2.3      # DOE 2026 target
+    tank_permeation_mL_h_L: [6.0, 6.0]
+  central:
+    fuel_cell:
+      model: linear
+      hours_to_end_of_life: 4100       # DOE best on-road fleet, 10 % voltage loss (Program Record 16019)
+    electrolyser:
+      model: linear
+      rate_uV_per_h_per_cell: 4.8      # DOE 2022 status
+    tank_permeation_mL_h_L: [6.0, 14.0]
+  pessimistic:
+    fuel_cell:
+      model: mechanistic
+      # Colombo et al. 2023, cell C, 1000 h ID-FAST
+      ecsa_at_1000h: 0.67              # normalised Pt surface after 1000 h
+      omega: 3.6                       # shape of the ECSA law (Verducci et al.), range 3-4
+      voltage_loss_at_1p8_A_cm2_1000h_V: 0.045
+      crossover_factor_1000h: 2.6
+    electrolyser:
+      model: mechanistic
+      # Padgett et al. 2025 (80 C, 3 A/cm2, 0.4 mg Ir/cm2) ; Chandesris et al. 2015
+      anode_activity_final: 0.11182795698924731   # 10.4 / 93 (mass activity)
+      anode_decay_time_h: 1000.0
+      hfr_drift_V_per_h_at_test: 7.0e-6
+      catalyst_layer_drift_V_per_h_at_test: 3.4e-6
+      test_current_density_A_cm2: 3.0
+      membrane_half_thickness_time_h: 80700.0     # coupled model, 80 C
+    tank_permeation_mL_h_L: [6.0, 46.0]

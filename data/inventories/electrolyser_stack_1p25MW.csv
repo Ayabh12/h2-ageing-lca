@@ -1,0 +1,16 @@
+foreground_activity,exchange_name,amount,unit,database,location,reference_product,categories,type
+Collecteurs de courant,"market for aluminium, wrought alloy",33.75,kilogram,ecoinvent-3.11-cutoff,GLO,"aluminium, wrought alloy",,technosphere
+Collecteurs de courant,"market for copper, cathode",5.625,kilogram,ecoinvent-3.11-cutoff,GLO,"copper, cathode",,technosphere
+Electricité,"electricity, medium voltage, residual mix",6700.0,kilowatt hour,ecoinvent-3.11-cutoff,FR,"electricity, medium voltage",,technosphere
+Enveloppe externe,"steel production, electric, chromium steel 18/8",125.0,kilogram,ecoinvent-3.11-cutoff,RER,"steel, chromium steel 18/8",,technosphere
+Membrane,market for tetrafluoroethylene,20.0,kilogram,ecoinvent-3.11-cutoff,GLO,tetrafluoroethylene,,technosphere
+Plaques bipolaires,market for titanium,660.0,kilogram,ecoinvent-3.11-cutoff,GLO,titanium,,technosphere
+electrodes,Iridium,0.9375,kilogram,biosphere3,,,natural resource::in ground,biosphere
+electrodes,"activated carbon production, granular from hard coal",11.25,kilogram,ecoinvent-3.11-cutoff,RER,"activated carbon, granular",,technosphere
+electrodes,market for platinum,0.09375,kilogram,ecoinvent-3.11-cutoff,GLO,platinum,,technosphere
+peml,Collecteurs de courant,1.0,unit,electrolyseur ,GLO,Collecteurs de courant,,technosphere
+peml,Electricité,1.0,unit,electrolyseur ,GLO,Electricité,,technosphere
+peml,Enveloppe externe,1.0,unit,electrolyseur ,GLO,Enveloppe externe,,technosphere
+peml,Membrane,1.0,unit,electrolyseur ,GLO,Membrane,,technosphere
+peml,Plaques bipolaires,1.0,unit,electrolyseur ,GLO,Plaques bipolaires,,technosphere
+peml,electrodes,1.0,unit,electrolyseur ,GLO,electrodes,,technosphere

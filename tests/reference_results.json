@@ -1,0 +1,251 @@
+{
+ "source": "Results of the article and thesis (run/w_v3/V18*.json, compression 2.8 kWh/kg)",
+ "fuel_cell": {
+  "optimistic": {
+   "eol_h": 8000.0,
+   "stacks": 1.0,
+   "total_g_per_km": 63.40216002629148,
+   "rise_pct": 2.4035657134582555,
+   "score_rise_pct": 2.6206062366815663
+  },
+  "central": {
+   "eol_h": 4100.0,
+   "stacks": 2.0,
+   "total_g_per_km": 82.21816514243989,
+   "rise_pct": 32.794107858666834,
+   "score_rise_pct": 26.72545664086574
+  },
+  "pessimistic": {
+   "eol_h": 2894.516390289235,
+   "stacks": 2.0,
+   "total_g_per_km": 83.35864520267643,
+   "rise_pct": 34.636146438186685,
+   "score_rise_pct": 28.733830184667152
+  }
+ },
+ "fuel_cell_no_ageing_g_per_km": 61.91401596669103,
+ "electrolyser": {
+  "optimistic": {
+   "total_kg_per_kg": 4.533067985576002,
+   "rise_pct": 5.109902786110743
+  },
+  "central": {
+   "total_kg_per_kg": 4.565404524705594,
+   "rise_pct": 5.859701927700001
+  },
+  "pessimistic": {
+   "total_kg_per_kg": 4.664514743285551,
+   "rise_pct": 8.157806759393992
+  }
+ },
+ "electrolyser_no_ageing_kg_per_kg": 4.312693538305701,
+ "chain": {
+  "optimistic": {
+   "total_g_per_km": 77.83094862354582,
+   "rise_pct": 5.002983753148471,
+   "score_rise_pct": 5.817981566490227
+  },
+  "central": {
+   "total_g_per_km": 97.15254823420558,
+   "rise_pct": 31.070064341051975,
+   "score_rise_pct": 29.206406356728685
+  },
+  "pessimistic": {
+   "total_g_per_km": 100.05123732549285,
+   "rise_pct": 34.980732384301106,
+   "score_rise_pct": 34.01715345865273
+  }
+ },
+ "chain_no_ageing_g_per_km": 74.12260665517717,
+ "chain_no_ageing_score_uPt": 23.52577531157275,
+ "categories_central": {
+  "acidification": {
+   "fuel_cell_rise_pct": 90.1244274949042,
+   "electrolyser_rise_pct": 10.471395346833233,
+   "chain_rise_pct": 86.93440855310124
+  },
+  "climate_change": {
+   "fuel_cell_rise_pct": 32.794107858666834,
+   "electrolyser_rise_pct": 5.859701927700001,
+   "chain_rise_pct": 31.07006434105195
+  },
+  "ecotoxicity_freshwater": {
+   "fuel_cell_rise_pct": 79.37254518004866,
+   "electrolyser_rise_pct": 7.6582132137232195,
+   "chain_rise_pct": 71.56121923989214
+  },
+  "particulate_matter": {
+   "fuel_cell_rise_pct": 56.169864439267414,
+   "electrolyser_rise_pct": 7.165418242273591,
+   "chain_rise_pct": 51.36815510438444
+  },
+  "eutrophication_freshwater": {
+   "fuel_cell_rise_pct": 78.68337247021063,
+   "electrolyser_rise_pct": 10.184930480955412,
+   "chain_rise_pct": 69.94360290448363
+  },
+  "eutrophication_marine": {
+   "fuel_cell_rise_pct": 62.83488717321644,
+   "electrolyser_rise_pct": 6.112520004485522,
+   "chain_rise_pct": 59.5678092096277
+  },
+  "eutrophication_terrestrial": {
+   "fuel_cell_rise_pct": 78.1997026907316,
+   "electrolyser_rise_pct": 7.465818829797177,
+   "chain_rise_pct": 74.21139610562537
+  },
+  "human_toxicity_cancer": {
+   "fuel_cell_rise_pct": 37.886503896121894,
+   "electrolyser_rise_pct": 9.531413567021962,
+   "chain_rise_pct": 38.3226657251587
+  },
+  "ozone_depletion": {
+   "fuel_cell_rise_pct": 87.14102484617105,
+   "electrolyser_rise_pct": 66.0504978302324,
+   "chain_rise_pct": 93.55883382475018
+  },
+  "resource_use_fossils": {
+   "fuel_cell_rise_pct": 8.091959723168763,
+   "electrolyser_rise_pct": 4.472185818076646,
+   "chain_rise_pct": 12.39459781428649
+  },
+  "resource_use_minerals_metals": {
+   "fuel_cell_rise_pct": 73.24437742183278,
+   "electrolyser_rise_pct": 6.3360243730923305,
+   "chain_rise_pct": 72.27749210268712
+  },
+  "water_use": {
+   "fuel_cell_rise_pct": 10.324193023777518,
+   "electrolyser_rise_pct": 4.55467598834014,
+   "chain_rise_pct": 14.3449651376379
+  },
+  "land_use": {
+   "fuel_cell_rise_pct": 45.43428520138863,
+   "electrolyser_rise_pct": 6.040584277458239,
+   "chain_rise_pct": 43.499209458868535
+  },
+  "ionising_radiation": {
+   "fuel_cell_rise_pct": 5.324381008028767,
+   "electrolyser_rise_pct": 4.390302807297886,
+   "chain_rise_pct": 9.920289124539373
+  },
+  "photochemical_ozone_formation": {
+   "fuel_cell_rise_pct": 71.80073337184953,
+   "electrolyser_rise_pct": 7.02026446700259,
+   "chain_rise_pct": 68.1015013968272
+  },
+  "human_toxicity_non_cancer": {
+   "fuel_cell_rise_pct": 43.334134393493784,
+   "electrolyser_rise_pct": 5.614750968456006,
+   "chain_rise_pct": 42.02744842515946
+  }
+ },
+ "electricity": {
+  "residual_mix_FR": {
+   "chain_no_ageing_g_per_km": 74.12260665517717,
+   "chain_rise_pct": {
+    "optimistic": 5.002983753148471,
+    "central": 31.07006434105195,
+    "pessimistic": 34.980732384301085
+   },
+   "electrolyser_rise_pct_central": 5.859701927700001
+  },
+  "average_mix_FR": {
+   "chain_no_ageing_g_per_km": 73.02195969111092,
+   "chain_rise_pct": {
+    "optimistic": 4.958747995249624,
+    "central": 31.401902957592576,
+    "pessimistic": 35.27080117361414
+   },
+   "electrolyser_rise_pct_central": 5.900262446807902
+  },
+  "nuclear_FR": {
+   "chain_no_ageing_g_per_km": 36.05362491445531,
+   "chain_rise_pct": {
+    "optimistic": 1.9041288575620818,
+    "central": 54.316410063498076,
+    "pessimistic": 55.30096946206635
+   },
+   "electrolyser_rise_pct_central": 21.12983271188864
+  },
+  "wind_FR": {
+   "chain_no_ageing_g_per_km": 41.21813735923724,
+   "chain_rise_pct": {
+    "optimistic": 2.6601285694134447,
+    "central": 48.64520851972889,
+    "pessimistic": 50.3436242835549
+   },
+   "electrolyser_rise_pct_central": 11.403215304232983
+  },
+  "photovoltaic": {
+   "chain_no_ageing_g_per_km": 50.65773260846201,
+   "chain_rise_pct": {
+    "optimistic": 3.6435708226564723,
+    "central": 41.26782578086301,
+    "pessimistic": 43.894861623950355
+   },
+   "electrolyser_rise_pct_central": 7.778640037320361
+  }
+ },
+ "electrolyser_hours": {
+  "5632": {
+   "hours_per_year": 5631.661199262253,
+   "chain_rise_pct": {
+    "optimistic": 5.1686512020399755,
+    "central": 31.195787811038954,
+    "pessimistic": 34.991910073649855
+   },
+   "electrolyser_stacks": {
+    "optimistic": 2.0,
+    "central": 3.0,
+    "pessimistic": 3.0
+   }
+  },
+  "6000": {
+   "hours_per_year": 6000.0,
+   "chain_rise_pct": {
+    "optimistic": 5.002983753148471,
+    "central": 31.070064341051975,
+    "pessimistic": 34.980732384301106
+   },
+   "electrolyser_stacks": {
+    "optimistic": 2.0,
+    "central": 3.0,
+    "pessimistic": 3.0
+   }
+  },
+  "7392": {
+   "hours_per_year": 7391.555324031707,
+   "chain_rise_pct": {
+    "optimistic": 4.696192319489767,
+    "central": 31.0677022228832,
+    "pessimistic": 35.29740629348333
+   },
+   "electrolyser_stacks": {
+    "optimistic": 2.0,
+    "central": 3.0,
+    "pessimistic": 4.0
+   }
+  },
+  "8497": {
+   "hours_per_year": 8497.199999999999,
+   "chain_rise_pct": {
+    "optimistic": 4.691891901484624,
+    "central": 31.24640343903802,
+    "pessimistic": 35.181885937830714
+   },
+   "electrolyser_stacks": {
+    "optimistic": 2.0,
+    "central": 4.0,
+    "pessimistic": 4.0
+   }
+  }
+ },
+ "oat_pessimistic_fuel_cell_plus20": {
+  "Perte de surface de platine en 1 000 h (1 − S)": 64.59282663621504,
+  "Croissance de la résistance r": 63.84370123756664,
+  "Facteur de crossover en 1 000 h x": 35.50590391077579,
+  "Crossover initial i_x,0": 35.17138180593382,
+  "Forme de la loi ω": 34.62322591362459
+ }
+}

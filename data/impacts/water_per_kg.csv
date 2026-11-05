@@ -1,0 +1,17 @@
+category,deionised_water_per_kg
+acidification,4.301540021e-06
+climate_change,0.000473326928
+ecotoxicity_freshwater,0.05163586473
+particulate_matter,3.47469993e-11
+eutrophication_freshwater,2.044005858e-07
+eutrophication_marine,4.751268346e-07
+eutrophication_terrestrial,4.944502801e-06
+human_toxicity_cancer,9.699031513e-13
+ozone_depletion,1.605245095e-10
+resource_use_fossils,0.005653778155
+resource_use_minerals_metals,1.892943056e-08
+water_use,0.0008718816056
+land_use,0.001980460354
+ionising_radiation,3.22951138e-05
+photochemical_ozone_formation,1.688266618e-06
+human_toxicity_non_cancer,1.405386033e-11
