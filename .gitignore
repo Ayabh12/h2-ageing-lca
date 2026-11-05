@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+results/
+.ipynb_checkpoints/
+notebooks/resultats_*/
+notebooks/signaux_fuel_cell_1.xlsx
+notebooks/mirai2_fuel_cell_trip.xlsx
+notebooks/profil_electrolyseur_ACV_duree_vie (2).xlsx
+notebooks/pemwe_parametres.json
