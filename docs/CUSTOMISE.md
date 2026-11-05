@@ -86,4 +86,4 @@ The models are plain Python classes:
 - `Electrolyser.state(t, p)` in `src/h2ageing/pemwe.py`;
 - `Tank.permeation(t, p)` in `src/h2ageing/tank.py`.
 
-To try another ageing law, change these functions (or add a new `model:` value in `parameters()`). Everything downstream (end of life, number of stacks, LCA) uses them unchanged. Run `python tests/test_reproduce_article.py` before your change to check your installation, and expect the tests to fail after it: they compare with the article.
+To try another ageing law, change these functions (or add a new `model:` value in `parameters()`). Everything downstream (end of life, number of stacks, LCA) uses them unchanged. Run `python tests/test_reference_results.py` before your change to check your installation, and expect the tests to fail after it: they compare with the reference results of the default configuration.

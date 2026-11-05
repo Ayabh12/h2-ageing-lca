@@ -2,7 +2,7 @@
 
 Examples
 --------
-    python scripts/run.py                                   # default configuration (article)
+    python scripts/run.py                                   # default configuration (reference results)
     python scripts/run.py --config config/my_case.yaml --out results/my_case
     python scripts/run.py --set usage.compression_kWh_per_kg=3.0
     python scripts/run.py --set usage.electricity_electrolyser=wind_FR

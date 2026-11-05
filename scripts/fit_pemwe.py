@@ -1,6 +1,6 @@
 """Fit the new-state model of the electrolyser on the measured wind profile.
 
-Method (same as the article):
+Method:
   * cell voltage V = E_rev(T) + RT/(2 alpha_a F) ln(j/i0a) + R j - Bc ln(1 - j/ilim);
   * alpha_a is fixed by the Tafel slope measured by Padgett et al. 2025 (46 mV/dec at 80 C);
   * i0a, R and Bc are fitted on the 1 s profile by bounded least squares (trust region

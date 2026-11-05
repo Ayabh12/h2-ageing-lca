@@ -1,7 +1,7 @@
 # =============================================================================
 # h2-ageing-lca : default configuration
 # =============================================================================
-# This file reproduces the results of the article / thesis (three ageing cases:
+# This file gives the reference results (three ageing cases:
 # optimistic, central, pessimistic). Copy it, change any value, and run
 #     python scripts/run.py --config config/my_case.yaml
 # or override single values from the command line:
@@ -20,7 +20,7 @@ usage:
   compression_kWh_per_kg: 2.8    # Magnaval et al. 2026 (DOE Program Record 9013 gives 2.9-3.2 kWh/kg, 20 -> 880 bar)
   water_kg_per_kg_h2: 10.0       # Lundberg 2019 inventory (stoichiometric minimum: 8.9 kg)
   electricity_electrolyser: residual_mix_FR   # column of data/impacts/electricity_per_kWh.csv
-  electricity_compression: residual_mix_FR    # idem (kept on the residual mix in the article)
+  electricity_compression: residual_mix_FR    # idem (kept on the residual mix in the reference results)
   electrolyser_hours_per_year: 6000           # hours at the measured profile (mean load 0.568)
   stack_counting: integer        # "integer": n = ceil(L / t_EoL) ; "prorata": n = max(1, L / t_EoL)
 
@@ -86,7 +86,7 @@ impacts:
 # -----------------------------------------------------------------------------
 # Ageing cases
 #   model: linear      -> constant voltage drift (published rates)
-#   model: mechanistic -> laws (1)-(7) of the article, constants from laboratory cells
+#   model: mechanistic -> laws of docs/METHOD.md, constants from laboratory cells
 # -----------------------------------------------------------------------------
 cases:
   optimistic:
