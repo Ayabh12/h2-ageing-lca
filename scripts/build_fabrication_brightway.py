@@ -19,7 +19,7 @@ Note: this script was written for this repository and has not been run by its au
 (no ecoinvent licence on the machine that built the repository). The impacts shipped in
 data/impacts were computed with Activity Browser on the same inventories. Check the
 climate change result of the default inventories against the shipped file (3 698, 39 509
-and 2 332 kg CO2-eq, tank materials only) before using your own values.
+and 2 332 kg CO2-eq) before using your own values.
 """
 import argparse
 from pathlib import Path
@@ -104,8 +104,7 @@ def main():
             lca.lcia()
             res[col][key] = lca.score
         print(col, "climate change:", round(res[col]["climate_change"], 1))
-    # tank: flows identified by their ecoinvent code; only the flows marked "yes" are in the
-    # shipped impact (materials). Set the manufacturing energy rows to "yes" to include them.
+    # tank: flows identified by their ecoinvent code; rows marked "no" are left out.
     tank = pd.read_csv(ROOT / "data/inventories/tank_type_IV.csv")
     tank = tank[tank["included_in_shipped_impact"] == "yes"]
     demand = {}
