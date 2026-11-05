@@ -1,6 +1,6 @@
 foreground_activity,flow,amount,unit,database,ecoinvent_code,included_in_shipped_impact,source
-Reservoir d'hydrogene,carbon fibre,76.0,kilogram,ecoinvent-3.11-cutoff,9ad0622039ac4282c6e2cb78654880f6,yes,"Benitez et al. 2021, table 2"
-Reservoir d'hydrogene,epoxy resin,26.0,kilogram,ecoinvent-3.11-cutoff,52da78750371215247dbfad4baa1dc95,yes,"Benitez et al. 2021, table 2"
-Reservoir d'hydrogene,high-density polyethylene (liner),7.5,kilogram,ecoinvent-3.11-cutoff,1cbbd15bec1cb7fc29ff986122237cb4,yes,"Benitez et al. 2021, table 2"
-Energy,"electricity, low voltage, from heat and power co-generation, natural gas (Europe without Switzerland)",43.2,kilowatt hour,ecoinvent-3.11-cutoff,1f3b8a354f9d87975d3d22863b764361,no,author's Brightway project
-Energy,"electricity, high voltage, market group for electricity, high voltage (GLO)",338.64,kilowatt hour,ecoinvent-3.11-cutoff,8a929576a7a7baa207c06c6292ef4247,no,author's Brightway project
+Reservoir d'hydrogene,carbon fibre,76.0,kilogram,ecoinvent-3.11-cutoff,9ad0622039ac4282c6e2cb78654880f6,yes,Benitez et al. 2021
+Reservoir d'hydrogene,epoxy resin,26.0,kilogram,ecoinvent-3.11-cutoff,52da78750371215247dbfad4baa1dc95,yes,Benitez et al. 2021
+Reservoir d'hydrogene,high-density polyethylene (liner),7.5,kilogram,ecoinvent-3.11-cutoff,1cbbd15bec1cb7fc29ff986122237cb4,yes,Benitez et al. 2021
+Energy,"electricity, low voltage, from heat and power co-generation, natural gas (Europe without Switzerland)",43.2,kilowatt hour,ecoinvent-3.11-cutoff,1f3b8a354f9d87975d3d22863b764361,yes,Benitez et al. 2021
+Energy,"electricity, high voltage, market group for electricity, high voltage (GLO)",338.64,kilowatt hour,ecoinvent-3.11-cutoff,8a929576a7a7baa207c06c6292ef4247,yes,Benitez et al. 2021

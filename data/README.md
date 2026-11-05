@@ -32,9 +32,9 @@ No ecoinvent dataset is included. These files contain characterised results only
 |---|---|---|
 | `fuel_cell_stack_128kW.csv` | materials and manufacturing electricity of the fuel cell stack, with the ecoinvent 3.11 activity used for each flow | Mori et al. 2023 (48 kW stack), scaled by 128/48 |
 | `electrolyser_stack_1p25MW.csv` | materials and assembly electricity of the electrolyser stack | Lundberg 2019 (per MW of stack), scaled to 1.25 MW; iridium counted as a resource flow only |
-| `tank_type_IV.csv` | material masses of the tank (ecoinvent flows given by their Brightway code) and two manufacturing-energy flows | Masses: Benitez et al. 2021, table 2 (5.6 kg, 700 bar) |
+| `tank_type_IV.csv` | material masses and manufacturing energy of the tank (ecoinvent flows given by their Brightway code) | Benitez et al. 2021 (5.6 kg, 700 bar) |
 
-The tank impact used in the article (2 332 kg CO2-eq) covers the three materials only (rows marked `yes`). The two manufacturing-energy flows of the authors' Brightway project are listed but not included; mark them `yes` to include them when you rebuild the tank with `scripts/build_fabrication_brightway.py`.
+The tank impact used in the article, 2 332 kg CO2-eq, is 2 075 kg for the materials and 257 kg for the manufacturing energy (338.64 kWh of high-voltage electricity, global market, and 43.2 kWh from natural gas co-generation). Set a row of the column `included_in_shipped_impact` to `no` to leave it out when you rebuild the tank.
 
 ## Licences
 
