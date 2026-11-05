@@ -5,7 +5,7 @@
 | File | Content | Origin |
 |---|---|---|
 | `mirai2_fuel_cell_signals.csv` | Toyota Mirai II fuel cell, all recordings at 1 s: time (s), vehicle speed (km/h), stack current (A), stack voltage (V), tank level (%). Time restarts at zero at each recording. | Road and standstill measurements described in chapter 1 of the thesis. Used to fit the polarisation curve. |
-| `mirai2_fuel_cell_trip.csv` | Measured road trip used for the hydrogen balance: time (s), current (A), voltage (V); 2 033 s, 20.32 km, 0.196 kg of hydrogen (tank 56.0 % → 52.5 % of 5.6 kg). Missing values interpolated. | Same measurement campaign. |
+| `mirai2_fuel_cell_trip.csv` | Measured road trip used for the hydrogen balance: time (s), current (A), voltage (V); 2 033 s, 20.32 km, 0.196 kg of hydrogen (tank 56.0 % → 52.5 % of 5.6 kg). Missing values interpolated. | Same measurement campaign, from the experimental database of Ali Alhakim. |
 | `nel_mc250_wind_profile.xlsx` | Nel MC250 PEM electrolyser (1.25 MW) driven by a wind profile, 4 h at 1 s (sheet `Profil_1s_source`), with the derived use-phase inventory (other sheets). | Built from the public NLR data set "Public Reference Data for Megawatt-Scale Hydrogen Electrolysis", run "wind-GE1.5MW 0.65-200". |
 
 ## parameters/
@@ -32,9 +32,9 @@ No ecoinvent dataset is included. These files contain characterised results only
 |---|---|---|
 | `fuel_cell_stack_128kW.csv` | materials and manufacturing electricity of the fuel cell stack, with the ecoinvent 3.11 activity used for each flow | Mori et al. 2023 (48 kW stack), scaled by 128/48 |
 | `electrolyser_stack_1p25MW.csv` | materials and assembly electricity of the electrolyser stack | Lundberg 2019 (per MW of stack), scaled to 1.25 MW; iridium counted as a resource flow only |
-| `tank_type_IV.csv` | material masses of the tank | Benitez et al. 2021, table 2 (5.6 kg, 700 bar) |
+| `tank_type_IV.csv` | material masses of the tank (ecoinvent flows given by their Brightway code) and two manufacturing-energy flows | Masses: Benitez et al. 2021, table 2 (5.6 kg, 700 bar) |
 
-The ecoinvent activities of the tank are not listed yet: fill the column `ecoinvent_activity` before rebuilding the tank with `scripts/build_fabrication_brightway.py`.
+The tank impact used in the article (2 332 kg CO2-eq) covers the three materials only (rows marked `yes`). The two manufacturing-energy flows of the authors' Brightway project are listed but not included; mark them `yes` to include them when you rebuild the tank with `scripts/build_fabrication_brightway.py`.
 
 ## Licences
 
