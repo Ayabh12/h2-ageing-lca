@@ -83,6 +83,8 @@ src/h2ageing/              the models
 scripts/
     run.py                 command line: run a configuration, write CSV tables
     plot.py                bar chart of the chain per item
+    threshold.py           impact versus stack lifetime, with the predictions of each ageing model
+    sobol.py               global sensitivity analysis (Sobol indices) of the chain
     fit_pemfc.py           fit the fuel cell polarisation curve on the road measurements
     fit_pemwe.py           fit the electrolyser model on the wind profile
     build_fabrication_brightway.py   recompute fabrication impacts from the inventories (needs ecoinvent)

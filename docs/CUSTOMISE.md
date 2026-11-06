@@ -78,7 +78,18 @@ You can add a case (any name) or remove one; each case also gives the tank perme
 - Another fuel cell or trip: replace `data/measurements/mirai2_fuel_cell_trip.csv` (columns `time_s`, `current_A`, `voltage_V`), give its distance and measured hydrogen (`fuel_cell.trip_distance_km`, `fuel_cell.trip_h2_measured_kg`), the number of cells and the active area, and refit the polarisation curve with `scripts/fit_pemfc.py` on your signals.
 - Another electrolyser or profile: run `scripts/fit_pemwe.py --profile <file> --n-cells ... --area-cm2 ...`; it writes the parameter file read by the model (`electrolyser.params_file`).
 
-## 5. The models themselves
+## 5. Lifetime threshold and global sensitivity
+
+```bash
+python scripts/threshold.py --out results    # impact versus stack lifetime, model predictions placed on it
+python scripts/sobol.py --out results        # Sobol indices of the chain (about 15 min on 2 cores)
+```
+
+`threshold.py` varies the stack lifetime with the linear model and places each configured case on the curve. It also separates the two effects of the choice of ageing model: the predicted end of life, and the shape of the trajectory at equal end of life (linear model set to the end of life of the mechanistic model).
+
+`sobol.py` reads the factors and their ranges in `global_sensitivity` of the configuration. Change a range, add or remove a factor among those listed, or change `samples`.
+
+## 6. The models themselves
 
 The models are plain Python classes:
 
