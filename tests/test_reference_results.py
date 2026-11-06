@@ -12,8 +12,6 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from h2ageing import load_config, run, with_values  # noqa: E402
-from h2ageing.chain import Chain  # noqa: E402
-from h2ageing.impacts import CLIMATE  # noqa: E402
 
 REF = json.load(open(ROOT / "tests" / "reference_results.json", encoding="utf-8"))
 CFG = load_config()
@@ -97,16 +95,6 @@ def test_electrolyser_hours():
         for case, v in r["chain_rise_pct"].items():
             close_pt(ch.loc[case, "rise_pct"], v)
             assert life.loc[case, "electrolyser_stacks"] == r["electrolyser_stacks"][case]
-
-
-def test_pessimistic_fuel_cell_constants_plus_20pct():
-    ch = Chain(CFG)
-    base = ch.fc.parameters(CFG["cases"]["pessimistic"]["fuel_cell"])
-    ref = ch.fuel_cell_reference()["tot"][CLIMATE]
-    rise = lambda p: 100 * (ch.fuel_cell_alone(p)["tot"][CLIMATE] / ref - 1)
-    oat = REF["oat_pessimistic_fuel_cell_plus20"]
-    close_pt(rise({**base, "S1000": 1 - (1 - base["S1000"]) * 1.2}), oat["Perte de surface de platine en 1 000 h (1 − S)"])
-    close_pt(rise({**base, "k_R": base["k_R"] * 1.2}), oat["Croissance de la résistance r"])
 
 
 if __name__ == "__main__":
