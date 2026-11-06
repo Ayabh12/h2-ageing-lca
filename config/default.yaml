@@ -123,3 +123,22 @@ cases:
       test_current_density_A_cm2: 3.0
       membrane_half_thickness_time_h: 80700.0     # coupled model, 80 C
     tank_permeation_mL_h_L: [6.0, 46.0]
+
+# -----------------------------------------------------------------------------
+# Global sensitivity analysis (scripts/sobol.py), climate change of the whole chain
+# Ranges are bounded by two published or computed values (no arbitrary +-x %).
+# The fuel cell lifetime and the electrolyser drift use the linear model.
+# -----------------------------------------------------------------------------
+global_sensitivity:
+  samples: 1024                  # N (power of 2); N (k + 2) model runs
+  seed: 2026
+  bootstrap: 1000
+  factors:
+    fuel_cell_lifetime_h: [2895, 8000]           # mechanistic model, cell C ; DOE ultimate target
+    electrolyser_drift_uV_per_h: [2.3, 4.8]      # DOE 2026 target ; DOE 2022 status
+    electrolyser_hours_per_year: [5632, 8497]    # IRENA 2020, onshore wind (mean case) ; DOE capacity factor 97 %
+    electricity_electrolyser: [residual_mix_FR, average_mix_FR, nuclear_FR, wind_FR, photovoltaic]   # discrete, equiprobable
+    compression_kWh_per_kg: [2.8, 3.2]           # Magnaval et al. 2026 ; DOE Program Record 9013 (upper value)
+    fuel_cell_stack_kg_CO2: [3098, 3698]         # Mori et al. 2023 (24.2 kg/kW x 128 kW) ; this inventory (ecoinvent 3.11)
+    tank_kg_CO2: [2332, 5610]                    # this inventory (ecoinvent 3.11) ; Benitez et al. 2021
+    tank_permeation_end_mL_h_L: [6, 46]          # no increase ; UN R134 limit
