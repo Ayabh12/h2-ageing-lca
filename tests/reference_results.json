@@ -240,12 +240,5 @@
     "pessimistic": 4.0
    }
   }
- },
- "oat_pessimistic_fuel_cell_plus20": {
-  "Perte de surface de platine en 1 000 h (1 − S)": 64.59282663621504,
-  "Croissance de la résistance r": 63.84370123756664,
-  "Facteur de crossover en 1 000 h x": 35.50590391077579,
-  "Crossover initial i_x,0": 35.17138180593382,
-  "Forme de la loi ω": 34.62322591362459
  }
 }

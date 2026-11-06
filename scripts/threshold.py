@@ -85,10 +85,7 @@ def main():
     if mech:
         k = mech[0]
         base = pf[k]
-        variants = {"Pt surface loss +20 %": {**base, "S1000": 1 - (1 - base["S1000"]) * 1.2},
-                    "resistance growth +20 %": {**base, "k_R": base["k_R"] * 1.2},
-                    "Pt surface loss -20 %": {**base, "S1000": 1 - (1 - base["S1000"]) * 0.8},
-                    "resistance growth -20 %": {**base, "k_R": base["k_R"] * 0.8}}
+        variants = {}
         same = {"mu_lin": ch.fc.eol_frac * ch.fc.U0 / ch.fc.N / ch.fc.end_of_life(base)}
         variants["linear model, same end of life"] = same
         for name, p in variants.items():
