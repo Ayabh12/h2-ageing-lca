@@ -18,7 +18,7 @@ Horizon: 15 years, 200 000 km (`horizon`). Inside the system: electricity and wa
 
 V(j, t) = E_rev(T) − RT/(α_c F) · ln( j / (i0c · S(t)) ) − R(t) · j + B_c · ln(1 − j / i_lim)
 
-E_rev(T) = 1.229 − 0.85·10⁻³ (T − 298.15). The four parameters i0c, R0, B_c and i_lim are fitted on quasi-steady points of the road measurements (`scripts/fit_pemfc.py`).
+E_rev(T) = 1.229 − 0.85·10⁻³ (T − 298.15). The four parameters i0c, R0, B_c and i_lim are fitted on quasi-steady points of the road measurements (`scripts/fit_pemfc.py`), by bounded least squares. Bounds and the published values they enclose: log10 i0c from −12 to −1 (Vetter & Schumacher 2019; Colombo et al. 2023); R0 from 0 to 0.3 Ω cm² (Colombo et al. 2023); B_c from 0 to 0.3 V (Almodfer et al. 2022); i_lim from 2.03 to 6 A/cm² (Bielefeld et al. 2024), the lower bound just above the highest measured current density.
 
 **Hydrogen balance.** The measured trip (time, current, voltage, 2 033 s, 20.32 km) is replayed at each age at constant power: the current that delivers the measured power is found by bisection (40 iterations), with a point-by-point anchoring factor so that the model gives the measured current at age zero. The hydrogen consumed is Faraday's law plus a loss current: the gap between the measured hydrogen (0.196 kg) and Faraday's law is kept constant; the rise of the crossover is added to it.
 
@@ -37,7 +37,7 @@ E_rev(T) = 1.229 − 0.85·10⁻³ (T − 298.15). The four parameters i0c, R0, 
 
 V(j) = E_rev(T) + RT/(2 α_a F) · ln(j / i0a) + R j − B_c · ln(1 − j / i_lim)
 
-α_a is fixed by the Tafel slope of Padgett et al. (46 mV/dec at 80 °C); i0a, R and B_c are fitted (bounded least squares, trust region reflective, 50 starts, seed 180). The model is written at 80 °C, the temperature of the tests that give the ageing constants. The profile gives E0 = 2 841 kWh, 52.93 kg of hydrogen and SEC0 = 53.68 kWh/kg.
+α_a is fixed by the Tafel slope of Padgett et al. (46 mV/dec at 80 °C); i0a, R and B_c are fitted (bounded least squares, trust region reflective, 50 starts, seed 180). Bounds and the published values they enclose: i0a from 10⁻¹⁴ to 10⁻¹ A/cm² (Marefatjouikilevaee et al. 2023); R from 0 to 1 Ω cm² (Weiß et al. 2019; Padgett et al. 2025; Fouda-Onana et al. 2016); B_c from 0 to 1 V (Almodfer et al. 2022). The model is written at 80 °C, the temperature of the tests that give the ageing constants. The profile gives E0 = 2 841 kWh, 52.93 kg of hydrogen and SEC0 = 53.68 kWh/kg.
 
 **Ageing, mechanistic model** (pessimistic case, Padgett et al. 2025 and Chandesris et al. 2015):
 - anode activity f_A(t) = f_min + (1 − f_min) exp(−t/τ), giving a voltage rise b/ln(10) · ln(1/f_A);
@@ -53,6 +53,8 @@ The energy over the profile is updated to first order: E(t) = E0 + ΔV_uniform �
 ## 4. Tank (`src/h2ageing/tank.py`)
 
 Permeation (mL/h/L at 55 °C, full tank) grows linearly from P0 to P15 over the 15-year certification: 6 → 6, 6 → 14 and 6 → 46 (UN R134 limit) in the three cases. Hydrogen lost per km = P · V · ρ · 8 760 / (km per year).
+
+Tank alone, per km (`tank.csv`): fabrication of one tank / 200 000 km, plus the mean hydrogen lost, valued as delivered hydrogen at the reference state (electrolysis and compression).
 
 ## 5. LCA (`src/h2ageing/chain.py`, `impacts.py`)
 
@@ -71,3 +73,14 @@ Impacts: EF 3.1, 16 categories. Single score: Σ (impact / normalisation factor 
 - The linear model sees neither the rise of the fuel cell crossover nor the fast loss of anode activity.
 - The fuel cell result changes by steps with the number of stacks: any end of life between half the horizon and the horizon gives two stacks.
 - Inventories are taken from the literature and scaled (Mori et al. 2023, Lundberg 2019, Benitez et al. 2021); auxiliaries are excluded.
+
+## References for the fit bounds
+
+- Almodfer R. et al. (2022). Improving parameter estimation of fuel cell using honey badger optimization algorithm. Frontiers in Energy Research 10, 875332 (Table 2 corrected in 13, 1588458, 2025).
+- Bielefeld N.M. et al. (2024). A one-dimensional computational model to identify operating conditions and cathode flow channel dimensions for a PEM fuel cell. Hydrogen 5, 624–643. doi:10.3390/hydrogen5030033
+- Colombo E. et al. (2023). PEMFC performance decay during real-world automotive operation. Journal of Power Sources 553, 232246.
+- Fouda-Onana F. et al. (2016). Investigation on the degradation of MEAs for PEM water electrolysers part I. International Journal of Hydrogen Energy 41, 16627–16636.
+- Marefatjouikilevaee H., Auger F., Olivier J.-C. (2023). Static and dynamic electrical models of PEM electrolysers: a comprehensive review. Energies 16, 6503. doi:10.3390/en16186503
+- Padgett E. et al. (2025). Quantifying sources of voltage decay in long-term durability testing for PEM water electrolysis. Journal of The Electrochemical Society 172, 054508.
+- Vetter R., Schumacher J.O. (2019). Experimental parameter uncertainty in PEM fuel cell modeling. Part I. Journal of Power Sources 438, 227018.
+- Weiß A. et al. (2019). Impact of intermittent operation on lifetime and performance of a PEM water electrolyzer. Journal of The Electrochemical Society 166, F487–F497.

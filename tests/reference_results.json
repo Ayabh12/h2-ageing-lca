@@ -240,5 +240,23 @@
     "pessimistic": 4.0
    }
   }
+ },
+ "tank": {
+  "no_ageing": {
+   "total_g_per_km": 11.887,
+   "rise_pct": 0.0
+  },
+  "optimistic": {
+   "total_g_per_km": 11.887,
+   "rise_pct": 0.0
+  },
+  "central": {
+   "total_g_per_km": 12.038,
+   "rise_pct": 1.27
+  },
+  "pessimistic": {
+   "total_g_per_km": 12.643,
+   "rise_pct": 6.36
+  }
  }
 }

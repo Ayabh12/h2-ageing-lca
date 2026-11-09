@@ -1,6 +1,7 @@
 """Run all cases of a configuration and build the result tables."""
 from __future__ import annotations
 
+import numpy as np
 import pandas as pd
 
 from .chain import Chain
@@ -61,5 +62,19 @@ def run(cfg: dict) -> dict[str, pd.DataFrame]:
             row[f"electrolyser_rise_pct_{name}"] = pct(we_res[name]["tot"][cat], we_ref["tot"][cat])
             row[f"chain_rise_pct_{name}"] = pct(ch_res[name]["total"][cat], chain_ref["total"][cat])
         cat_rows.append(row)
-    return {"life": pd.DataFrame(life), "fuel_cell": pd.DataFrame(fc_rows), "electrolyser": pd.DataFrame(we_rows),
+    # tank alone, per km: fabrication (one tank per certification period) and hydrogen lost by permeation,
+    # valued as delivered hydrogen at the reference state
+    t = np.linspace(0.0, ch.L, 15001)
+    n_tanks = float(ch.tank.n_tanks(ch.L))
+    tank_fab = 1e3 * n_tanks * imp.tank[CLIMATE] / ch.km_total
+    tank_rows = []
+    for name, perm in [("no_ageing", (cases[next(iter(cases))]["tank_permeation_mL_h_L"][0],) * 2)] + \
+            [(n_, tuple(c_["tank_permeation_mL_h_L"])) for n_, c_ in cases.items()]:
+        lost = ch.tank.loss_per_km(t, perm, ch.km_year).mean()
+        tank_rows.append({"case": name, "permeation_P0_mL_h_L": perm[0], "permeation_P15_mL_h_L": perm[1], "tanks": n_tanks,
+                          "h2_lost_mg_per_km": 1e6 * lost, "fabrication_g_per_km": tank_fab,
+                          "h2_lost_g_per_km": 1e3 * lost * ch.ikg_ref[CLIMATE], "total_g_per_km": tank_fab + 1e3 * lost * ch.ikg_ref[CLIMATE]})
+    tank_df = pd.DataFrame(tank_rows)
+    tank_df["rise_pct"] = 100 * (tank_df.total_g_per_km / tank_df.total_g_per_km.iloc[0] - 1)
+    return {"life": pd.DataFrame(life), "tank": tank_df, "fuel_cell": pd.DataFrame(fc_rows), "electrolyser": pd.DataFrame(we_rows),
             "chain": pd.DataFrame(chain_rows), "categories": pd.DataFrame(cat_rows)}
