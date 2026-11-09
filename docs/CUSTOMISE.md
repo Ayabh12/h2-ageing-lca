@@ -12,8 +12,9 @@ The tables written to the output folder are:
 | File | Content |
 |---|---|
 | `life.csv` | end of life and number of stacks of each converter, mean over-consumption |
-| `fuel_cell.csv` | fuel cell alone, climate change per km: use, fabrication, total, rise, single score |
 | `electrolyser.csv` | electrolyser alone, climate change per kg of hydrogen |
+| `tank.csv` | tank alone, per km: fabrication, hydrogen lost by permeation, total, rise |
+| `fuel_cell.csv` | fuel cell alone, climate change per km: use, fabrication, total, rise, single score |
 | `chain.csv` | whole chain per km, by item, rise and single score |
 | `categories.csv` | the 16 EF 3.1 categories: share of fabrication and rise of each case |
 

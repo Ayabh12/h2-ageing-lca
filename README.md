@@ -33,9 +33,13 @@ Default results (climate change, EF 3.1, ecoinvent 3.11 cut-off, French residual
 |---|---|---|---|---|
 | Fuel cell stacks over 15 years | 1 | 1 | 2 | 2 |
 | Electrolyser stacks over 15 years | 1 | 2 | 3 | 3 |
-| Fuel cell alone (g CO2-eq/km) | 61.9 | 63.4 (+2.4 %) | 82.2 (+32.8 %) | 83.4 (+34.6 %) |
 | Electrolyser alone (kg CO2-eq/kg H2) | 4.31 | 4.53 (+5.1 %) | 4.57 (+5.9 %) | 4.66 (+8.2 %) |
+| Tank alone (g CO2-eq/km) | 11.89 | 11.89 (0.0 %) | 12.04 (+1.3 %) | 12.64 (+6.4 %) |
+| Fuel cell alone (g CO2-eq/km) | 61.9 | 63.4 (+2.4 %) | 82.2 (+32.8 %) | 83.4 (+34.6 %) |
 | Whole chain (g CO2-eq/km) | 74.1 | 77.8 (+5.0 %) | 97.2 (+31.1 %) | 100.1 (+35.0 %) |
+| Whole chain, stacks counted prorata | 74.1 | +4.6 % | +14.7 % | +32.8 % |
+
+Compression: 2.8 kWh/kg, 0.223 kg CO2-eq per kg of hydrogen; it does not age. Tank: fabrication 11.66 g CO2-eq/km plus the hydrogen lost by permeation. Residual mix data: AIB statistics, 2024.
 
 The three cases: **optimistic** = linear model with the DOE targets; **central** = linear model with the DOE status; **pessimistic** = mechanistic model with constants from laboratory cells. See [docs/METHOD.md](docs/METHOD.md).
 

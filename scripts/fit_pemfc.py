@@ -59,6 +59,8 @@ def main():
     g = pts.groupby(pd.cut(pts.I, edges), observed=True).agg(I=("I", "median"), U=("U", "median"), n=("U", "size"), n_rec=("rec", "nunique"))
     pol = g[(g.n >= 5) & (g.n_rec >= 2)].reset_index(drop=True)
 
+    # bounds (log10 i0c, R, Bc, ilim) enclosing published values: i0c Vetter & Schumacher 2019 and Colombo et al. 2023;
+    # R Colombo et al. 2023; Bc Almodfer et al. 2022; ilim Bielefeld et al. 2024 (lower bound above the measured maximum)
     lo = np.array([-12, 0, 0, 2.03])
     hi = np.array([-1, 0.3, 0.3, 6])
     jj, vv = pol.I.to_numpy() / A, pol.U.to_numpy() / N

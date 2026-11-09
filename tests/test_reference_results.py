@@ -51,6 +51,13 @@ def test_fuel_cell_alone():
         close_pt(row(df, case)["rise_pct"], r["rise_pct"])
 
 
+def test_tank_alone():
+    df = res()["tank"]
+    for case, r in REF["tank"].items():
+        close_rel(row(df, case)["total_g_per_km"], r["total_g_per_km"])
+        close_pt(row(df, case)["rise_pct"], r["rise_pct"])
+
+
 def test_electrolyser_alone():
     df = res()["electrolyser"]
     close_rel(row(df, "no_ageing")["total_kg_per_kg"], REF["electrolyser_no_ageing_kg_per_kg"])

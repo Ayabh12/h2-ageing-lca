@@ -72,6 +72,8 @@ def main():
         jj = np.asarray(jj, float)
         return E_rev + R * T / (2 * F * alpha) * np.log(jj / np.exp(log_i0)) + Rt * jj - Bc * np.log1p(-jj / a.ilim)
 
+    # bounds (ln i0a, R, Bc) enclosing published values: i0a Marefatjouikilevaee et al. 2023;
+    # R Weiss et al. 2019, Padgett et al. 2025, Fouda-Onana et al. 2016; Bc Almodfer et al. 2022
     lo, hi = np.array([np.log(1e-14), 0, 0]), np.array([np.log(1e-1), 1, 1])
     rng = np.random.default_rng(a.seed)
     best = None
