@@ -88,6 +88,8 @@ python scripts/sobol.py --out results        # Sobol indices of the chain (about
 
 `threshold.py` varies the stack lifetime with the linear model and places each configured case on the curve. It also separates the two effects of the choice of ageing model: the predicted end of life, and the shape of the trajectory at equal end of life (linear model set to the end of life of the mechanistic model).
 
+`mechanistic_constants.py` changes each constant of the mechanistic model alone to another published value and ranks their effect; edit `VARIANTS` to test your own values.
+
 `fuel_cell_tests.py` (`python scripts/fuel_cell_tests.py`) tests the mechanistic fuel cell model: crossover law, an extra membrane end-of-life criterion (crossover threshold) and the mean speed.
 
 `sobol.py` reads the factors and their ranges in `global_sensitivity` of the configuration. Change a range, add or remove a factor among those listed, or change `samples`.
