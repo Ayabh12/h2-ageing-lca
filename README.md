@@ -80,7 +80,6 @@ What these numbers show:
 | **LCA practitioner** | Add ageing to an LCA of hydrogen mobility; test your own electricity mix, horizon, inventories or stack counting rule | [docs/USE_CASES.md](docs/USE_CASES.md), examples 1–4 |
 | **Engineer or manufacturer** | See what a longer stack lifetime or a slower degradation rate is worth in CO2-eq; find the lifetime threshold that removes one replacement | `scripts/threshold.py`, example 5 |
 | **Researcher on degradation** | Plug in your own ageing constants or ageing law and see the effect on the LCA, without rewriting the LCA | [docs/CUSTOMISE.md](docs/CUSTOMISE.md), sections 2 and 6 |
-| **Reviewer or examiner** | Check that the published values are reproduced, trace each input to its source, inspect the models | Sections 5–6 below, `config/default.yaml`, `tests/` |
 | **Student** | Read a complete, small LCA model with ageing, run it, and modify it step by step | [docs/METHOD.md](docs/METHOD.md), then the notebooks |
 
 Why use this repository rather than start from scratch: the ageing models, the end-of-life search, the stack counting and the LCA are already linked, so changing one input automatically updates everything downstream; and every input is traced to a source in a single file.
