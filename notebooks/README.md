@@ -23,3 +23,5 @@ jupyter lab
 | `AB_vieillissement_comparaison_modeles` | linear versus mechanistic models, validation against Toyota tests |
 
 `medium.xlsx`, `nuc.xlsx`, `wind.xlsx` and `pv.xlsx` are the impacts of 1 kWh exported from Activity Browser (characterised results only).
+
+Note on names: in `AB_vieillissement_PEMWE`, the scenarios called *Optimiste*, *Moyen* and *Pessimiste* are three variants of the anode-activity loss in the mechanistic electrolyser model (final activity 0.49, 0.30 and 0.112), explored during the research. Only the last one is used in the results, as the pessimistic case. The three cases of the results (optimistic, central, pessimistic) are defined in `config/default.yaml` and computed in `AB_vieillissement_trois_cas`.
