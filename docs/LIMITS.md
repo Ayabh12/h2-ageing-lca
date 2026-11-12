@@ -24,7 +24,7 @@ This page lists what the model does not know or does not include, the effect on 
 
 | Limit | Effect | How to lift it |
 |---|---|---|
-| One measured road trip (2 033 s, 20.32 km) and one 4-hour wind profile, repeated at every age | Other driving or wind patterns age the stacks differently | Replace the measurement files and refit (CUSTOMISE.md, section 4) |
+| Fuel cell: the polarisation curve is fitted on all 12 road recordings, but the use phase replays one measured trip (WLTP-type, 2 033 s, 20.32 km) at every age, as if the whole vehicle life followed this trip. Electrolyser: one 4-hour wind profile, repeated | Another driving or wind pattern would give another consumption and possibly another ageing speed | Replace the trip or profile file (CUSTOMISE.md, section 4); the mean speed of the trip is tested (48 instead of 36 km/h: `scripts/fuel_cell_tests.py`) |
 | Constant temperatures (80 °C electrolyser, 70 °C fuel cell), those of the tests that give the ageing constants | Temperature changes are not modelled | Published 60 °C ratios can be applied to the electrolyser constants (`scripts/mechanistic_constants.py`) |
 | The ageing follows the operating hours; start-ups, shutdowns and idle periods are not modelled separately | Shutdowns at open-circuit potential, known to worsen electrolyser degradation, are not included | Use a faster rate in the linear model to represent them |
 
