@@ -1,5 +1,7 @@
 # Use your own values
 
+This page lists every input you can change and where it sits. For ready-to-run examples with their results, see [USE_CASES.md](USE_CASES.md).
+
 Every input sits in a YAML configuration (`config/default.yaml`). Change a value with `--set key=value`, or copy the file and edit it. Then run:
 
 ```bash

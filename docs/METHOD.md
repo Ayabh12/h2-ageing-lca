@@ -6,15 +6,15 @@ This page summarises what the code computes and why. Each value of `config/defau
 
 | Assessment | Functional unit | What ages |
 |---|---|---|
-| Fuel cell alone | 1 km driven | fuel cell stack; hydrogen comes from a new electrolyser |
+| Fuel cell alone | 1 km driven | fuel cell stack only; it receives hydrogen from the studied electrolyser at its reference state (no ageing, stack fabrication excluded), compressed: 4.503 kg CO2-eq/kg |
 | Electrolyser alone | 1 kg of hydrogen produced | electrolyser stack |
 | Whole chain | 1 km driven | electrolyser, tank (permeation) and fuel cell together |
 
-Horizon: 15 years, 200 000 km (`horizon`). Inside the system: electricity and water of the electrolyser, compression electricity, manufacture of the stacks and of the tank, hydrogen lost by permeation. Outside: auxiliaries, station apart from compression, rest of the vehicle, transport, end of life.
+Horizon: 15 years, 200 000 km (`horizon`). Electricity: French residual mix by default (79.6 g CO2-eq/kWh), the mix of a grid-connected electrolyser that buys no guarantees of origin; the measured wind profile only gives the electricity used per kg of hydrogen and its change with age, not the origin of the electricity. Each assessment compares the chain with ageing to the same chain without ageing (same profile, electricity, horizon, boundaries and inventories, one stack of each converter). Inside the system: electricity and water of the electrolyser, compression electricity, manufacture of the stacks and of the tank, hydrogen lost by permeation. Outside: auxiliaries, station apart from compression, rest of the vehicle, transport, end of life.
 
 ## 2. Fuel cell (`src/h2ageing/pemfc.py`)
 
-**Polarisation** (cell voltage, anode losses neglected):
+**Polarisation.** The full cell voltage contains the activation and transport losses of both electrodes and the ohmic loss. Only the losses of the oxygen electrode are kept (the cathode for the fuel cell, the anode for the electrolyser), for two reasons: the hydrogen reaction has an exchange current several orders of magnitude higher on platinum in acid medium (Durst et al. 2014), so its loss is small and nearly proportional to the current, hence included in R; and the activation losses of the two electrodes both vary as ln j, so a single voltage-current curve cannot separate them. The fuel cell cell voltage is:
 
 V(j, t) = E_rev(T) − RT/(α_c F) · ln( j / (i0c · S(t)) ) − R(t) · j + B_c · ln(1 − j / i_lim)
 
@@ -24,7 +24,7 @@ E_rev(T) = 1.229 − 0.85·10⁻³ (T − 298.15). The four parameters i0c, R0, 
 
 **Ageing, mechanistic model** (pessimistic case):
 - platinum surface: dS/dt = −k S² exp(ω S) (Verducci et al.), k chosen so that S(1000 h) equals the value measured by Colombo et al. (2023). k is found by inverting the tabulated integral g(S) = ∫_S^1 exp(−ω s)/s² ds (trapezoidal rule, 6 000 points);
-- resistance: R(t) = R0 (1 + k_R t), with r = [ΔV(1.8 A/cm², 1000 h) − RT/(α_c F) ln(1/S_1000)] / 1.8 / 1000;
+- transport resistance: R(t) = R0 + r t (written R0 (1 + k_R t) in the code, with k_R = r / R0), where r = [ΔV(1.8 A/cm², 1000 h) − RT/(α_c F) ln(1/S_1000)] / 1.8 / 1000: the voltage loss measured at high current, minus the part already due to the platinum loss;
 - crossover: 2 mA/cm² at age zero, multiplied by the factor measured in 1000 h (linear law by default; exponential and constant laws available).
 
 **Ageing, linear model** (optimistic and central cases): V(t) = V(0) − μ t, with μ = 10 % of the cell voltage at 300 A divided by the published hours to end of life (8 000 h DOE target, 4 100 h DOE best fleet). The crossover stays constant.
@@ -66,7 +66,21 @@ Each stack restarts from new when it is replaced. Number of stacks: n = ⌈L / t
 
 Impacts: EF 3.1, 16 categories. Single score: Σ (impact / normalisation factor × weighting factor).
 
-## 6. Main limits
+## 6. Sensitivity analyses
+
+| Test | Question | Script |
+|---|---|---|
+| Electricity source | does the conclusion hold with a cleaner electricity? | `run.py --set usage.electricity_electrolyser=...` |
+| Electrolyser hours per year | does the chosen 6 000 h/yr matter? Published full-load hours are converted to hours at the measured profile by dividing by its mean load (710/1 250 = 0.568) | `run.py --set usage.electrolyser_hours_per_year=...` |
+| Stack counting | what if the last stack has a second life? | `run.py --set usage.stack_counting=prorata` |
+| Lifetime threshold | from which lifetime is one stack enough? | `threshold.py` |
+| Crossover law | does the unknown shape of the crossover growth change the result? | `fuel_cell_tests.py` |
+| Mechanistic constants | which laboratory constant changes the result most? | `mechanistic_constants.py` |
+| Global (Sobol) | which of eight inputs, varying together, explains the result? | `sobol.py` |
+
+## 7. Main limits
+
+The complete list, with the effect of each limit and how it is tested, is in [LIMITS.md](LIMITS.md).
 
 - No degradation rate has been measured on the stacks studied.
 - Laboratory constants (pessimistic case) are measured on more stressed cells than commercial stacks; the mechanistic laws are extrapolated beyond the duration of the tests.
@@ -74,11 +88,12 @@ Impacts: EF 3.1, 16 categories. Single score: Σ (impact / normalisation factor 
 - The fuel cell result changes by steps with the number of stacks: any end of life between half the horizon and the horizon gives two stacks.
 - Inventories are taken from the literature and scaled (Mori et al. 2023, Lundberg 2019, Benitez et al. 2021); auxiliaries are excluded.
 
-## References for the fit bounds
+## References for the model structure and the fit bounds
 
 - Almodfer R. et al. (2022). Improving parameter estimation of fuel cell using honey badger optimization algorithm. Frontiers in Energy Research 10, 875332 (Table 2 corrected in 13, 1588458, 2025).
 - Bielefeld N.M. et al. (2024). A one-dimensional computational model to identify operating conditions and cathode flow channel dimensions for a PEM fuel cell. Hydrogen 5, 624–643. doi:10.3390/hydrogen5030033
 - Colombo E. et al. (2023). PEMFC performance decay during real-world automotive operation. Journal of Power Sources 553, 232246.
+- Durst J. et al. (2014). New insights into the electrochemical hydrogen oxidation and evolution reaction mechanism. Energy & Environmental Science 7, 2255–2260.
 - Fouda-Onana F. et al. (2016). Investigation on the degradation of MEAs for PEM water electrolysers part I. International Journal of Hydrogen Energy 41, 16627–16636.
 - Marefatjouikilevaee H., Auger F., Olivier J.-C. (2023). Static and dynamic electrical models of PEM electrolysers: a comprehensive review. Energies 16, 6503. doi:10.3390/en16186503
 - Padgett E. et al. (2025). Quantifying sources of voltage decay in long-term durability testing for PEM water electrolysis. Journal of The Electrochemical Society 172, 054508.
