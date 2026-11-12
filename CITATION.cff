@@ -1,10 +1,10 @@
 cff-version: 1.2.0
 message: "If you use this code or these data, please cite this repository."
 title: "h2-ageing-lca: effect of stack ageing on the life cycle assessment of a hydrogen mobility chain"
-version: 1.0.0
+version: 1.1.0
 license: MIT
 repository-code: "https://github.com/Ayabh12/h2-ageing-lca"
-date-released: 2026-11-05
+date-released: 2026-11-12
 authors:
   - family-names: Bouhlila
     given-names: Aya
