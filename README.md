@@ -29,15 +29,14 @@ Further documentation: [method](docs/METHOD.md) · [use and adapt the model](doc
 
 ## 1. Why this matters
 
-Most LCAs of hydrogen mobility treat the electrolyser and the fuel cell as if they never aged: the same efficiency for 15 years and a single stack. In reality, a stack loses performance with use and must be replaced at the end of its life. Ignoring this underestimates the impact, but by how much was not known, nor which piece of information matters most.
+Most LCAs of hydrogen mobility treat the electrolyser and the fuel cell as if they never aged: the same efficiency for 15 years and a single stack. In reality, a stack loses performance with use and must be replaced at the end of its life. Ignoring this underestimates the impact, but by how much was not known.
 
-This repository answers three questions:
+This repository answers two questions:
 
 - **How much?** The rise of the impact due to ageing, for each component alone and for the whole chain.
 - **Through which route?** Ageing acts in two ways, computed separately:
   1. **over-consumption**: an aged electrolyser needs more electricity per kg of hydrogen, an aged fuel cell more hydrogen per km;
   2. **replacement**: a stack at end of life (10 % voltage change, DOE criterion) is replaced by a new one, which must be manufactured.
-- **What should be measured?** Sensitivity analyses rank the inputs, so that the data that changes the result most can be measured first.
 
 ## 2. What the code does
 
@@ -202,4 +201,13 @@ The model is transparent about what it does not know; the main limits are below,
 
 ### En bref (français)
 
-Ce dépôt calcule l'effet du vieillissement des stacks sur l'analyse du cycle de vie d'une chaîne hydrogène (électrolyseur PEM, compression, réservoir de type IV, pile à combustible PEM). Le vieillissement agit par deux voies, calculées séparément : la surconsommation et le remplacement des stacks. Une commande (`python scripts/run.py`) redonne tous les résultats ; toutes les valeurs d'entrée, avec leur source, sont dans `config/default.yaml` et peuvent être changées. Les notebooks de recherche d'origine, en français, sont dans `notebooks/`.
+**Pourquoi c'est important.** La plupart des ACV de la mobilité hydrogène traitent l'électrolyseur et la pile à combustible comme s'ils ne vieillissaient jamais : le même rendement pendant 15 ans et un seul stack. En réalité, un stack perd en performance avec l'usage et doit être remplacé en fin de vie. Ignorer ce phénomène sous-estime l'impact, mais on ne savait pas de combien.
+
+Ce dépôt répond à deux questions :
+
+- **De combien ?** La hausse de l'impact due au vieillissement, pour chaque composant seul et pour la chaîne complète.
+- **Par quelle voie ?** Le vieillissement agit de deux façons, calculées séparément :
+  1. **la surconsommation** : un électrolyseur vieilli consomme plus d'électricité par kg d'hydrogène, et une pile vieillie plus d'hydrogène par km ;
+  2. **le remplacement** : un stack en fin de vie (10 % de variation de tension, critère du DOE) est remplacé par un neuf, qu'il faut fabriquer.
+
+**Le dépôt.** Ce dépôt calcule l'effet du vieillissement des stacks sur l'analyse du cycle de vie d'une chaîne hydrogène (électrolyseur PEM, compression, réservoir de type IV, pile à combustible PEM). Le vieillissement agit par deux voies, calculées séparément : la surconsommation et le remplacement des stacks. Une commande (`python scripts/run.py`) redonne tous les résultats ; toutes les valeurs d'entrée, avec leur source, sont dans `config/default.yaml` et peuvent être changées. Les notebooks de recherche d'origine, en français, sont dans `notebooks/`.
