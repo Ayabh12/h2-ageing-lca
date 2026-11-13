@@ -72,19 +72,25 @@ python scripts/run.py --set horizon.vehicle_km_total=150000
 
 **Why ask:** for a manufacturer or a fleet operator, the useful question is the threshold, not the exact lifetime.
 
+**The idea.** Over its life (200 000 km), the vehicle uses its fuel cell for 5 554 hours: this is the horizon. The number of stacks needed depends only on how long one stack lasts compared with this horizon:
+
+- a stack that lasts **more than 5 554 h** lasts the whole life of the vehicle: **1 stack**;
+- a stack that lasts **between 2 777 h (half the horizon) and 5 554 h** fails before the end and needs one replacement: **2 stacks**;
+- a stack that lasts **between 1 851 h (a third of the horizon) and 2 777 h** needs two replacements: **3 stacks**.
+
 ```bash
 python scripts/threshold.py --out results
 ```
 
-It writes `results/threshold_fuel_cell.csv` (impact versus stack lifetime, from 1 500 to 12 000 h) and `results/model_choice.csv`. Thresholds found with the shipped data (horizon 5 554 operating hours):
+It computes the impact for every stack lifetime from 1 500 to 12 000 h (`results/threshold_fuel_cell.csv`) and places the three cases with respect to the thresholds (`results/model_choice.csv`). Results with the shipped data:
 
 | Stack lifetime | Fuel cell stacks | Whole chain rise |
 |---|---|---|
-| from 1 851 h | 3 | +56.6 % |
-| from 2 777 h (half the horizon) | 2 | +31.6 % |
-| from 5 554 h (the horizon) | 1 | +6.7 % |
+| 1 851 to 2 777 h | 3 | about +57 % |
+| 2 777 to 5 554 h | 2 | about +31 % |
+| more than 5 554 h | 1 | about +7 % |
 
-**What it shows:** the result moves by steps. Gaining a few hundred hours changes nothing inside a step; crossing a threshold removes one stack.
+**What it shows:** the result moves by steps. A stack that lasts 4 100 h and one that lasts 5 000 h both need a replacement, so they give almost the same result (+31.1 % and +31.4 %). A stack that goes from 5 500 to 5 600 h crosses the threshold: one stack is enough, and the rise falls from about +31 % to about +7 %. Gaining a few hundred hours is useless unless it crosses a threshold; for this vehicle, the target is to exceed 5 554 h.
 
 ## 6. What if I use my own ageing constants?
 
