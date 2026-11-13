@@ -65,6 +65,23 @@ Default configuration: climate change (EF 3.1), French residual mix (79.6 g CO2-
 | Fuel cell alone (g CO2-eq/km) | 61.9 | 63.4 (+2.4 %) | 82.2 (+32.8 %) | 83.4 (+34.6 %) |
 | **Whole chain (g CO2-eq/km)** | **74.1** | **77.8 (+5.0 %)** | **97.2 (+31.1 %)** | **100.1 (+35.0 %)** |
 
+The rise due to ageing, split into its two routes (percentage points of the impact without ageing; the two routes add up to the total, within rounding):
+
+| Component | Route | Optimistic | Central | Pessimistic |
+|---|---|---|---|---|
+| Electrolyser alone | over-consumption (more electricity and water per kg) | +4.3 | +4.3 | +6.6 |
+| | replacement (extra stacks) | +0.8 | +1.5 | +1.5 |
+| | **both** | **+5.1** | **+5.9** | **+8.2** |
+| Tank alone | over-consumption (hydrogen lost by permeation) | 0.0 | +1.3 | +6.4 |
+| | replacement (one tank in all cases) | 0.0 | 0.0 | 0.0 |
+| | **both** | **0.0** | **+1.3** | **+6.4** |
+| Fuel cell alone | over-consumption (more hydrogen per km) | +2.4 | +2.9 | +4.8 |
+| | replacement (extra stack) | 0.0 | +29.9 | +29.9 |
+| | **both** | **+2.4** | **+32.8** | **+34.6** |
+| Whole chain | over-consumption (electricity, water and compression) | +4.6 | +5.2 | +9.1 |
+| | replacement (fuel cell and electrolyser stacks) | +0.5 | +25.9 | +25.9 |
+| | **both** | **+5.0** | **+31.1** | **+35.0** |
+
 What these numbers show:
 
 - **The fuel cell is dominated by replacement.** One fuel cell stack is spread over the 200 000 km of a single vehicle; a second stack adds about 30 points. In the central case, 91 % of the fuel cell rise comes from the extra stack.
@@ -209,5 +226,7 @@ Ce dépôt répond à deux questions :
 - **Par quelle voie ?** Le vieillissement agit de deux façons, calculées séparément :
   1. **la surconsommation** : un électrolyseur vieilli consomme plus d'électricité par kg d'hydrogène, et une pile vieillie plus d'hydrogène par km ;
   2. **le remplacement** : un stack en fin de vie (10 % de variation de tension, critère du DOE) est remplacé par un neuf, qu'il faut fabriquer.
+
+Pour la chaîne complète (changement climatique, cas central), la hausse de +31,1 % se partage en +5,2 points de surconsommation et +25,9 points de remplacement. Le détail par composant et par cas est dans le second tableau de la section 3.
 
 **Le dépôt.** Ce dépôt calcule l'effet du vieillissement des stacks sur l'analyse du cycle de vie d'une chaîne hydrogène (électrolyseur PEM, compression, réservoir de type IV, pile à combustible PEM). Le vieillissement agit par deux voies, calculées séparément : la surconsommation et le remplacement des stacks. Une commande (`python scripts/run.py`) redonne tous les résultats ; toutes les valeurs d'entrée, avec leur source, sont dans `config/default.yaml` et peuvent être changées. Les notebooks de recherche d'origine, en français, sont dans `notebooks/`.
