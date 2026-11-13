@@ -16,13 +16,14 @@ This repository contains the models, data and code of a life cycle assessment (L
 3. [Main results](#3-main-results)
 4. [Who can use it, and for what](#4-who-can-use-it-and-for-what)
 5. [Quick start](#5-quick-start)
-6. [Reproduce every result](#6-reproduce-every-result)
-7. [Repository layout](#7-repository-layout)
-8. [Data and ecoinvent](#8-data-and-ecoinvent)
-9. [Limits](#9-limits)
-10. [Cite, licence, contact](#10-cite-licence-contact)
+6. [Use and adapt it: six levels, with examples](#6-use-and-adapt-it-six-levels-with-examples)
+7. [Reproduce every result](#7-reproduce-every-result)
+8. [Repository layout](#8-repository-layout)
+9. [Data and ecoinvent](#9-data-and-ecoinvent)
+10. [Limits](#10-limits)
+11. [Cite, licence, contact](#11-cite-licence-contact)
 
-Further documentation: [method](docs/METHOD.md) · [worked examples](docs/USE_CASES.md) · [change any input](docs/CUSTOMISE.md) · [limits and validity domain](docs/LIMITS.md) · [data](data/README.md) · [research notebooks](notebooks/README.md)
+Further documentation: [method](docs/METHOD.md) · [use and adapt the model](docs/ADAPT.md) · [worked examples](docs/USE_CASES.md) · [change any input](docs/CUSTOMISE.md) · [limits and validity domain](docs/LIMITS.md) · [data](data/README.md) · [research notebooks](notebooks/README.md)
 
 ---
 
@@ -79,7 +80,7 @@ What these numbers show:
 |---|---|---|
 | **LCA practitioner** | Add ageing to an LCA of hydrogen mobility; test your own electricity mix, horizon, inventories or stack counting rule | [docs/USE_CASES.md](docs/USE_CASES.md), examples 1–4 |
 | **Engineer or manufacturer** | See what a longer stack lifetime or a slower degradation rate is worth in CO2-eq; find the lifetime threshold that removes one replacement | `scripts/threshold.py`, example 5 |
-| **Researcher on degradation** | Plug in your own ageing constants or ageing law and see the effect on the LCA, without rewriting the LCA | [docs/CUSTOMISE.md](docs/CUSTOMISE.md), sections 2 and 6 |
+| **Researcher on degradation** | Plug in your own ageing constants or ageing law and see the effect on the LCA, without rewriting the LCA | [docs/ADAPT.md](docs/ADAPT.md), levels 4 and 5 |
 | **Student** | Read a complete, small LCA model with ageing, run it, and modify it step by step | [docs/METHOD.md](docs/METHOD.md), then the notebooks |
 
 Why use this repository rather than start from scratch: the ageing models, the end-of-life search, the stack counting and the LCA are already linked, so changing one input automatically updates everything downstream; and every input is traced to a source in a single file.
@@ -113,7 +114,31 @@ cfg = with_values(load_config(), **{"usage.electricity_electrolyser": "wind_FR"}
 print(run(cfg)["chain"])
 ```
 
-## 6. Reproduce every result
+## 6. Use and adapt it: six levels, with examples
+
+Anyone can use the model for their own question without rewriting it: you change only what differs in your case, and the end of life, the number of stacks and the LCA are recomputed. Examples with the shipped data (climate change, whole chain, central case unless stated):
+
+| Level | Example question | What you write | Answer |
+|---|---|---|---|
+| 1. Reproduce | "Do I get the published values?" | `run(load_config())` | 74.1 g/km without ageing, +31.1 % with ageing |
+| 2. Ask a question | "What if my fuel cell stack lasts 5 000 h?" | `with_values(cfg, **{"cases.central.fuel_cell.hours_to_end_of_life": 5000.0})` | still 2 stacks, +31.4 %: one stack is enough only above 5 554 h |
+| 3. Your own case | "My stack lasts 7 000 h and my electrolyser runs on wind electricity" | a copy of `config/default.yaml` with two values changed | 1 stack, 42.7 g/km, +3.7 % |
+| 4. Your own constants | "I measured 27 mV of loss at high current, not 45 mV" (pessimistic case) | one key of the mechanistic model | end of life 5 652 h instead of 2 895 h, +12.8 % instead of +35.0 % |
+| 5. Your own law | "The resistance grows as the square root of time" (pessimistic case) | one Python function of four lines | end of life 6 370 h, 1 stack, +13.0 % |
+| 6. Your own data | "I have measurements or an inventory of another stack" | the files in `data/` | refit or rebuild, then run |
+
+```python
+import sys; sys.path.insert(0, "src")
+from h2ageing import load_config, with_values, run
+
+cfg = load_config()
+r = run(with_values(cfg, **{"cases.central.fuel_cell.hours_to_end_of_life": 5000.0}))   # level 2
+print(r["chain"][["case", "total_g_per_km", "rise_pct"]])
+```
+
+The code of every level, explained: [docs/ADAPT.md](docs/ADAPT.md). The same, ready to run in Jupyter: [examples/adapt_the_model.ipynb](examples/adapt_the_model.ipynb). To ask a question, open an *Issue*; to keep your own version online, *Fork* the repository; to propose an improvement, open a *Pull request* from your fork.
+
+## 7. Reproduce every result
 
 | Result | Command | Time |
 |---|---|---|
@@ -130,7 +155,7 @@ print(run(cfg)["chain"])
 
 The original research notebooks (in French, outputs included) are in [notebooks/](notebooks/README.md); they give the same results with more figures.
 
-## 7. Repository layout
+## 8. Repository layout
 
 ```
 config/default.yaml        all inputs, each with its source (units in the key names)
@@ -149,14 +174,15 @@ data/
     impacts/               characterised impacts (per kWh, per kg of water, per stack or tank)
 tests/                     reference results and the tests that check them
 notebooks/                 original research notebooks (French)
-docs/                      method, worked examples, customisation, limits
+docs/                      method, use and adaptation, worked examples, customisation, limits
+examples/                  Jupyter notebook: use and adapt the model in six levels
 ```
 
-## 8. Data and ecoinvent
+## 9. Data and ecoinvent
 
 No ecoinvent dataset is distributed, in line with its licence. `data/impacts` contains characterised results only (impact of 1 kWh, of 1 kg of water, of one manufactured stack or tank), which is enough to run every result. The foreground inventories, with the ecoinvent activity used for each flow, are in `data/inventories`; with your own ecoinvent licence, `scripts/build_fabrication_brightway.py` recomputes the fabrication impacts after you change any amount. Sources and licences of each file: [data/README.md](data/README.md).
 
-## 9. Limits
+## 10. Limits
 
 The model is transparent about what it does not know; the main limits are below, and [docs/LIMITS.md](docs/LIMITS.md) gives each one with its effect on the results and how to test it.
 
@@ -166,7 +192,7 @@ The model is transparent about what it does not know; the main limits are below,
 - **Scope: stacks and tank only.** Auxiliaries (balance of plant), the station apart from compression, the rest of the vehicle and end of life are outside the system.
 - **The result moves by steps** with the number of fuel cell stacks; the stack counting rule (integer or prorata) matters in the central case.
 
-## 10. Cite, licence, contact
+## 11. Cite, licence, contact
 
 - **Cite:** see [CITATION.cff](CITATION.cff) (GitHub shows a "Cite this repository" button).
 - **Licence:** code under MIT ([LICENSE](LICENSE)); data and documentation under CC BY 4.0 ([LICENSE-DATA.md](LICENSE-DATA.md)). Third-party sources keep their own terms ([data/README.md](data/README.md)).
