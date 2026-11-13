@@ -2,13 +2,15 @@
 
 These are the original research notebooks of this work, kept as they were run (outputs included). The Python package in `src/h2ageing` gives the same results from a configuration file and is easier to modify; these notebooks keep the full detail, the figures and the additional sensitivity analyses.
 
-Prepare the inputs once, then run the notebooks in this folder:
+Each notebook prepares its own input files in its first cell ("0. Fichiers d'entrée"): it takes them from `../data` when run inside this repository, or downloads them from this public GitHub repository when the notebook is run alone (internet connection needed). A notebook can therefore be downloaded and run on its own. `prepare_inputs.py` does the same for all notebooks at once:
 
 ```bash
 cd notebooks
 python prepare_inputs.py
 jupyter lab
 ```
+
+Run order: `Fitting_polarisation_Mirai_II`, `AB_vieillissement_PEMWE`, `AB_vieillissement_PEMFC`, `AB_vieillissement_trois_cas`, then the others (some read the result files written by the earlier ones).
 
 | Notebook | Content |
 |---|---|
