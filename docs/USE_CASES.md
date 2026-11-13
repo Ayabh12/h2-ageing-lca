@@ -122,4 +122,4 @@ python scripts/sobol.py --out results      # about 15 min on 2 cores
 
 ---
 
-All the keys you can change, and how to replace a model, a measurement or an inventory: [CUSTOMISE.md](CUSTOMISE.md).
+How to go further, up to replacing an ageing law: [ADAPT.md](ADAPT.md). All the keys you can change: [CUSTOMISE.md](CUSTOMISE.md).
