@@ -79,7 +79,7 @@ for d in [3000, 4100, 5000, 5554, 6000, 7000]:
 | 6 000 h | 1 | +6.4 % |
 | 7 000 h | 1 | +6.0 % |
 
-The answer is a threshold: below 5 554 h the result barely moves; above it, it falls by 25 points.
+The answer is a threshold: below 5 554 h the result barely moves; above it, it falls from +31.6 % to +6.4 %.
 
 The same from the command line: `python scripts/run.py --set cases.central.fuel_cell.hours_to_end_of_life=5000`. More questions of this kind, with their results: [USE_CASES.md](USE_CASES.md).
 
