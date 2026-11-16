@@ -119,7 +119,7 @@ r["life"][["case", "fuel_cell_end_of_life_h", "fuel_cell_stacks"]].round(0)
 
 Pessimistic case: the end of life goes from 2 895 h to 5 652 h, one stack is enough, and the chain rise falls from +35.0 % to +12.8 %.
 
-Constants of the mechanistic model (keys under `cases.pessimistic.`):
+Constants of the semi-empirical model (keys under `cases.pessimistic.`):
 
 | Constant | Key |
 |---|---|
@@ -131,7 +131,7 @@ Constants of the mechanistic model (keys under `cases.pessimistic.`):
 | Electrolyser: resistance drifts and test current density | `electrolyser.hfr_drift_V_per_h_at_test`, `electrolyser.catalyst_layer_drift_V_per_h_at_test`, `electrolyser.test_current_density_A_cm2` |
 | Electrolyser: membrane thinning | `electrolyser.membrane_half_thickness_time_h` |
 
-The source of each reference value is given next to it in `config/default.yaml`. `scripts/mechanistic_constants.py` changes them one at a time to other published values.
+The source of each reference value is given next to it in `config/default.yaml`. `scripts/semi_empirical_constants.py` changes them one at a time to other published values.
 
 ## Level 5: test another ageing law
 

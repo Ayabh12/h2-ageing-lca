@@ -3,7 +3,7 @@
 The new-state model (polarisation fitted on the measured profile) is read from
 ``data/parameters/pemwe_fit.json`` (written by ``scripts/fit_pemwe.py``).
 
-Ageing, mechanistic model (pessimistic case), constants from Padgett et al. 2025 and
+Ageing, semi-empirical model (pessimistic case), constants from Padgett et al. 2025 and
 Chandesris et al. 2015:
   * anode activity f_A(t) = f_min + (1 - f_min) exp(-t/tau), converted to a voltage
     rise b/ln(10) * ln(1/f_A) with the measured Tafel slope b;
@@ -44,7 +44,7 @@ class Electrolyser:
     def parameters(self, case: dict) -> dict:
         if case["model"] == "linear":
             return {"mu_lin": case["rate_uV_per_h_per_cell"] * 1e-6}
-        if case["model"] == "mechanistic":
+        if case["model"] in ("semi_empirical", "mechanistic"):
             r = (case["hfr_drift_V_per_h_at_test"] + case["catalyst_layer_drift_V_per_h_at_test"]) / case["test_current_density_A_cm2"]
             return {"fA_min": case["anode_activity_final"], "k_cat": 1.0 / case["anode_decay_time_h"],
                     "k_R": r / self.R0, "t50_mem": case["membrane_half_thickness_time_h"]}

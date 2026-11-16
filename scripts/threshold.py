@@ -1,7 +1,7 @@
 """Impact as a function of the stack lifetime, with the predictions of each ageing model placed on it.
 
 For each converter, the lifetime of the stack (hours to the 10 % criterion) is varied with the
-linear model; the results of the configured cases (and of the mechanistic variants) are added
+linear model; the results of the configured cases (and of the semi-empirical variants) are added
 as points. Writes results/threshold_fuel_cell.csv, results/threshold_electrolyser.csv,
 results/model_choice.csv and results/threshold.pdf.
 
@@ -81,7 +81,7 @@ def main():
         w = ch.electrolyser_alone(pw[k])
         rows.append({"converter": "electrolyser", "case": k, "model": C[k]["electrolyser"]["model"], "variant": "", "eol_h": w["eol_h"], "stacks": w["n"],
                      "use": w["use"][CLIMATE], "fabrication": w["fab"][CLIMATE], "total": w["tot"][CLIMATE], "rise_pct": 100 * (w["tot"][CLIMATE] / wr - 1)})
-    mech = [k for k in C if C[k]["fuel_cell"]["model"] == "mechanistic"]
+    mech = [k for k in C if C[k]["fuel_cell"]["model"] in ("semi_empirical", "mechanistic")]
     if mech:
         k = mech[0]
         base = pf[k]
@@ -90,15 +90,15 @@ def main():
         variants["linear model, same end of life"] = same
         for name, p in variants.items():
             f = ch.fuel_cell_alone(p)
-            rows.append({"converter": "fuel_cell", "case": k, "model": "linear" if "mu_lin" in p else "mechanistic", "variant": name, "eol_h": f["eol_h"], "stacks": f["n"],
+            rows.append({"converter": "fuel_cell", "case": k, "model": "linear" if "mu_lin" in p else "semi_empirical", "variant": name, "eol_h": f["eol_h"], "stacks": f["n"],
                          "use": 1e3 * f["use"][CLIMATE], "fabrication": 1e3 * f["fab"][CLIMATE], "total": 1e3 * f["tot"][CLIMATE], "rise_pct": 100 * (1e3 * f["tot"][CLIMATE] / fr - 1)})
         for law in ("exponential", "constant"):
             from h2ageing import with_values
             ch2 = Chain(with_values(cfg, **{"fuel_cell.crossover_law": law}))
             f = ch2.fuel_cell_alone(ch2.fc.parameters(C[k]["fuel_cell"]))
-            rows.append({"converter": "fuel_cell", "case": k, "model": "mechanistic", "variant": f"crossover law {law}", "eol_h": f["eol_h"], "stacks": f["n"],
+            rows.append({"converter": "fuel_cell", "case": k, "model": "semi_empirical", "variant": f"crossover law {law}", "eol_h": f["eol_h"], "stacks": f["n"],
                          "use": 1e3 * f["use"][CLIMATE], "fabrication": 1e3 * f["fab"][CLIMATE], "total": 1e3 * f["tot"][CLIMATE], "rise_pct": 100 * (1e3 * f["tot"][CLIMATE] / fr - 1)})
-    mech_w = [k for k in C if C[k]["electrolyser"]["model"] == "mechanistic"]
+    mech_w = [k for k in C if C[k]["electrolyser"]["model"] in ("semi_empirical", "mechanistic")]
     if mech_w:
         k = mech_w[0]
         same = {"mu_lin": ch.we.eol_frac * ch.we.Vref0 / ch.we.end_of_life(pw[k])}

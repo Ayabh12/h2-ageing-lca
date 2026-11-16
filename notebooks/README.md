@@ -22,8 +22,8 @@ Run order: `Fitting_polarisation_Mirai_II`, `AB_vieillissement_PEMWE`, `AB_vieil
 | `AB_vieillissement_couplage` | coupling of the three components over time |
 | `AB_vieillissement_normalisation` | EF 3.1 normalisation, weighting, single score by item, Monte Carlo |
 | `AB_vieillissement_ACV_sensibilite` | additional sensitivity analyses |
-| `AB_vieillissement_comparaison_modeles` | linear versus mechanistic models, validation against Toyota tests |
+| `AB_vieillissement_comparaison_modeles` | linear versus semi-empirical models, validation against Toyota tests |
 
 `medium.xlsx`, `nuc.xlsx`, `wind.xlsx` and `pv.xlsx` are the impacts of 1 kWh exported from Activity Browser (characterised results only).
 
-Note on names: in `AB_vieillissement_PEMWE`, the scenarios called *Optimiste*, *Moyen* and *Pessimiste* are three variants of the anode-activity loss in the mechanistic electrolyser model (final activity 0.49, 0.30 and 0.112), explored during the research. Only the last one is used in the results, as the pessimistic case. The three cases of the results (optimistic, central, pessimistic) are defined in `config/default.yaml` and computed in `AB_vieillissement_trois_cas`.
+Note on names: in `AB_vieillissement_PEMWE`, the scenarios called *Optimiste*, *Moyen* and *Pessimiste* are three variants of the anode-activity loss in the semi-empirical electrolyser model (final activity 0.49, 0.30 and 0.112), explored during the research. Only the last one is used in the results, as the pessimistic case. The three cases of the results (optimistic, central, pessimistic) are defined in `config/default.yaml` and computed in `AB_vieillissement_trois_cas`.

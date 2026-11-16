@@ -1,4 +1,4 @@
-"""Additional tests on the mechanistic fuel cell model (pessimistic case).
+"""Additional tests on the semi-empirical fuel cell model (pessimistic case).
 
 For the configured pessimistic cell (and a second cell, cell B of Colombo et al. 2023, for comparison):
   * crossover law beyond the 1000 h test: linear (default), exponential, constant;

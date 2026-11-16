@@ -44,7 +44,7 @@ E_rev(T) = 1.229 − 0.85·10⁻³ (T − 298.15). The four parameters i0c, R0, 
 
 **Hydrogen balance.** The measured trip (time, current, voltage, 2 033 s, 20.32 km) is replayed at each age at constant power: the current that delivers the measured power is found by bisection (40 iterations), with a point-by-point anchoring factor so that the model gives the measured current at age zero. The hydrogen consumed is Faraday's law plus a loss current: the gap between the measured hydrogen (0.196 kg) and Faraday's law is kept constant; the rise of the crossover is added to it.
 
-**Ageing, mechanistic model** (pessimistic case):
+**Ageing, semi-empirical model** (pessimistic case): its structure is physical, each degradation mechanism acting on one term of the polarisation equation; its laws of change with time are fitted on laboratory measurements, hence "semi-empirical".
 - platinum surface: dS/dt = −k S² exp(ω S) (Verducci et al.), k chosen so that S(1000 h) equals the value measured by Colombo et al. (2023). k is found by inverting the tabulated integral g(S) = ∫_S^1 exp(−ω s)/s² ds (trapezoidal rule, 6 000 points);
 - transport resistance: R(t) = R0 + r t (written R0 (1 + k_R t) in the code, with k_R = r / R0), where r = [ΔV(1.8 A/cm², 1000 h) − RT/(α_c F) ln(1/S_1000)] / 1.8 / 1000: the voltage loss measured at high current, minus the part already due to the platinum loss;
 - crossover: 2 mA/cm² at age zero, multiplied by the factor measured in 1000 h (linear law by default; exponential and constant laws available).
@@ -61,7 +61,7 @@ V(j) = E_rev(T) + RT/(2 α_a F) · ln(j / i0a) + R j − B_c · ln(1 − j / i_l
 
 α_a is fixed by the Tafel slope of Padgett et al. (46 mV/dec at 80 °C); i0a, R and B_c are fitted (bounded least squares, trust region reflective, 50 starts, seed 180). Bounds and the published values they enclose: i0a from 10⁻¹⁴ to 10⁻¹ A/cm² (Marefatjouikilevaee et al. 2023); R from 0 to 1 Ω cm² (Weiß et al. 2019; Padgett et al. 2025; Fouda-Onana et al. 2016); B_c from 0 to 1 V (Almodfer et al. 2022). The model is written at 80 °C, the temperature of the tests that give the ageing constants. The profile gives E0 = 2 841 kWh, 52.93 kg of hydrogen and SEC0 = 53.68 kWh/kg.
 
-**Ageing, mechanistic model** (pessimistic case, Padgett et al. 2025 and Chandesris et al. 2015):
+**Ageing, semi-empirical model** (pessimistic case, Padgett et al. 2025 and Chandesris et al. 2015):
 - anode activity f_A(t) = f_min + (1 − f_min) exp(−t/τ), giving a voltage rise b/ln(10) · ln(1/f_A);
 - resistance R(t) = R0 + (HFR drift + catalyst-layer drift)/j_test · t;
 - Faraday efficiency from the membrane thinning: e/e0 = 1 − 0.5 t / t50.
@@ -97,7 +97,7 @@ Impacts: EF 3.1, 16 categories. Single score: Σ (impact / normalisation factor 
 | Stack counting | what if the last stack has a second life? | `run.py --set usage.stack_counting=prorata` |
 | Lifetime threshold | from which lifetime is one stack enough? | `threshold.py` |
 | Crossover law | does the unknown shape of the crossover growth change the result? | `fuel_cell_tests.py` |
-| Mechanistic constants | which laboratory constant changes the result most? | `mechanistic_constants.py` |
+| Semi-empirical constants | which laboratory constant changes the result most? | `semi_empirical_constants.py` |
 | Global (Sobol) | which of eight inputs, varying together, explains the result? | `sobol.py` |
 
 ## 7. Main limits
@@ -105,7 +105,7 @@ Impacts: EF 3.1, 16 categories. Single score: Σ (impact / normalisation factor 
 The complete list, with the effect of each limit and how it is tested, is in [LIMITS.md](LIMITS.md).
 
 - No degradation rate has been measured on the stacks studied.
-- Laboratory constants (pessimistic case) are measured on more stressed cells than commercial stacks; the mechanistic laws are extrapolated beyond the duration of the tests.
+- Laboratory constants (pessimistic case) are measured on more stressed cells than commercial stacks; the semi-empirical laws are extrapolated beyond the duration of the tests.
 - The linear model sees neither the rise of the fuel cell crossover nor the fast loss of anode activity.
 - The fuel cell result changes by steps with the number of stacks: any end of life between half the horizon and the horizon gives two stacks.
 - Inventories are taken from the literature and scaled (Mori et al. 2023, Lundberg 2019, Benitez et al. 2021); auxiliaries are excluded.

@@ -97,10 +97,10 @@ It computes the impact for every stack lifetime from 1 500 to 12 000 h (`results
 **Why ask:** the pessimistic case uses constants measured on laboratory cells. You may have other measurements.
 
 ```bash
-python scripts/mechanistic_constants.py
+python scripts/semi_empirical_constants.py
 ```
 
-It changes each constant of the mechanistic model alone, to another published value, and prints the end of life, stacks and rise. Output with the shipped data:
+It changes each constant of the semi-empirical model alone, to another published value, and prints the end of life, stacks and rise. Output with the shipped data:
 
 | Constant changed | Fuel cell end of life ; stacks | Chain rise |
 |---|---|---|

@@ -86,7 +86,7 @@ impacts:
 # -----------------------------------------------------------------------------
 # Ageing cases
 #   model: linear      -> constant voltage drift (published rates)
-#   model: mechanistic -> laws of docs/METHOD.md, constants from laboratory cells
+#   model: semi_empirical -> laws of docs/METHOD.md, constants from laboratory cells
 # -----------------------------------------------------------------------------
 cases:
   optimistic:
@@ -107,14 +107,14 @@ cases:
     tank_permeation_mL_h_L: [6.0, 14.0]
   pessimistic:
     fuel_cell:
-      model: mechanistic
+      model: semi_empirical
       # Colombo et al. 2023, cell C, 1000 h ID-FAST
       ecsa_at_1000h: 0.67              # normalised Pt surface after 1000 h
       omega: 3.6                       # shape of the ECSA law (Verducci et al.), range 3-4
       voltage_loss_at_1p8_A_cm2_1000h_V: 0.045
       crossover_factor_1000h: 2.6
     electrolyser:
-      model: mechanistic
+      model: semi_empirical
       # Padgett et al. 2025 (80 C, 3 A/cm2, 0.4 mg Ir/cm2) ; Chandesris et al. 2015
       anode_activity_final: 0.11182795698924731   # 10.4 / 93 (mass activity)
       anode_decay_time_h: 1000.0
@@ -134,7 +134,7 @@ global_sensitivity:
   seed: 2026
   bootstrap: 1000
   factors:
-    fuel_cell_lifetime_h: [2895, 8000]           # mechanistic model, cell C ; DOE ultimate target
+    fuel_cell_lifetime_h: [2895, 8000]           # semi-empirical model, cell C ; DOE ultimate target
     electrolyser_drift_uV_per_h: [2.3, 4.8]      # DOE 2026 target ; DOE 2022 status
     electrolyser_hours_per_year: [5632, 8497]    # IRENA 2020, onshore wind (mean case) ; DOE capacity factor 97 %
     electricity_electrolyser: [residual_mix_FR, average_mix_FR, nuclear_FR, wind_FR, photovoltaic]   # discrete, equiprobable

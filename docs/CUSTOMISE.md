@@ -49,17 +49,17 @@ electrolyser:
   rate_uV_per_h_per_cell: 3.0
 ```
 
-**Mechanistic model** (laboratory constants):
+**Semi-empirical model** (laboratory constants):
 
 ```yaml
 fuel_cell:
-  model: mechanistic
+  model: semi_empirical
   ecsa_at_1000h: 0.67
   omega: 3.6
   voltage_loss_at_1p8_A_cm2_1000h_V: 0.045
   crossover_factor_1000h: 2.6
 electrolyser:
-  model: mechanistic
+  model: semi_empirical
   anode_activity_final: 0.1118
   anode_decay_time_h: 1000
   hfr_drift_V_per_h_at_test: 7.0e-6
@@ -88,11 +88,11 @@ python scripts/threshold.py --out results    # impact versus stack lifetime, mod
 python scripts/sobol.py --out results        # Sobol indices of the chain (about 15 min on 2 cores)
 ```
 
-`threshold.py` varies the stack lifetime with the linear model and places each configured case on the curve. It also separates the two effects of the choice of ageing model: the predicted end of life, and the shape of the trajectory at equal end of life (linear model set to the end of life of the mechanistic model).
+`threshold.py` varies the stack lifetime with the linear model and places each configured case on the curve. It also separates the two effects of the choice of ageing model: the predicted end of life, and the shape of the trajectory at equal end of life (linear model set to the end of life of the semi-empirical model).
 
-`mechanistic_constants.py` changes each constant of the mechanistic model alone to another published value and ranks their effect; edit `VARIANTS` to test your own values.
+`semi_empirical_constants.py` changes each constant of the semi-empirical model alone to another published value and ranks their effect; edit `VARIANTS` to test your own values.
 
-`fuel_cell_tests.py` (`python scripts/fuel_cell_tests.py`) tests the mechanistic fuel cell model: crossover law, an extra membrane end-of-life criterion (crossover threshold) and the mean speed.
+`fuel_cell_tests.py` (`python scripts/fuel_cell_tests.py`) tests the semi-empirical fuel cell model: crossover law, an extra membrane end-of-life criterion (crossover threshold) and the mean speed.
 
 `sobol.py` reads the factors and their ranges in `global_sensitivity` of the configuration. Change a range, add or remove a factor among those listed, or change `samples`.
 

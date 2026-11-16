@@ -46,8 +46,8 @@ electricity source -> PEM electrolyser -> compression -> type IV tank -> PEM fue
 ```
 
 1. **Reference performance from measurements.** A polarisation model is fitted on a measured wind-driven operating profile of a Nel MC250 electrolyser (public NLR data) and on road measurements of a Toyota Mirai II fuel cell. The wind profile describes *how* the electrolyser operates; it does not fix the origin of the electricity, which is a separate input (French residual mix by default).
-2. **Ageing in three cases.** Optimistic and central: linear model with rates published by the US DOE. Pessimistic: mechanistic model with constants measured on laboratory cells (platinum surface loss, resistance growth, crossover, anode activity, membrane thinning). The tank permeation grows over 15 years.
-3. **End of life and number of stacks.** The model finds the age at which each stack reaches the DOE criterion, then counts the stacks needed over 15 years.
+2. **Ageing in three cases.** Optimistic and central: linear model with rates published by the US DOE. Pessimistic: semi-empirical model with constants measured on laboratory cells (platinum surface loss, resistance growth, crossover, anode activity, membrane thinning). It is called semi-empirical because its structure is physical, each degradation mechanism acting on one term of the polarisation equation, while its laws of change with time are fitted on laboratory measurements. The tank permeation grows over 15 years.
+3. **End of life and number of stacks.** A stack reaches its end of life when its voltage has changed by 10 % from new (US DOE criterion): for the fuel cell, a 10 % voltage loss at 300 A; for the electrolyser, a 10 % voltage rise at the mean current density of the profile. The model finds the age at which each stack reaches this criterion, then counts the stacks needed over 15 years.
 4. **LCA.** Use-phase flows and fabrication of the stacks and tank are combined with characterised impacts (ecoinvent 3.11 cut-off, EF 3.1, 16 categories). Fabrication is counted from cradle to gate: extraction of resources, processing of materials, energy and transport of these steps, and the factory electricity; end of life is not counted ([what each impact includes](docs/METHOD.md#what-each-impact-includes)). Results are given for each component alone and for the whole chain, with and without ageing.
 
 The full method, with every equation and its source, is in [docs/METHOD.md](docs/METHOD.md).
@@ -101,7 +101,7 @@ Anyone can use the model for their own question without rewriting it: you change
 | 1. Reproduce | "Do I get the published values?" | `run(load_config())` | 74.1 g/km without ageing, +31.1 % with ageing |
 | 2. Ask a question | "What if my fuel cell stack lasts 5 000 h?" | `with_values(cfg, **{"cases.central.fuel_cell.hours_to_end_of_life": 5000.0})` | still 2 stacks, +31.4 %: one stack is enough only above 5 554 h |
 | 3. Your own case | "My stack lasts 7 000 h and my electrolyser runs on wind electricity" | a copy of `config/default.yaml` with two values changed | 1 stack, 42.7 g/km, +3.7 % |
-| 4. Your own constants | "I measured 27 mV of loss at high current, not 45 mV" (pessimistic case) | one key of the mechanistic model | end of life 5 652 h instead of 2 895 h, +12.8 % instead of +35.0 % |
+| 4. Your own constants | "I measured 27 mV of loss at high current, not 45 mV" (pessimistic case) | one key of the semi-empirical model | end of life 5 652 h instead of 2 895 h, +12.8 % instead of +35.0 % |
 | 5. Your own law | "The resistance grows as the square root of time" (pessimistic case) | one Python function of four lines | end of life 6 370 h, 1 stack, +13.0 % |
 | 6. Your own data | "I have measurements or an inventory of another stack" | the files in `data/` | refit or rebuild, then run |
 
@@ -125,8 +125,8 @@ The code of every level, explained: [docs/ADAPT.md](docs/ADAPT.md). The same, re
 | Bar chart of the chain by item (after `run.py`) | `python scripts/plot.py --results results` | ~2 s |
 | Electricity sources, electrolyser hours, stack counting | `run.py` with `--set` (see [docs/USE_CASES.md](docs/USE_CASES.md)) | ~2 s each |
 | Impact versus stack lifetime (steps and thresholds) | `python scripts/threshold.py --out results` | ~30 s |
-| Crossover law of the mechanistic fuel cell model, mean speed | `python scripts/fuel_cell_tests.py` | ~10 s |
-| Effect of each mechanistic constant (published alternative values) | `python scripts/mechanistic_constants.py` | ~5 s |
+| Crossover law of the semi-empirical fuel cell model, mean speed | `python scripts/fuel_cell_tests.py` | ~10 s |
+| Effect of each semi-empirical constant (published alternative values) | `python scripts/semi_empirical_constants.py` | ~5 s |
 | Global sensitivity (Sobol indices, 10 240 runs) | `python scripts/sobol.py --out results` | ~15 min (2 cores) |
 | Polarisation fits (they rewrite `data/parameters/` and give back the shipped parameters) | `python scripts/fit_pemfc.py`, `python scripts/fit_pemwe.py` | ~5 s each |
 | Fabrication impacts from the inventories | `python scripts/build_fabrication_brightway.py --project <name>` (needs ecoinvent) | – |
@@ -138,8 +138,8 @@ The original research notebooks (in French, outputs included) are in [notebooks/
 ```
 config/default.yaml        all inputs, each with its source (units in the key names)
 src/h2ageing/              the models (Python package)
-    pemfc.py               fuel cell: polarisation, ageing (linear and mechanistic), trip at constant power
-    pemwe.py               electrolyser: operating profile, ageing (linear and mechanistic)
+    pemfc.py               fuel cell: polarisation, ageing (linear and semi-empirical), trip at constant power
+    pemwe.py               electrolyser: operating profile, ageing (linear and semi-empirical)
     tank.py                permeation of the type IV tank
     impacts.py             EF 3.1 impact data and single score
     chain.py               LCA of each component and of the whole chain
@@ -165,7 +165,7 @@ No ecoinvent dataset is distributed, in line with its licence. `data/impacts` co
 The model is transparent about what it does not know; the main limits are below, and [docs/LIMITS.md](docs/LIMITS.md) gives each one with its effect on the results and how to test it.
 
 - **No degradation rate is published for the two stacks studied.** The three cases bracket ageing with published values for other equipment; they are not a prediction of these exact stacks.
-- **The pessimistic constants come from laboratory cells**, more stressed than commercial stacks, and the mechanistic laws are extrapolated beyond the duration of the tests.
+- **The pessimistic constants come from laboratory cells**, more stressed than commercial stacks, and the semi-empirical laws are extrapolated beyond the duration of the tests.
 - **One driving pattern and one wind profile for the use phase.** The fuel cell polarisation curve is fitted on all 12 road recordings, but the hydrogen consumption over the vehicle life is simulated by replaying one measured trip (WLTP-type, 2 033 s, 20.32 km) at every age; the electrolyser replays one 4-hour wind profile. Temperatures are constant.
 - **Scope: stacks and tank only.** Auxiliaries (balance of plant), the station apart from compression, the rest of the vehicle and end of life are outside the system.
 - **The result moves by steps** with the number of fuel cell stacks; the stack counting rule (integer or prorata) matters in the central case.

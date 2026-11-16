@@ -1,4 +1,4 @@
-"""Effect of each constant of the mechanistic ageing model (pessimistic case), changed alone.
+"""Effect of each constant of the semi-empirical ageing model (pessimistic case), changed alone.
 
 Each constant goes from its default value to another published value, the others staying fixed:
   fuel cell (Colombo et al. 2023, cell B instead of cell C):
@@ -10,9 +10,9 @@ Each constant goes from its default value to another published value, the others
     * resistance drifts x 0.59, ratio measured between 60 and 80 C (Frensch et al. 2018)
     * membrane thinning rate x 0.57, ratio measured between 60 and 80 C (Frensch et al. 2019)
 
-Writes results/mechanistic_constants.json and prints a table. Edit VARIANTS to test other values.
+Writes results/semi_empirical_constants.json and prints a table. Edit VARIANTS to test other values.
 
-    python scripts/mechanistic_constants.py
+    python scripts/semi_empirical_constants.py
 """
 import json
 import sys
@@ -56,7 +56,7 @@ def main():
         print(f"{name:48s} FC {o['fuel_cell_eol_h']:7.0f} h {o['fuel_cell_stacks']:.0f} {o['fuel_cell_rise_pct']:+6.1f} % | "
               f"WE {o['electrolyser_eol_h']:7.0f} h {o['electrolyser_stacks']:.0f} {o['electrolyser_rise_pct']:+5.1f} % | chain {o['chain_rise_pct']:+5.1f} %")
     (ROOT / "results").mkdir(exist_ok=True)
-    json.dump(out, open(ROOT / "results" / "mechanistic_constants.json", "w"), indent=1)
+    json.dump(out, open(ROOT / "results" / "semi_empirical_constants.json", "w"), indent=1)
 
 
 if __name__ == "__main__":

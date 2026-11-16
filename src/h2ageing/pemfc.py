@@ -4,7 +4,7 @@ Polarisation (cell voltage, cathode only)::
 
     V = E_rev - RT/(alpha_c F) ln( j / (i0c f_A(t)) ) - R(t) j + Bc ln(1 - j/ilim)
 
-Ageing, mechanistic model (pessimistic case):
+Ageing, semi-empirical model (pessimistic case):
   * platinum surface f_A(t): dS/dt = -k S^2 exp(omega S) (Verducci et al.), k set so
     that S(1000 h) equals the measured value (Colombo et al. 2023);
   * apparent resistance R(t) = R0 (1 + k_R t), k_R from the voltage loss at 1.8 A/cm2
@@ -78,7 +78,7 @@ class FuelCell:
         if case["model"] == "linear":
             u0_cell = self.U0 / self.N
             return {"mu_lin": self.eol_frac * u0_cell / case["hours_to_end_of_life"]}
-        if case["model"] == "mechanistic":
+        if case["model"] in ("semi_empirical", "mechanistic"):
             S = case["ecsa_at_1000h"]
             dv_kin = R * self.T / (self.alpha * F) * np.log(1.0 / S)
             r_app = (case["voltage_loss_at_1p8_A_cm2_1000h_V"] - dv_kin) / J_HIGH / T_TEST
