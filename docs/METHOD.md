@@ -4,6 +4,10 @@
 
 This page summarises what the code computes and why. Each value of `config/default.yaml` gives its source.
 
+**Contents:** [1. Functional units and system](#1-functional-units-and-system) · [2. Fuel cell](#2-fuel-cell) · [3. Electrolyser](#3-electrolyser) · [4. Tank](#4-tank) · [5. LCA](#5-lca) · [6. Sensitivity analyses](#6-sensitivity-analyses) · [7. Main limits](#7-main-limits) · [References](#references-for-the-model-structure-and-the-fit-bounds)
+
+---
+
 ## 1. Functional units and system
 
 | Assessment | Functional unit | What ages |
@@ -12,7 +16,11 @@ This page summarises what the code computes and why. Each value of `config/defau
 | Electrolyser alone | 1 kg of hydrogen produced | electrolyser stack |
 | Whole chain | 1 km driven | electrolyser, tank (permeation) and fuel cell together |
 
-Horizon: 15 years, 200 000 km (`horizon`). Electricity: French residual mix by default (79.6 g CO2-eq/kWh), the mix of a grid-connected electrolyser that buys no guarantees of origin; the measured wind profile only gives the electricity used per kg of hydrogen and its change with age, not the origin of the electricity. Each assessment compares the chain with ageing to the same chain without ageing (same profile, electricity, horizon, boundaries and inventories, one stack of each converter). Inside the system: electricity and water of the electrolyser, compression electricity, manufacture of the stacks and of the tank, hydrogen lost by permeation. Outside: auxiliaries, station apart from compression, rest of the vehicle, transport, end of life.
+- **Horizon:** 15 years, 200 000 km (`horizon`).
+- **Electricity:** French residual mix by default (79.6 g CO2-eq/kWh), the mix of a grid-connected electrolyser that buys no guarantees of origin. The measured wind profile only gives the electricity used per kg of hydrogen and its change with age, not the origin of the electricity.
+- **Comparison:** each assessment compares the chain with ageing to the same chain without ageing (same profile, electricity, horizon, boundaries and inventories, one stack of each converter).
+- **Inside the system:** electricity and water of the electrolyser, compression electricity, manufacture of the stacks and of the tank, hydrogen lost by permeation.
+- **Outside the system:** auxiliaries, station apart from compression, rest of the vehicle, transport, end of life.
 
 ### What each impact includes
 
@@ -36,59 +44,222 @@ Iridium (electrolyser anode) has no ecoinvent dataset: it is counted as a resour
 
 **Outside the system.** Auxiliaries (balance of plant), the refuelling station apart from compression, the rest of the vehicle and transport between the links of the chain. They do not change with the age of the stacks.
 
-## 2. Fuel cell (`src/h2ageing/pemfc.py`)
+---
 
-**Polarisation.** The full cell voltage contains the activation and transport losses of both electrodes and the ohmic loss. Only the losses of the oxygen electrode are kept (the cathode for the fuel cell, the anode for the electrolyser), for two reasons: the hydrogen reaction has an exchange current several orders of magnitude higher on platinum in acid medium (Durst et al. 2014), so its loss is small and nearly proportional to the current, hence included in R; and the activation losses of the two electrodes both vary as ln j, so a single voltage-current curve cannot separate them. The fuel cell cell voltage is:
+## 2. Fuel cell
 
-V(j, t) = E_rev(T) − RT/(α_c F) · ln( j / (i0c · S(t)) ) − R(t) · j + B_c · ln(1 − j / i_lim)
+Code: `src/h2ageing/pemfc.py`
 
-E_rev(T) = 1.229 − 0.85·10⁻³ (T − 298.15). The four parameters i0c, R0, B_c and i_lim are fitted on quasi-steady points of the road measurements (`scripts/fit_pemfc.py`), by bounded least squares. Bounds and the published values they enclose: log10 i0c from −12 to −1 (Vetter & Schumacher 2019; Colombo et al. 2023); R0 from 0 to 0.3 Ω cm² (Colombo et al. 2023); B_c from 0 to 0.3 V (Almodfer et al. 2022); i_lim from 2.03 to 6 A/cm² (Bielefeld et al. 2024), the lower bound just above the highest measured current density.
+### 2.1 Polarisation at the reference state
 
-**Hydrogen balance.** The measured trip (time, current, voltage, 2 033 s, 20.32 km) is replayed at each age at constant power: the current that delivers the measured power is found by bisection (40 iterations), with a point-by-point anchoring factor so that the model gives the measured current at age zero. The hydrogen consumed is Faraday's law plus a loss current: the gap between the measured hydrogen (0.196 kg) and Faraday's law is kept constant; the rise of the crossover is added to it.
+The full cell voltage contains the activation and transport losses of both electrodes and the ohmic loss. Only the losses of the oxygen electrode are kept (the cathode for the fuel cell, the anode for the electrolyser), for two reasons:
 
-**Ageing, semi-empirical model** (pessimistic case): its structure is physical, each degradation mechanism acting on one term of the polarisation equation; its laws of change with time are fitted on laboratory measurements, hence "semi-empirical".
-- platinum surface: dS/dt = −k S² exp(ω S) (Verducci et al.), k chosen so that S(1000 h) equals the value measured by Colombo et al. (2023). k is found by inverting the tabulated integral g(S) = ∫_S^1 exp(−ω s)/s² ds (trapezoidal rule, 6 000 points);
-- transport resistance: R(t) = R0 + r t (written R0 (1 + k_R t) in the code, with k_R = r / R0), where r = [ΔV(1.8 A/cm², 1000 h) − RT/(α_c F) ln(1/S_1000)] / 1.8 / 1000: the voltage loss measured at high current, minus the part already due to the platinum loss;
-- crossover: 2 mA/cm² at age zero, multiplied by the factor measured in 1000 h (linear law by default; exponential and constant laws available).
+1. the hydrogen reaction has an exchange current several orders of magnitude higher on platinum in acid medium (Durst et al. 2014), so its loss is small and nearly proportional to the current, hence included in $`R`$;
+2. the activation losses of the two electrodes both vary as $`\ln j`$, so a single voltage–current curve cannot separate them.
 
-**Ageing, linear model** (optimistic and central cases): V(t) = V(0) − μ t, with μ = 10 % of the cell voltage at 300 A divided by the published hours to end of life (8 000 h DOE target, 4 100 h DOE best fleet). The crossover stays constant.
+The cell voltage of the fuel cell is:
 
-**End of life**: age at which the stack voltage at 300 A has lost 10 % (DOE), found with Brent's method between 0 and 60 000 h.
+```math
+V(j,t) \;=\; E_{\mathrm{rev}}(T) \;-\; \frac{RT}{\alpha_c F}\,\ln\!\left(\frac{j}{i_{0c}\,S(t)}\right) \;-\; R(t)\,j \;+\; B_c\,\ln\!\left(1-\frac{j}{i_{\mathrm{lim}}}\right)
+```
 
-## 3. Electrolyser (`src/h2ageing/pemwe.py`)
+```math
+E_{\mathrm{rev}}(T) \;=\; 1.229 \;-\; 0.85\times10^{-3}\,(T-298.15)
+```
 
-**New state** (fitted by `scripts/fit_pemwe.py` on the 4 h wind profile, 1 s steps):
+| Symbol | Meaning | Unit |
+|---|---|---|
+| $`j`$ | current density | A/cm² |
+| $`t`$ | age of the stack | h |
+| $`T`$ | temperature (70 °C) | K |
+| $`\alpha_c`$ | cathode transfer coefficient | – |
+| $`i_{0c}`$ | exchange current density of the cathode | A/cm² |
+| $`S(t)`$ | relative platinum surface (1 when new) | – |
+| $`R(t)`$ | resistance of one cell ($`R_0`$ when new) | Ω·cm² |
+| $`B_c`$ | transport loss coefficient | V |
+| $`i_{\mathrm{lim}}`$ | limiting current density | A/cm² |
 
-V(j) = E_rev(T) + RT/(2 α_a F) · ln(j / i0a) + R j − B_c · ln(1 − j / i_lim)
+The four parameters $`i_{0c}`$, $`R_0`$, $`B_c`$ and $`i_{\mathrm{lim}}`$ are fitted on quasi-steady points of the road measurements (`scripts/fit_pemfc.py`), by bounded least squares. Bounds, and the published values they enclose:
 
-α_a is fixed by the Tafel slope of Padgett et al. (46 mV/dec at 80 °C); i0a, R and B_c are fitted (bounded least squares, trust region reflective, 50 starts, seed 180). Bounds and the published values they enclose: i0a from 10⁻¹⁴ to 10⁻¹ A/cm² (Marefatjouikilevaee et al. 2023); R from 0 to 1 Ω cm² (Weiß et al. 2019; Padgett et al. 2025; Fouda-Onana et al. 2016); B_c from 0 to 1 V (Almodfer et al. 2022). The model is written at 80 °C, the temperature of the tests that give the ageing constants. The profile gives E0 = 2 841 kWh, 52.93 kg of hydrogen and SEC0 = 53.68 kWh/kg.
+| Parameter | Bounds | Published values |
+|---|---|---|
+| $`\log_{10} i_{0c}`$ | −12 to −1 | Vetter & Schumacher 2019; Colombo et al. 2023 |
+| $`R_0`$ | 0 to 0.3 Ω·cm² | Colombo et al. 2023 |
+| $`B_c`$ | 0 to 0.3 V | Almodfer et al. 2022 |
+| $`i_{\mathrm{lim}}`$ | 2.03 to 6 A/cm² (lower bound just above the highest measured current density) | Bielefeld et al. 2024 |
 
-**Ageing, semi-empirical model** (pessimistic case, Padgett et al. 2025 and Chandesris et al. 2015):
-- anode activity f_A(t) = f_min + (1 − f_min) exp(−t/τ), giving a voltage rise b/ln(10) · ln(1/f_A);
-- resistance R(t) = R0 + (HFR drift + catalyst-layer drift)/j_test · t;
-- Faraday efficiency from the membrane thinning: e/e0 = 1 − 0.5 t / t50.
+### 2.2 Hydrogen consumed at a given age
 
-**Ageing, linear model**: constant drift μ per cell (2.3 µV/h DOE 2026 target, 4.8 µV/h DOE 2022 status).
+The measured trip (time, current, voltage; 2 033 s, 20.32 km) is replayed at each age **at constant power**:
 
-The energy over the profile is updated to first order: E(t) = E0 + ΔV_uniform · W0 + ΔR · W_j, with W0 = Σ E_step / V0 and W_j = Σ E_step · j / V0. SEC(t) = E(t) / H2(t).
+- **Current at each second.** The current that delivers the measured power is found by bisection (40 iterations).
+- **Anchoring factor.** A factor, computed second by second, makes the model give exactly the measured current at age zero; the rise in consumption then comes only from ageing.
+- **Hydrogen.** The hydrogen consumed is Faraday's law plus a loss current. The gap between the measured hydrogen (0.196 kg) and Faraday's law is kept constant; the rise of the crossover is added to it.
 
-**End of life**: +10 % voltage at the mean current density of the profile (Brent's method, 0 to 400 000 h).
+### 2.3 Ageing, semi-empirical model (pessimistic case)
 
-## 4. Tank (`src/h2ageing/tank.py`)
+Its structure is physical, each degradation mechanism acting on one term of the polarisation equation; its laws of change with time are fitted on laboratory measurements, hence "semi-empirical".
 
-Permeation (mL/h/L at 55 °C, full tank) grows linearly from P0 to P15 over the 15-year certification: 6 → 6, 6 → 14 and 6 → 46 (UN R134 limit) in the three cases. Hydrogen lost per km = P · V · ρ · 8 760 / (km per year).
+**Platinum surface** (Verducci et al.):
 
-Tank alone, per km (`tank.csv`): fabrication of one tank / 200 000 km, plus the mean hydrogen lost, valued as delivered hydrogen at the reference state (electrolysis and compression).
+```math
+\frac{dS}{dt} \;=\; -\,k\,S^2\,e^{\omega S}
+```
 
-## 5. LCA (`src/h2ageing/chain.py`, `impacts.py`)
+$`k`$ is chosen so that $`S(1000\ \mathrm{h})`$ equals the value measured by Colombo et al. (2023). It is found by inverting the tabulated integral (trapezoidal rule, 6 000 points):
 
-Each stack restarts from new when it is replaced. Number of stacks: n = ⌈L / t_EoL⌉ (integer, default) or max(1, L / t_EoL) (prorata: the share of stack life used, at least the first stack).
+```math
+g(S) \;=\; \int_S^1 \frac{e^{-\omega s}}{s^2}\,ds
+```
 
-- Fuel cell alone, per km: m0 · h̄ · I_H2,ref + n · F_stack / L_km, where h̄ is the mean hydrogen consumption over the horizon relative to new (trapezoidal rule on the ages), and I_H2,ref the impact of 1 kg of hydrogen from a new electrolyser, compressed.
-- Electrolyser alone, per kg: SEC̄ · I_kWh + I_water + n · F_stack / H2_produced, with energy and hydrogen integrated over the horizon (20 001 points).
-- Whole chain, per km: the hydrogen consumed (fuel cell at its age) plus the hydrogen lost (tank at its age) is produced by the electrolyser at its age, then compressed; integrated over 15 years (80 points per year). Electrolyser stacks are shared with the rest of the production: the vehicle carries the fraction of hydrogen it uses.
+**Transport resistance:**
 
-Impacts: EF 3.1, 16 categories. Single score: Σ (impact / normalisation factor × weighting factor).
+```math
+R(t) \;=\; R_0 + r\,t, \qquad r \;=\; \frac{\Delta V_{1.8,\,1000} \;-\; \dfrac{RT}{\alpha_c F}\,\ln\dfrac{1}{S_{1000}}}{1.8 \times 1000}
+```
+
+$`\Delta V_{1.8,\,1000}`$ is the voltage loss measured at 1.8 A/cm² after 1 000 h; the part already due to the platinum loss is subtracted. In the code, $`R(t)`$ is written $`R_0\,(1 + k_R\,t)`$ with $`k_R = r/R_0`$.
+
+**Crossover:** 2 mA/cm² at age zero, multiplied by the factor measured in 1 000 h (linear law by default; exponential and constant laws available).
+
+### 2.4 Ageing, linear model (optimistic and central cases)
+
+```math
+V(t) \;=\; V(0) \;-\; \mu\,t, \qquad \mu \;=\; \frac{0.10 \times V_{300\,\mathrm{A}}(0)}{t_{\mathrm{EoL}}}
+```
+
+$`t_{\mathrm{EoL}}`$ is the published time to end of life: 8 000 h (DOE target, optimistic) or 4 100 h (DOE best fleet, central). The crossover stays constant.
+
+### 2.5 End of life
+
+Age at which the stack voltage at 300 A has lost 10 % (DOE criterion), found with Brent's method between 0 and 60 000 h.
+
+---
+
+## 3. Electrolyser
+
+Code: `src/h2ageing/pemwe.py`
+
+### 3.1 Polarisation at the reference state
+
+Fitted by `scripts/fit_pemwe.py` on the 4-hour wind profile (1 s steps):
+
+```math
+V(j) \;=\; E_{\mathrm{rev}}(T) \;+\; \frac{RT}{2\,\alpha_a F}\,\ln\!\left(\frac{j}{i_{0a}}\right) \;+\; R\,j \;-\; B_c\,\ln\!\left(1-\frac{j}{i_{\mathrm{lim}}}\right)
+```
+
+- $`\alpha_a`$ is fixed by the Tafel slope of Padgett et al. (46 mV/decade at 80 °C).
+- $`i_{0a}`$, $`R`$ and $`B_c`$ are fitted (bounded least squares, trust region reflective, 50 starts, seed 180).
+- The model is written at 80 °C, the temperature of the tests that give the ageing constants.
+
+| Parameter | Bounds | Published values |
+|---|---|---|
+| $`i_{0a}`$ | $`10^{-14}`$ to $`10^{-1}`$ A/cm² | Marefatjouikilevaee et al. 2023 |
+| $`R`$ | 0 to 1 Ω·cm² | Weiß et al. 2019; Padgett et al. 2025; Fouda-Onana et al. 2016 |
+| $`B_c`$ | 0 to 1 V | Almodfer et al. 2022 |
+
+On the measured profile, the new stack uses $`E_0`$ = 2 841 kWh and produces 52.93 kg of hydrogen, that is $`\mathrm{SEC}_0`$ = 53.68 kWh/kg.
+
+### 3.2 Ageing, semi-empirical model (pessimistic case)
+
+Constants from Padgett et al. (2025) and Chandesris et al. (2015).
+
+**Anode activity**, and the voltage rise it causes:
+
+```math
+f_A(t) \;=\; f_{\min} + (1-f_{\min})\,e^{-t/\tau}, \qquad \Delta V_{\mathrm{act}}(t) \;=\; \frac{b}{\ln 10}\,\ln\frac{1}{f_A(t)}
+```
+
+**Resistance:**
+
+```math
+R(t) \;=\; R_0 \;+\; \frac{\text{HFR drift} + \text{catalyst-layer drift}}{j_{\mathrm{test}}}\;t
+```
+
+**Faraday efficiency**, from the membrane thinning:
+
+```math
+\frac{\eta_F(t)}{\eta_{F,0}} \;=\; 1 - 0.5\,\frac{t}{t_{50}}
+```
+
+### 3.3 Ageing, linear model (optimistic and central cases)
+
+Constant voltage drift $`\mu`$ per cell: 2.3 µV/h (DOE 2026 target, optimistic) or 4.8 µV/h (DOE 2022 status, central).
+
+### 3.4 Electricity per kg at a given age
+
+The energy over the profile is updated to first order:
+
+```math
+E(t) \;=\; E_0 \;+\; \Delta V_{\mathrm{uniform}}\,W_0 \;+\; \Delta R\,W_j, \qquad \mathrm{SEC}(t) \;=\; \frac{E(t)}{H_2(t)}
+```
+
+```math
+W_0 \;=\; \sum \frac{E_{\mathrm{step}}}{V_0}, \qquad W_j \;=\; \sum \frac{E_{\mathrm{step}}\; j}{V_0}
+```
+
+### 3.5 End of life
+
+Voltage rise of 10 % at the mean current density of the profile (Brent's method, 0 to 400 000 h).
+
+---
+
+## 4. Tank
+
+Code: `src/h2ageing/tank.py`
+
+The permeation $`P`$ (mL/h/L at 55 °C, full tank) grows linearly from $`P_0`$ to $`P_{15}`$ over the 15-year certification: 6 → 6, 6 → 14 and 6 → 46 (UN R134 limit) in the three cases.
+
+```math
+m_{\mathrm{perm}} \;=\; \frac{P \cdot V \cdot \rho \cdot 8\,760}{\text{km per year}}
+```
+
+with $`V`$ the tank volume and $`\rho`$ the hydrogen density.
+
+**Tank alone, per km** (`tank.csv`): fabrication of one tank divided by 200 000 km, plus the mean hydrogen lost, valued as delivered hydrogen at the reference state (electrolysis and compression).
+
+---
+
+## 5. LCA
+
+Code: `src/h2ageing/chain.py`, `impacts.py`
+
+**Number of stacks.** Each stack restarts from new when it is replaced:
+
+```math
+n \;=\; \left\lceil \frac{L}{t_{\mathrm{EoL}}} \right\rceil \ \ \text{(integer, default)} \qquad \text{or} \qquad n \;=\; \max\!\left(1,\ \frac{L}{t_{\mathrm{EoL}}}\right) \ \ \text{(prorata)}
+```
+
+$`L`$ is the operating time over the horizon; prorata counts the share of stack life used, with at least the first stack.
+
+**Fuel cell alone, per km:**
+
+```math
+I_{\mathrm{FC}} \;=\; m_0\,\bar h\,I_{\mathrm{H_2,ref}} \;+\; \frac{n\,F_{\mathrm{stack}}}{L_{\mathrm{km}}}
+```
+
+- $`m_0`$: hydrogen per km when new;
+- $`\bar h`$: mean hydrogen consumption over the horizon, relative to new (trapezoidal rule on the ages);
+- $`I_{\mathrm{H_2,ref}}`$: impact of 1 kg of hydrogen from a new electrolyser, compressed;
+- $`F_{\mathrm{stack}}`$: impact of manufacturing one stack; $`L_{\mathrm{km}}`$ = 200 000 km.
+
+**Electrolyser alone, per kg:**
+
+```math
+I_{\mathrm{WE}} \;=\; \overline{\mathrm{SEC}}\;I_{\mathrm{kWh}} \;+\; I_{\mathrm{water}} \;+\; \frac{n\,F_{\mathrm{stack}}}{H_{2,\mathrm{produced}}}
+```
+
+Energy and hydrogen are integrated over the horizon (20 001 points).
+
+**Whole chain, per km.** The hydrogen consumed (fuel cell at its age) plus the hydrogen lost (tank at its age) is produced by the electrolyser at its age, then compressed; everything is integrated over 15 years (80 points per year). Electrolyser stacks are shared with the rest of the production: the vehicle carries the fraction of hydrogen it uses.
+
+**Impacts:** EF 3.1, 16 categories. Single score:
+
+```math
+\text{single score} \;=\; \sum_{\text{categories}} \frac{\text{impact}}{\text{normalisation factor}} \times \text{weighting factor}
+```
+
+---
 
 ## 6. Sensitivity analyses
 
@@ -102,6 +273,8 @@ Impacts: EF 3.1, 16 categories. Single score: Σ (impact / normalisation factor 
 | Semi-empirical constants | which laboratory constant changes the result most? | `semi_empirical_constants.py` |
 | Global (Sobol) | which of eight inputs, varying together, explains the result? | `sobol.py` |
 
+---
+
 ## 7. Main limits
 
 The complete list, with the effect of each limit and how it is tested, is in [LIMITS.md](LIMITS.md).
@@ -111,6 +284,8 @@ The complete list, with the effect of each limit and how it is tested, is in [LI
 - The linear model sees neither the rise of the fuel cell crossover nor the fast loss of anode activity.
 - The fuel cell result changes by steps with the number of stacks: any end of life between half the horizon and the horizon gives two stacks.
 - Inventories are taken from the literature and scaled (Mori et al. 2023, Lundberg 2019, Benitez et al. 2021); auxiliaries are excluded.
+
+---
 
 ## References for the model structure and the fit bounds
 
