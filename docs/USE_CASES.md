@@ -122,6 +122,9 @@ python scripts/run.py --set cases.pessimistic.fuel_cell.voltage_loss_at_1p8_A_cm
 
 **Why ask:** the examples above change one input at a time. The global sensitivity analysis changes eight inputs together and ranks them.
 
+**What a Sobol analysis is.** It varies all the inputs together, many times (10 240 runs), and measures which share of the variation of the result each input explains. Its total index goes from 0 (the input does not matter) to 1 (the input explains all the variation, alone or together with the others).
+
+
 ```bash
 python scripts/sobol.py --out results      # about 15 min on 2 cores
 ```

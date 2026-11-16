@@ -263,6 +263,8 @@ L'énergie et l'hydrogène sont intégrés sur l'horizon (20 001 points).
 
 ## 6. Analyses de sensibilité
 
+**Ce qu'est l'analyse de Sobol.** Elle fait varier toutes les entrées en même temps, un grand nombre de fois (10 240 calculs), et mesure la part de la variation du résultat expliquée par chaque entrée. Son indice total va de 0 (l'entrée ne compte pas) à 1 (l'entrée explique toute la variation, seule ou avec les autres).
+
 | Test | Question | Script |
 |---|---|---|
 | Source d'électricité | la conclusion tient-elle avec une électricité plus propre ? | `run.py --set usage.electricity_electrolyser=...` |

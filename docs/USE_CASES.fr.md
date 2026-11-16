@@ -122,6 +122,9 @@ python scripts/run.py --set cases.pessimistic.fuel_cell.voltage_loss_at_1p8_A_cm
 
 **Pourquoi se poser la question :** les exemples ci-dessus changent une entrée à la fois. L'analyse de sensibilité globale change huit entrées ensemble et les classe.
 
+**Ce qu'est l'analyse de Sobol.** Elle fait varier toutes les entrées en même temps, un grand nombre de fois (10 240 calculs), et mesure la part de la variation du résultat expliquée par chaque entrée. Son indice total va de 0 (l'entrée ne compte pas) à 1 (l'entrée explique toute la variation, seule ou avec les autres).
+
+
 ```bash
 python scripts/sobol.py --out results      # environ 15 min sur 2 cœurs
 ```
