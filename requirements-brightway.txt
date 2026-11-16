@@ -1,3 +1,5 @@
 # Only needed to recompute the fabrication impacts with your own ecoinvent licence
 # (scripts/build_fabrication_brightway.py). Not needed to run the model.
 brightway25
+# bw2calc needs ThreadpoolController (threadpoolctl 3.0 or later); older Anaconda installs ship an older version
+threadpoolctl>=3.0
