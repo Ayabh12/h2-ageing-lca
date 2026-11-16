@@ -36,9 +36,9 @@ Aucune donnée ecoinvent n'est incluse. Ces fichiers contiennent seulement des r
 |---|---|---|
 | `fuel_cell_stack_128kW.csv` | matériaux et électricité de fabrication du stack de pile, avec l'activité ecoinvent 3.11 utilisée pour chaque flux | Mori et al. 2023 (stack de 48 kW), mis à l'échelle par 128/48 |
 | `electrolyser_stack_1p25MW.csv` | matériaux et électricité d'assemblage du stack d'électrolyseur | Lundberg 2019 (par MW de stack), mis à l'échelle de 1,25 MW ; iridium compté seulement comme flux de ressource |
-| `tank_type_IV.csv` | masses de matériaux et énergie de fabrication du réservoir (flux ecoinvent donnés par leur code Brightway) | Benitez et al. 2021 (5,6 kg, 700 bar) |
+| `tank_type_IV.csv` | masses de matériaux et énergie de fabrication du réservoir | Benitez et al. 2021 (5,6 kg, 700 bar) |
 
-L'impact du réservoir dans la configuration par défaut, 2 332 kg CO2-éq, se compose de 2 075 kg pour les matériaux et 257 kg pour l'énergie de fabrication (338,64 kWh d'électricité haute tension, marché mondial, et 43,2 kWh de cogénération au gaz naturel). Mettez une ligne de la colonne `included_in_shipped_impact` à `no` pour l'exclure quand vous reconstruisez le réservoir.
+L'impact du réservoir dans la configuration par défaut, 2 332 kg CO2-éq, se compose de 2 075 kg pour les matériaux et 257 kg pour l'énergie de fabrication (338,64 kWh d'électricité haute tension, marché mondial, et 43,2 kWh de cogénération au gaz naturel). Les trois fichiers ont les mêmes colonnes (partie, entrée, quantité, unité, type de flux, donnée ecoinvent, source) ; mettez `included` à `no` pour retirer une ligne quand vous reconstruisez un impact. Les trois inventaires, avec leurs matériaux et leurs quantités par partie : [inventories/README.fr.md](inventories/README.fr.md).
 
 ## Licences
 

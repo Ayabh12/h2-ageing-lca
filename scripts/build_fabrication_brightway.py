@@ -10,8 +10,14 @@ own inventory.
 Requirements: bw2data and bw2calc (Brightway 2.5), a project with the databases
 "ecoinvent-3.11-cutoff" and its biosphere, and the EF v3.1 methods imported with ecoinvent.
 
+    python scripts/build_fabrication_brightway.py --check          # print the inventories, no ecoinvent
     python scripts/build_fabrication_brightway.py --project my_project \
         --out data/impacts/fabrication_per_unit_custom.csv
+
+Each inventory (data/inventories/*.csv) gives, for one unit of the component, every input
+with its amount, the part of the component it belongs to, and the ecoinvent activity it is
+linked to (by its code when given, otherwise by name, location and reference product).
+Set ``included`` to ``no`` to leave a row out.
 
 Then point ``fabrication.file`` of your configuration to the new file.
 
@@ -47,77 +53,86 @@ def pick_method(bd, key):
     return sorted(cands, key=len)[0]
 
 
-def find(bd, db, row):
-    if row["database"] == "biosphere3" or row["type"] == "biosphere":
+def find(bd, row):
+    """ecoinvent activity or biosphere flow of one inventory row."""
+    if row["flow_type"] == "resource":
         bio = [d for d in bd.databases if "biosphere" in d][0]
-        hits = [a for a in bd.Database(bio) if a["name"] == row["exchange_name"]]
-        cat = tuple(str(row.get("categories", "")).split("::")) if row.get("categories") else None
+        hits = [a for a in bd.Database(bio) if a["name"] == row["ecoinvent_activity"]]
+        cat = tuple(row["biosphere_category"].split("::")) if row["biosphere_category"] else None
         hits = [a for a in hits if cat is None or tuple(a.get("categories", ())) == cat] or hits
+        if not hits:
+            raise LookupError(f"biosphere flow not found: {row['ecoinvent_activity']}")
         return hits[0]
-    hits = [a for a in bd.Database(db) if a["name"] == row["exchange_name"] and a["location"] == row["location"]
-            and a.get("reference product") == row["reference_product"]]
+    if row["ecoinvent_code"]:
+        return bd.get_activity((row["database"], row["ecoinvent_code"]))
+    hits = [a for a in bd.Database(row["database"]) if a["name"] == row["ecoinvent_activity"]
+            and a["location"] == row["location"] and a.get("reference product") == row["reference_product"]]
     if len(hits) != 1:
-        raise LookupError(f"{len(hits)} matches for {row['exchange_name']} / {row['location']} / {row['reference_product']}")
+        raise LookupError(f"{len(hits)} matches for {row['ecoinvent_activity']} / {row['location']} / {row['reference_product']}")
     return hits[0]
 
 
-def build(bd, inv: pd.DataFrame, top: str, db_name: str, eco: str):
-    """Create a foreground database from an inventory table, return the top activity."""
+def read_inventory(name):
+    inv = pd.read_csv(ROOT / "data/inventories" / f"{name}.csv", dtype=str).fillna("")
+    inv["amount"] = inv["amount"].astype(float)
+    return inv[inv["included"] == "yes"]
+
+
+def build(bd, inv: pd.DataFrame, name: str):
+    """One foreground activity (one unit of the component) with every inventory row as an input."""
+    db_name = f"h2ageing_{name}"
     if db_name in bd.databases:
         del bd.databases[db_name]
     fg = bd.Database(db_name)
     fg.register()
-    acts = {}
-    for name in inv.foreground_activity.unique():
-        acts[name] = fg.new_activity(code=name, name=name, unit="unit", location="GLO")
-        acts[name].save()
-        acts[name].new_exchange(input=acts[name], amount=1, type="production").save()
+    act = fg.new_activity(code=name, name=name, unit="unit", location="GLO")
+    act.save()
+    act.new_exchange(input=act, amount=1, type="production").save()
     for _, r in inv.iterrows():
-        if r["database"] == eco or r["type"] == "biosphere":
-            inp = find(bd, eco, r)
-        else:
-            inp = acts[r["exchange_name"]]
-        acts[r["foreground_activity"]].new_exchange(input=inp, amount=float(r["amount"]), type=r["type"]).save()
-    return acts[top]
+        kind = "biosphere" if r["flow_type"] == "resource" else "technosphere"
+        act.new_exchange(input=find(bd, r), amount=float(r["amount"]), type=kind).save()
+    return act
+
+
+COMPONENTS = ["fuel_cell_stack_128kW", "electrolyser_stack_1p25MW", "tank_type_IV"]
+
+
+def check():
+    """Print each inventory, without ecoinvent."""
+    for name in COMPONENTS:
+        inv = read_inventory(name)
+        print(f"\n{name}")
+        print(inv[["part", "input", "amount", "unit", "flow_type"]].to_string(index=False))
+        kg = inv[(inv.unit == "kilogram") & (inv.flow_type == "material")].amount.sum()
+        kwh = inv[inv.unit == "kilowatt hour"].amount.sum()
+        print(f"  materials: {kg:.2f} kg   energy: {kwh:.2f} kWh")
 
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--project", required=True)
-    ap.add_argument("--ecoinvent", default="ecoinvent-3.11-cutoff")
+    ap.add_argument("--project", help="Brightway project with ecoinvent 3.11 cut-off")
     ap.add_argument("--out", default=str(ROOT / "data/impacts/fabrication_per_unit_custom.csv"))
+    ap.add_argument("--check", action="store_true", help="only print the inventories (no ecoinvent needed)")
     a = ap.parse_args()
+    if a.check:
+        check()
+        return
+    if not a.project:
+        ap.error("--project is required (or use --check)")
     import bw2calc as bc
     import bw2data as bd
 
     bd.projects.set_current(a.project)
-    items = {"fuel_cell_stack_128kW": ("fuel_cell_stack_128kW.csv", "fabrication"),
-             "electrolyser_stack_1p25MW": ("electrolyser_stack_1p25MW.csv", "peml")}
     res = {}
-    for col, (f, top) in items.items():
-        inv = pd.read_csv(ROOT / "data/inventories" / f).fillna("")
-        act = build(bd, inv, top, f"h2ageing_{col}", a.ecoinvent)
-        res[col] = {}
+    for name in COMPONENTS:
+        act = build(bd, read_inventory(name), name)
+        res[name] = {}
         for key in EF31:
             lca = bc.LCA({act: 1}, pick_method(bd, key))
             lca.lci()
             lca.lcia()
-            res[col][key] = lca.score
-        print(col, "climate change:", round(res[col]["climate_change"], 1))
-    # tank: flows identified by their ecoinvent code; rows marked "no" are left out.
-    tank = pd.read_csv(ROOT / "data/inventories/tank_type_IV.csv")
-    tank = tank[tank["included_in_shipped_impact"] == "yes"]
-    demand = {}
-    for _, r in tank.iterrows():
-        act = bd.get_activity((r["database"], r["ecoinvent_code"]))
-        demand[act] = demand.get(act, 0) + float(r["amount"])
-    res["tank_type_IV"] = {}
-    for key in EF31:
-        lca = bc.LCA(demand, pick_method(bd, key))
-        lca.lci()
-        lca.lcia()
-        res["tank_type_IV"][key] = lca.score
-    print("tank_type_IV climate change:", round(res["tank_type_IV"]["climate_change"], 1))
+            res[name][key] = lca.score
+        print(name, "climate change:", round(res[name]["climate_change"], 1))
     out = pd.DataFrame(res)
     out.index.name = "category"
     out.reset_index().to_csv(a.out, index=False, float_format="%.10g")

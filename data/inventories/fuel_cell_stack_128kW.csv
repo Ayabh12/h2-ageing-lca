@@ -1,17 +1,15 @@
-foreground_activity,exchange_name,amount,unit,database,location,reference_product,categories,type
-electricite,"electricity, high voltage, residual mix",1096.0,kilowatt hour,ecoinvent-3.11-cutoff,FR,"electricity, high voltage",,technosphere
-fabrication,electricite,1.0,unit,fabrication pile 128,GLO,electricite,,technosphere
-fabrication,stack,1.0,unit,fabrication pile 128,GLO,stack,,technosphere
-stack,market for acrylonitrile,3.33,kilogram,ecoinvent-3.11-cutoff,GLO,acrylonitrile,,technosphere
-stack,market for carbon black,0.104,kilogram,ecoinvent-3.11-cutoff,GLO,carbon black,,technosphere
-stack,"market for copper, cathode",2.53,kilogram,ecoinvent-3.11-cutoff,GLO,"copper, cathode",,technosphere
-stack,market for ethoxylated alcohol (AE11),0.587,kilogram,ecoinvent-3.11-cutoff,GLO,ethoxylated alcohol (AE11),,technosphere
-stack,market for glass fibre,10.1,kilogram,ecoinvent-3.11-cutoff,GLO,glass fibre,,technosphere
-stack,market for platinum,0.069,kilogram,ecoinvent-3.11-cutoff,GLO,platinum,,technosphere
-stack,market for silicone product,3.36,kilogram,ecoinvent-3.11-cutoff,RER,silicone product,,technosphere
-stack,"market for steel, chromium steel 18/8, hot rolled",59.87,kilogram,ecoinvent-3.11-cutoff,GLO,"steel, chromium steel 18/8, hot rolled",,technosphere
-stack,market for tetrafluoroethylene,0.384,kilogram,ecoinvent-3.11-cutoff,GLO,tetrafluoroethylene,,technosphere
-stack,"market for water, deionised",1.31,kilogram,ecoinvent-3.11-cutoff,RoW,"water, deionised",,technosphere
-stack,"market for wire drawing, copper",2.53,kilogram,ecoinvent-3.11-cutoff,GLO,"wire drawing, copper",,technosphere
-stack,"polyethylene terephthalate production, granulate, amorphous",4.85,kilogram,ecoinvent-3.11-cutoff,RER,"polyethylene terephthalate, granulate, amorphous",,technosphere
-stack,"steel production, low-alloyed, hot rolled",7.52,kilogram,ecoinvent-3.11-cutoff,RoW,"steel, low-alloyed, hot rolled",,technosphere
+part,input,amount,unit,flow_type,ecoinvent_activity,reference_product,location,database,ecoinvent_code,biosphere_category,included,source
+Stack materials,Stainless steel (chromium steel 18/8),59.87,kilogram,material,"market for steel, chromium steel 18/8, hot rolled","steel, chromium steel 18/8, hot rolled",GLO,ecoinvent-3.11-cutoff,,,yes,"Mori et al. 2023 (48 kW stack), scaled by 128/48"
+Stack materials,Low-alloyed steel,7.52,kilogram,material,"steel production, low-alloyed, hot rolled","steel, low-alloyed, hot rolled",RoW,ecoinvent-3.11-cutoff,,,yes,"Mori et al. 2023 (48 kW stack), scaled by 128/48"
+Stack materials,Glass fibre,10.1,kilogram,material,market for glass fibre,glass fibre,GLO,ecoinvent-3.11-cutoff,,,yes,"Mori et al. 2023 (48 kW stack), scaled by 128/48"
+Stack materials,Polyethylene terephthalate (PET),4.85,kilogram,material,"polyethylene terephthalate production, granulate, amorphous","polyethylene terephthalate, granulate, amorphous",RER,ecoinvent-3.11-cutoff,,,yes,"Mori et al. 2023 (48 kW stack), scaled by 128/48"
+Stack materials,Silicone,3.36,kilogram,material,market for silicone product,silicone product,RER,ecoinvent-3.11-cutoff,,,yes,"Mori et al. 2023 (48 kW stack), scaled by 128/48"
+Stack materials,Acrylonitrile,3.33,kilogram,material,market for acrylonitrile,acrylonitrile,GLO,ecoinvent-3.11-cutoff,,,yes,"Mori et al. 2023 (48 kW stack), scaled by 128/48"
+Stack materials,Copper,2.53,kilogram,material,"market for copper, cathode","copper, cathode",GLO,ecoinvent-3.11-cutoff,,,yes,"Mori et al. 2023 (48 kW stack), scaled by 128/48"
+Stack materials,Copper wire drawing,2.53,kilogram,processing,"market for wire drawing, copper","wire drawing, copper",GLO,ecoinvent-3.11-cutoff,,,yes,"Mori et al. 2023 (48 kW stack), scaled by 128/48"
+Stack materials,Deionised water,1.31,kilogram,material,"market for water, deionised","water, deionised",RoW,ecoinvent-3.11-cutoff,,,yes,"Mori et al. 2023 (48 kW stack), scaled by 128/48"
+Stack materials,Ethoxylated alcohol (AE11),0.587,kilogram,material,market for ethoxylated alcohol (AE11),ethoxylated alcohol (AE11),GLO,ecoinvent-3.11-cutoff,,,yes,"Mori et al. 2023 (48 kW stack), scaled by 128/48"
+Stack materials,Tetrafluoroethylene,0.384,kilogram,material,market for tetrafluoroethylene,tetrafluoroethylene,GLO,ecoinvent-3.11-cutoff,,,yes,"Mori et al. 2023 (48 kW stack), scaled by 128/48"
+Stack materials,Carbon black,0.104,kilogram,material,market for carbon black,carbon black,GLO,ecoinvent-3.11-cutoff,,,yes,"Mori et al. 2023 (48 kW stack), scaled by 128/48"
+Stack materials,Platinum,0.069,kilogram,material,market for platinum,platinum,GLO,ecoinvent-3.11-cutoff,,,yes,"Mori et al. 2023 (48 kW stack), scaled by 128/48"
+Manufacturing energy,"Electricity, French residual mix, high voltage",1096.0,kilowatt hour,energy,"electricity, high voltage, residual mix","electricity, high voltage",FR,ecoinvent-3.11-cutoff,,,yes,"Mori et al. 2023 (48 kW stack), scaled by 128/48"
