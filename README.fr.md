@@ -170,7 +170,6 @@ Le modèle dit clairement ce qu'il ne sait pas ; les limites principales sont ci
 - **Les constantes pessimistes viennent de cellules de laboratoire**, plus sollicitées que des stacks commerciaux, et les lois semi-empiriques sont extrapolées au-delà de la durée des essais.
 - **Un seul trajet et un seul profil éolien pour la phase d'usage.** La courbe de polarisation de la pile est ajustée sur les 12 enregistrements sur route, mais la consommation d'hydrogène sur la vie du véhicule est simulée en rejouant, à chaque âge, un seul trajet mesuré (type WLTP, 2 033 s, 20,32 km) ; l'électrolyseur rejoue un profil éolien de 4 heures. Les températures sont constantes.
 - **Périmètre : stacks et réservoir seulement.** Les auxiliaires, la station hors compression, le reste du véhicule et la fin de vie sont hors du système.
-- **Le résultat évolue par paliers** avec le nombre de stacks de pile ; la règle de comptage des stacks (entier ou au prorata) compte dans le cas central.
 
 ## 10. Résultats principaux
 

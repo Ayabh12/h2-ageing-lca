@@ -170,7 +170,6 @@ The model is transparent about what it does not know; the main limits are below,
 - **The pessimistic constants come from laboratory cells**, more stressed than commercial stacks, and the semi-empirical laws are extrapolated beyond the duration of the tests.
 - **One driving pattern and one wind profile for the use phase.** The fuel cell polarisation curve is fitted on all 12 road recordings, but the hydrogen consumption over the vehicle life is simulated by replaying one measured trip (WLTP-type, 2 033 s, 20.32 km) at every age; the electrolyser replays one 4-hour wind profile. Temperatures are constant.
 - **Scope: stacks and tank only.** Auxiliaries (balance of plant), the station apart from compression, the rest of the vehicle and end of life are outside the system.
-- **The result moves by steps** with the number of fuel cell stacks; the stack counting rule (integer or prorata) matters in the central case.
 
 ## 10. Main results
 
