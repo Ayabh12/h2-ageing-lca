@@ -12,6 +12,28 @@ This page summarises what the code computes and why. Each value of `config/defau
 
 Horizon: 15 years, 200 000 km (`horizon`). Electricity: French residual mix by default (79.6 g CO2-eq/kWh), the mix of a grid-connected electrolyser that buys no guarantees of origin; the measured wind profile only gives the electricity used per kg of hydrogen and its change with age, not the origin of the electricity. Each assessment compares the chain with ageing to the same chain without ageing (same profile, electricity, horizon, boundaries and inventories, one stack of each converter). Inside the system: electricity and water of the electrolyser, compression electricity, manufacture of the stacks and of the tank, hydrogen lost by permeation. Outside: auxiliaries, station apart from compression, rest of the vehicle, transport, end of life.
 
+### What each impact includes
+
+The LCA counts two kinds of flows: the **manufacture** of the components that age, and their **use**. Both are counted "cradle to gate": from the extraction of resources to the moment the component leaves the factory, or the kilowatt-hour reaches the electrolyser.
+
+**Manufacture of a stack or of the tank.** The inventory of each component (`data/inventories/`) lists its materials and the electricity used by the factory. Each material is linked to an ecoinvent 3.11 dataset (cut-off model) that carries its whole upstream chain. The impact of one component therefore includes:
+
+| Life-cycle stage | Included | Where it comes from |
+|---|---|---|
+| Extraction of resources (ores, oil, gas) | yes | ecoinvent datasets of each material |
+| Processing of materials (refining, smelting, rolling, chemical synthesis, carbon fibre production) | yes | ecoinvent datasets of each material |
+| Energy and transport of these upstream steps, up to the market | yes | ecoinvent datasets of each material |
+| Electricity used to manufacture and assemble the component | yes | inventory of the component |
+| Transport of the finished component to the vehicle or to the site | no | not described in the source inventories |
+| Factory buildings and machines of the component maker | no | not described in the source inventories |
+| End of life, recycling, credits for recovered metals | no | cut-off model: no burden and no credit at end of life |
+
+Iridium (electrolyser anode) has no ecoinvent dataset: it is counted as a resource taken from the ground only. Its extraction weighs on resource depletion, but no impact of its processing is counted, in particular on climate change.
+
+**Use.** The impact of 1 kWh of electricity is the ecoinvent dataset of the chosen source: it includes the fuels and their extraction, the power plants and their construction, and the grid with its losses. The impact of 1 kg of deionised water includes its production. Hydrogen lost by permeation is valued as hydrogen that has to be produced and compressed.
+
+**Outside the system.** Auxiliaries (balance of plant), the refuelling station apart from compression, the rest of the vehicle and transport between the links of the chain. They do not change with the age of the stacks.
+
 ## 2. Fuel cell (`src/h2ageing/pemfc.py`)
 
 **Polarisation.** The full cell voltage contains the activation and transport losses of both electrodes and the ohmic loss. Only the losses of the oxygen electrode are kept (the cathode for the fuel cell, the anode for the electrolyser), for two reasons: the hydrogen reaction has an exchange current several orders of magnitude higher on platinum in acid medium (Durst et al. 2014), so its loss is small and nearly proportional to the current, hence included in R; and the activation losses of the two electrodes both vary as ln j, so a single voltage-current curve cannot separate them. The fuel cell cell voltage is:
