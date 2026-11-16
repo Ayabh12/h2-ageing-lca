@@ -79,31 +79,33 @@ python scripts/run.py                    # configuration par défaut, environ 2 
 python tests/test_reference_results.py   # 8 tests : la configuration par défaut redonne les résultats de référence
 ```
 
-**Dans Jupyter**, il faut mettre un `!` devant les commandes du terminal, et `%cd` pour entrer dans le dossier. Copiez ces cellules dans un nouveau notebook :
+**Dans Jupyter**, cette méthode marche partout, avec ou sans Git installé. Copiez ces deux cellules dans un nouveau notebook :
 
 ```python
-# cellule 1 : télécharger et installer (une seule fois)
-!git clone https://github.com/Ayabh12/h2-ageing-lca
-%cd h2-ageing-lca
-!pip install -r requirements.txt
+# cellule 1 : télécharger le dépôt (sans Git) et installer, une seule fois
+import sys, urllib.request, zipfile
+urllib.request.urlretrieve("https://github.com/Ayabh12/h2-ageing-lca/archive/refs/heads/main.zip", "h2-ageing-lca.zip")
+zipfile.ZipFile("h2-ageing-lca.zip").extractall(".")
+%cd h2-ageing-lca-main
+!{sys.executable} -m pip install -r requirements.txt
 ```
 
 ```python
 # cellule 2 : lancer le modèle, puis vérifier les résultats de référence
-!python scripts/run.py
-!python tests/test_reference_results.py
+!{sys.executable} scripts/run.py
+!{sys.executable} tests/test_reference_results.py
 ```
 
-Si le dossier existe déjà, lancez seulement `%cd h2-ageing-lca`. Un notebook prêt à lancer est aussi dans [examples/adapt_the_model.fr.ipynb](examples/adapt_the_model.fr.ipynb).
+Dans Jupyter, `!` lance une commande du terminal, `%cd` entre dans un dossier, et `{sys.executable}` désigne le Python du notebook. Si le dossier existe déjà, lancez seulement `import sys` puis `%cd h2-ageing-lca-main`. Un notebook prêt à lancer est aussi dans [examples/adapt_the_model.fr.ipynb](examples/adapt_the_model.fr.ipynb).
 
-`scripts/run.py` affiche les tableaux de résultats de la [section 10](#10-résultats-principaux) et les écrit en fichiers CSV (`--out <dossier>`). Pour changer une valeur depuis le terminal (dans Jupyter, ajoutez `!` devant chaque ligne) :
+`scripts/run.py` affiche les tableaux de résultats de la [section 10](#10-résultats-principaux) et les écrit en fichiers CSV (`--out <dossier>`). Pour changer une valeur depuis le terminal (dans Jupyter, remplacez `python` par `!{sys.executable}`) :
 
 ```bash
 python scripts/run.py --set usage.electricity_electrolyser=wind_FR
 python scripts/run.py --set cases.central.fuel_cell.hours_to_end_of_life=6000
 ```
 
-ou copiez `config/default.yaml`, modifiez-le, et lancez `python scripts/run.py --config config/mon_cas.yaml`. Depuis Python ou Jupyter, une fois dans le dossier `h2-ageing-lca` (le dossier `src` doit être visible depuis l'endroit où le code tourne) :
+ou copiez `config/default.yaml`, modifiez-le, et lancez `python scripts/run.py --config config/mon_cas.yaml`. Depuis Python ou Jupyter, une fois dans le dossier du dépôt, `h2-ageing-lca` ou `h2-ageing-lca-main` (le dossier `src` doit être visible depuis l'endroit où le code tourne) :
 
 ```python
 import sys; sys.path.insert(0, "src")
