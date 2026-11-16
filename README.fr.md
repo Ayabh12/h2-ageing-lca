@@ -67,7 +67,9 @@ Pourquoi partir de ce dépôt plutôt que de zéro : les modèles de vieillissem
 
 ## 4. Démarrage rapide
 
-Prérequis : Python 3.10 ou plus récent. Aucune licence ecoinvent n'est nécessaire pour lancer le modèle.
+Prérequis : Python 3.10 ou plus récent, et Git (ou téléchargez le dépôt en ZIP : bouton vert **Code**, **Download ZIP**). Aucune licence ecoinvent n'est nécessaire pour lancer le modèle.
+
+**Dans un terminal** (Anaconda Prompt, PowerShell, terminal macOS ou Linux) :
 
 ```bash
 git clone https://github.com/Ayabh12/h2-ageing-lca
@@ -77,14 +79,31 @@ python scripts/run.py                    # configuration par défaut, environ 2 
 python tests/test_reference_results.py   # 8 tests : la configuration par défaut redonne les résultats de référence
 ```
 
-`scripts/run.py` affiche les tableaux de résultats de la [section 10](#10-résultats-principaux) et les écrit en fichiers CSV (`--out <dossier>`). Pour changer une valeur depuis la ligne de commande :
+**Dans Jupyter**, il faut mettre un `!` devant les commandes du terminal, et `%cd` pour entrer dans le dossier. Copiez ces cellules dans un nouveau notebook :
+
+```python
+# cellule 1 : télécharger et installer (une seule fois)
+!git clone https://github.com/Ayabh12/h2-ageing-lca
+%cd h2-ageing-lca
+!pip install -r requirements.txt
+```
+
+```python
+# cellule 2 : lancer le modèle, puis vérifier les résultats de référence
+!python scripts/run.py
+!python tests/test_reference_results.py
+```
+
+Si le dossier existe déjà, lancez seulement `%cd h2-ageing-lca`. Un notebook prêt à lancer est aussi dans [examples/adapt_the_model.fr.ipynb](examples/adapt_the_model.fr.ipynb).
+
+`scripts/run.py` affiche les tableaux de résultats de la [section 10](#10-résultats-principaux) et les écrit en fichiers CSV (`--out <dossier>`). Pour changer une valeur depuis le terminal (dans Jupyter, ajoutez `!` devant chaque ligne) :
 
 ```bash
 python scripts/run.py --set usage.electricity_electrolyser=wind_FR
 python scripts/run.py --set cases.central.fuel_cell.hours_to_end_of_life=6000
 ```
 
-ou copiez `config/default.yaml`, modifiez-le, et lancez `python scripts/run.py --config config/mon_cas.yaml`. Depuis Python :
+ou copiez `config/default.yaml`, modifiez-le, et lancez `python scripts/run.py --config config/mon_cas.yaml`. Depuis Python ou Jupyter, une fois dans le dossier `h2-ageing-lca` (le dossier `src` doit être visible depuis l'endroit où le code tourne) :
 
 ```python
 import sys; sys.path.insert(0, "src")

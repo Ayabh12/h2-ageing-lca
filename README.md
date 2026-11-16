@@ -67,7 +67,9 @@ Why use this repository rather than start from scratch: the ageing models, the e
 
 ## 4. Quick start
 
-Requirements: Python 3.10 or later. No ecoinvent licence is needed to run the model.
+Requirements: Python 3.10 or later, and Git (or download the repository as a ZIP: green **Code** button, **Download ZIP**). No ecoinvent licence is needed to run the model.
+
+**In a terminal** (Anaconda Prompt, PowerShell, macOS or Linux terminal):
 
 ```bash
 git clone https://github.com/Ayabh12/h2-ageing-lca
@@ -77,6 +79,23 @@ python scripts/run.py                    # default configuration, about 2 s
 python tests/test_reference_results.py   # 8 tests: the default configuration gives the reference results
 ```
 
+**In Jupyter**, terminal commands need a `!` in front, and `%cd` to enter the folder. Copy these cells into a new notebook:
+
+```python
+# cell 1: download and install (once)
+!git clone https://github.com/Ayabh12/h2-ageing-lca
+%cd h2-ageing-lca
+!pip install -r requirements.txt
+```
+
+```python
+# cell 2: run the model, then check the reference results
+!python scripts/run.py
+!python tests/test_reference_results.py
+```
+
+If the folder already exists, only run `%cd h2-ageing-lca`. A ready-made notebook is also in [examples/adapt_the_model.ipynb](examples/adapt_the_model.ipynb).
+
 `scripts/run.py` prints the result tables of [section 10](#10-main-results) and writes them as CSV files (`--out <folder>`). Change one value from the command line:
 
 ```bash
@@ -84,7 +103,7 @@ python scripts/run.py --set usage.electricity_electrolyser=wind_FR
 python scripts/run.py --set cases.central.fuel_cell.hours_to_end_of_life=6000
 ```
 
-or copy `config/default.yaml`, edit it, and run `python scripts/run.py --config config/my_case.yaml`. From Python:
+or copy `config/default.yaml`, edit it, and run `python scripts/run.py --config config/my_case.yaml`. From Python or Jupyter, once inside the `h2-ageing-lca` folder (the `src` folder must be visible from where the code runs):
 
 ```python
 import sys; sys.path.insert(0, "src")
