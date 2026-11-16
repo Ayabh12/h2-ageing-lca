@@ -96,7 +96,7 @@ python tests/test_reference_results.py   # 8 tests: the default configuration gi
 
 If the folder already exists, only run `%cd h2-ageing-lca`. A ready-made notebook is also in [examples/adapt_the_model.ipynb](examples/adapt_the_model.ipynb).
 
-`scripts/run.py` prints the result tables of [section 10](#10-main-results) and writes them as CSV files (`--out <folder>`). Change one value from the command line:
+`scripts/run.py` prints the result tables of [section 10](#10-main-results) and writes them as CSV files (`--out <folder>`). Change one value from the terminal (in Jupyter, add `!` in front of each line):
 
 ```bash
 python scripts/run.py --set usage.electricity_electrolyser=wind_FR
