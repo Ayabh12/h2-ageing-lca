@@ -1,0 +1,3 @@
+# Only needed to recompute the fabrication impacts with your own ecoinvent licence
+# (scripts/build_fabrication_brightway.py). Not needed to run the model.
+brightway25

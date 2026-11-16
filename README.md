@@ -195,7 +195,15 @@ examples/                  Jupyter notebook: use and adapt the model in six leve
 
 ## 8. Data and ecoinvent
 
-No ecoinvent dataset is distributed, in line with its licence. `data/impacts` contains characterised results only (impact of 1 kWh, of 1 kg of water, of one manufactured stack or tank), which is enough to run every result. The foreground inventories, with the ecoinvent activity used for each flow, are in `data/inventories`; with your own ecoinvent licence, `scripts/build_fabrication_brightway.py` recomputes the fabrication impacts after you change any amount. Sources and licences of each file: [data/README.md](data/README.md).
+No ecoinvent dataset is distributed, in line with its licence. The model can be used in two ways:
+
+| | Without an ecoinvent licence | With an ecoinvent licence |
+|---|---|---|
+| What you can do | run the model, change any input and reproduce every result | in addition, change a fabrication inventory and recompute its impact |
+| What is used | `data/impacts`: characterised results only (impact of 1 kWh, of 1 kg of water, of one manufactured stack or tank) | your own ecoinvent 3.11 cut-off, imported in Brightway with your ecoinvent login |
+| Commands | `python scripts/run.py` | `pip install -r requirements-brightway.txt`, then `python scripts/build_fabrication_brightway.py --project h2ageing --import-ecoinvent` |
+
+With a licence, the script asks for your ecoinvent username and password (or reads them from the environment variables `EI_USERNAME` and `EI_PASSWORD`), downloads and imports ecoinvent 3.11 cut-off into the Brightway project, rebuilds the two stacks and the tank from `data/inventories`, and writes a new fabrication file; your login is never written to a file. The foreground inventories, with the ecoinvent activity used for each flow, are in `data/inventories`. Sources and licences of each file: [data/README.md](data/README.md).
 
 ## 9. Limits
 

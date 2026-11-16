@@ -18,7 +18,7 @@ Colonnes des fichiers CSV :
 | `included` | `yes` ou `no` : mettez `no` pour retirer une ligne quand l'impact est reconstruit |
 | `source` | d'où vient la quantité |
 
-Pour afficher les trois inventaires : `python scripts/build_fabrication_brightway.py --check`. Pour reconstruire les impacts après avoir changé une quantité (nécessite ecoinvent) : `python scripts/build_fabrication_brightway.py --project <votre projet>`.
+Pour afficher les trois inventaires (sans licence) : `python scripts/build_fabrication_brightway.py --check`. Pour recalculer les impacts après avoir changé une quantité, avec votre propre licence ecoinvent : `pip install -r requirements-brightway.txt`, puis `python scripts/build_fabrication_brightway.py --project h2ageing --import-ecoinvent` ; le script demande votre identifiant et votre mot de passe ecoinvent, importe ecoinvent 3.11 cut-off dans Brightway et écrit un nouveau fichier d'impacts.
 
 ---
 

@@ -195,7 +195,15 @@ examples/                  notebook Jupyter : utiliser et adapter le modèle en 
 
 ## 8. Données et ecoinvent
 
-Aucune donnée ecoinvent n'est distribuée, conformément à sa licence. `data/impacts` ne contient que des résultats caractérisés (impact d'1 kWh, d'1 kg d'eau, d'un stack ou d'un réservoir fabriqué), ce qui suffit pour obtenir tous les résultats. Les inventaires de premier plan, avec l'activité ecoinvent utilisée pour chaque flux, sont dans `data/inventories` ; avec votre propre licence ecoinvent, `scripts/build_fabrication_brightway.py` recalcule les impacts de fabrication après que vous avez changé une quantité. Sources et licences de chaque fichier : [data/README.fr.md](data/README.fr.md).
+Aucune donnée ecoinvent n'est distribuée, conformément à sa licence. Le modèle peut être utilisé de deux façons :
+
+| | Sans licence ecoinvent | Avec une licence ecoinvent |
+|---|---|---|
+| Ce que vous pouvez faire | lancer le modèle, changer n'importe quelle entrée et reproduire tous les résultats | en plus, changer un inventaire de fabrication et recalculer son impact |
+| Ce qui est utilisé | `data/impacts` : résultats caractérisés seulement (impact d'1 kWh, d'1 kg d'eau, d'un stack ou d'un réservoir fabriqué) | votre propre ecoinvent 3.11 cut-off, importé dans Brightway avec votre identifiant ecoinvent |
+| Commandes | `python scripts/run.py` | `pip install -r requirements-brightway.txt`, puis `python scripts/build_fabrication_brightway.py --project h2ageing --import-ecoinvent` |
+
+Avec une licence, le script demande votre identifiant et votre mot de passe ecoinvent (ou les lit dans les variables d'environnement `EI_USERNAME` et `EI_PASSWORD`), télécharge et importe ecoinvent 3.11 cut-off dans le projet Brightway, reconstruit les deux stacks et le réservoir à partir de `data/inventories`, et écrit un nouveau fichier de fabrication ; votre identifiant n'est jamais écrit dans un fichier. Les inventaires de premier plan, avec l'activité ecoinvent utilisée pour chaque flux, sont dans `data/inventories`. Sources et licences de chaque fichier : [data/README.fr.md](data/README.fr.md).
 
 ## 9. Limites
 

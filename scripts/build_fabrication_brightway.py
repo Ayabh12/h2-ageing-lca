@@ -7,12 +7,22 @@ data/inventories/*.csv in your own Brightway project, computes the 16 EF 3.1 cat
 and writes a new fabrication file. Change any amount in the CSV files first to test your
 own inventory.
 
-Requirements: bw2data and bw2calc (Brightway 2.5), a project with the databases
-"ecoinvent-3.11-cutoff" and its biosphere, and the EF v3.1 methods imported with ecoinvent.
+Two ways to use it:
+
+* Without an ecoinvent licence: nothing to do. The impacts in data/impacts are enough to run the
+  model and obtain every result; ``--check`` prints the inventories.
+* With an ecoinvent licence: the script can download and import ecoinvent 3.11 cut-off into a
+  Brightway project with your ecoinvent login, then recompute the fabrication impacts.
+
+Requirements for the second way: Brightway 2.5 (``pip install -r requirements-brightway.txt``)
+and an ecoinvent account with a licence for version 3.11. Your login is read from the
+environment variables EI_USERNAME and EI_PASSWORD, or asked when the script starts; it is
+never written to a file.
 
     python scripts/build_fabrication_brightway.py --check          # print the inventories, no ecoinvent
-    python scripts/build_fabrication_brightway.py --project my_project \
-        --out data/impacts/fabrication_per_unit_custom.csv
+    python scripts/build_fabrication_brightway.py --project h2ageing --import-ecoinvent
+    python scripts/build_fabrication_brightway.py --project h2ageing \
+        --out data/impacts/fabrication_per_unit_custom.csv          # project already contains ecoinvent
 
 Each inventory (data/inventories/*.csv) gives, for one unit of the component, every input
 with its amount, the part of the component it belongs to, and the ecoinvent activity it is
@@ -63,13 +73,40 @@ def find(bd, row):
         if not hits:
             raise LookupError(f"biosphere flow not found: {row['ecoinvent_activity']}")
         return hits[0]
+    db = ecoinvent_db(bd, row["database"])
     if row["ecoinvent_code"]:
-        return bd.get_activity((row["database"], row["ecoinvent_code"]))
-    hits = [a for a in bd.Database(row["database"]) if a["name"] == row["ecoinvent_activity"]
+        return bd.get_activity((db, row["ecoinvent_code"]))
+    hits = [a for a in bd.Database(db) if a["name"] == row["ecoinvent_activity"]
             and a["location"] == row["location"] and a.get("reference product") == row["reference_product"]]
     if len(hits) != 1:
         raise LookupError(f"{len(hits)} matches for {row['ecoinvent_activity']} / {row['location']} / {row['reference_product']}")
     return hits[0]
+
+
+def ecoinvent_db(bd, name):
+    """Name of the ecoinvent 3.11 cut-off database in the project (the inventories say ecoinvent-3.11-cutoff)."""
+    if name in bd.databases:
+        return name
+    cands = [d for d in bd.databases if "3.11" in d and "cut" in d.lower() and "biosphere" not in d]
+    if len(cands) != 1:
+        raise LookupError(f"database {name!r} not found; databases in the project: {list(bd.databases)}")
+    return cands[0]
+
+
+def import_ecoinvent(bd):
+    """Download and import ecoinvent 3.11 cut-off (with its biosphere and LCIA methods) with your login."""
+    import getpass
+    import os
+
+    import bw2io as bi
+
+    if any("3.11" in d and "cut" in d.lower() for d in bd.databases):
+        print("ecoinvent 3.11 cut-off is already in the project")
+        return
+    user = os.environ.get("EI_USERNAME") or input("ecoinvent username: ")
+    password = os.environ.get("EI_PASSWORD") or getpass.getpass("ecoinvent password: ")
+    print("downloading and importing ecoinvent 3.11 cut-off (this can take several minutes)...")
+    bi.import_ecoinvent_release(version="3.11", system_model="cutoff", username=user, password=password)
 
 
 def read_inventory(name):
@@ -113,6 +150,8 @@ def main():
     ap.add_argument("--project", help="Brightway project with ecoinvent 3.11 cut-off")
     ap.add_argument("--out", default=str(ROOT / "data/impacts/fabrication_per_unit_custom.csv"))
     ap.add_argument("--check", action="store_true", help="only print the inventories (no ecoinvent needed)")
+    ap.add_argument("--import-ecoinvent", action="store_true",
+                    help="download and import ecoinvent 3.11 cut-off with your ecoinvent login (licence needed)")
     a = ap.parse_args()
     if a.check:
         check()
@@ -123,6 +162,8 @@ def main():
     import bw2data as bd
 
     bd.projects.set_current(a.project)
+    if a.import_ecoinvent:
+        import_ecoinvent(bd)
     res = {}
     for name in COMPONENTS:
         act = build(bd, read_inventory(name), name)

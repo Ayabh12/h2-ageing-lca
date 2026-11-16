@@ -76,7 +76,7 @@ Vous pouvez ajouter un cas (avec n'importe quel nom) ou en retirer un ; chaque c
 
 **Sans ecoinvent** : modifiez `data/impacts/fabrication_per_unit.csv` (impact d'un stack de pile, d'un stack d'électrolyseur et d'un réservoir dans les 16 catégories), ou ajoutez une colonne et faites-y pointer `fabrication.fuel_cell_stack`, `fabrication.electrolyser_stack` ou `fabrication.tank`. Un stack d'une autre taille peut être représenté avec `electrolyser.stack_inventory_scale`.
 
-**Avec ecoinvent** : changez les quantités dans `data/inventories/*.csv` et lancez `scripts/build_fabrication_brightway.py --project <votre projet>` ; il écrit un nouveau fichier de fabrication, que vous indiquez avec `fabrication.file`.
+**Avec ecoinvent** : changez les quantités dans `data/inventories/*.csv`, installez Brightway (`pip install -r requirements-brightway.txt`) et lancez `scripts/build_fabrication_brightway.py --project <votre projet> --import-ecoinvent`. Avec votre identifiant ecoinvent, il importe ecoinvent 3.11 cut-off (la première fois seulement), recalcule les impacts et écrit un nouveau fichier de fabrication, que vous indiquez avec `fabrication.file`.
 
 ## 4. Mesures et modèles ajustés
 

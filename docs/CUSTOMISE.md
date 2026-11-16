@@ -76,7 +76,7 @@ You can add a case (any name) or remove one; each case also gives the tank perme
 
 **Without ecoinvent**: edit `data/impacts/fabrication_per_unit.csv` (impact of one fuel cell stack, one electrolyser stack and one tank in the 16 categories), or add a column and point `fabrication.fuel_cell_stack`, `fabrication.electrolyser_stack` or `fabrication.tank` to it. A stack of another size can be represented with `electrolyser.stack_inventory_scale`.
 
-**With ecoinvent**: change the amounts in `data/inventories/*.csv` and run `scripts/build_fabrication_brightway.py --project <your project>`; it writes a new fabrication file that you point to with `fabrication.file`.
+**With ecoinvent**: change the amounts in `data/inventories/*.csv`, install Brightway (`pip install -r requirements-brightway.txt`) and run `scripts/build_fabrication_brightway.py --project <your project> --import-ecoinvent`. With your ecoinvent login, it imports ecoinvent 3.11 cut-off (only the first time), recomputes the impacts and writes a new fabrication file that you point to with `fabrication.file`.
 
 ## 4. Measurements and fitted models
 
