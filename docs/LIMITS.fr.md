@@ -39,8 +39,6 @@ Cette page liste ce que le modèle ne sait pas ou ne comprend pas, l'effet sur l
 
 ## Limites de la méthode
 
-- **Paliers.** Le nombre de stacks est un entier, donc le résultat de la pile évolue par paliers : toute fin de vie comprise entre la moitié de l'horizon et l'horizon donne deux stacks. Près d'un seuil, un petit changement de durée de vie change beaucoup le résultat (USE_CASES.fr.md, exemple 5).
-- **Comptage des stacks.** Par défaut, tout stack commencé est compté comme un stack entier. Compter la part de vie utilisée (prorata) est une borne basse, qui suppose une seconde vie ; cela change surtout le cas central (+14,7 % au lieu de +31,1 %).
 - **Le modèle linéaire** (cas optimiste et central) ne voit ni la hausse du crossover de la pile, ni la perte rapide, en début de vie, de l'activité de l'anode de l'électrolyseur ; le modèle semi-empirique les voit.
 - **Les analyses de sensibilité ne sont pas une analyse d'incertitude.** Elles encadrent et classent les entrées ; elles ne donnent pas de probabilité pour le résultat, car les données de vieillissement publiées sont trop peu nombreuses pour construire des distributions de probabilité sans les inventer.
 

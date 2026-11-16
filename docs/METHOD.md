@@ -282,7 +282,6 @@ The complete list, with the effect of each limit and how it is tested, is in [LI
 - No degradation rate has been measured on the stacks studied.
 - Laboratory constants (pessimistic case) are measured on more stressed cells than commercial stacks; the semi-empirical laws are extrapolated beyond the duration of the tests.
 - The linear model sees neither the rise of the fuel cell crossover nor the fast loss of anode activity.
-- The fuel cell result changes by steps with the number of stacks: any end of life between half the horizon and the horizon gives two stacks.
 - Inventories are taken from the literature and scaled (Mori et al. 2023, Lundberg 2019, Benitez et al. 2021); auxiliaries are excluded.
 
 ---

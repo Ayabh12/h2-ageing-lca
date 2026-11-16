@@ -39,8 +39,6 @@ This page lists what the model does not know or does not include, the effect on 
 
 ## Limits of the method
 
-- **Steps.** The number of stacks is an integer, so the fuel cell result moves by steps: any end of life between half the horizon and the horizon gives two stacks. Near a threshold, a small change of lifetime changes the result a lot (USE_CASES.md, example 5).
-- **Stack counting.** By default, every started stack is counted as a whole stack. Counting the share of life used (prorata) is a lower bound that assumes a second life; it mostly changes the central case (+14.7 % instead of +31.1 %).
 - **The linear model** (optimistic and central cases) sees neither the rise of the fuel cell crossover nor the fast early loss of the electrolyser anode activity; the semi-empirical model does.
 - **The sensitivity analyses are not an uncertainty analysis.** They bracket and rank the inputs; they do not give a probability for the result, because the published ageing data are too few to build probability distributions without inventing them.
 

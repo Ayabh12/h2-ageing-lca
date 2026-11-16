@@ -282,7 +282,6 @@ La liste complète, avec l'effet de chaque limite et la façon de la tester, est
 - Aucune vitesse de dégradation n'a été mesurée sur les stacks étudiés.
 - Les constantes de laboratoire (cas pessimiste) sont mesurées sur des cellules plus sollicitées que des stacks commerciaux ; les lois semi-empiriques sont extrapolées au-delà de la durée des essais.
 - Le modèle linéaire ne voit ni la hausse du crossover de la pile, ni la perte rapide d'activité de l'anode.
-- Le résultat de la pile évolue par paliers avec le nombre de stacks : toute fin de vie comprise entre la moitié de l'horizon et l'horizon donne deux stacks.
 - Les inventaires sont pris dans la littérature et mis à l'échelle (Mori et al. 2023, Lundberg 2019, Benitez et al. 2021) ; les auxiliaires sont exclus.
 
 ---
