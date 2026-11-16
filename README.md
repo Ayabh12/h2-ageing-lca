@@ -1,5 +1,7 @@
 # h2-ageing-lca
 
+**English** | [Français](README.fr.md)
+
 **How much does stack ageing change the life cycle assessment of a hydrogen mobility chain?**
 
 [![tests](https://github.com/Ayabh12/h2-ageing-lca/actions/workflows/tests.yml/badge.svg)](https://github.com/Ayabh12/h2-ageing-lca/actions/workflows/tests.yml)
@@ -215,22 +217,3 @@ What these numbers show:
 - **Cite:** see [CITATION.cff](CITATION.cff) (GitHub shows a "Cite this repository" button).
 - **Licence:** code under MIT ([LICENSE](LICENSE)); data and documentation under CC BY 4.0 ([LICENSE-DATA.md](LICENSE-DATA.md)). Third-party sources keep their own terms ([data/README.md](data/README.md)).
 - **Questions, errors or new data:** please open an issue on GitHub. Contributions of measured degradation data for commercial stacks are especially welcome, since they would replace the bracketing cases by a measurement.
-
----
-
-### En bref (français)
-
-**Pourquoi c'est important.** La plupart des ACV de la mobilité hydrogène traitent l'électrolyseur et la pile à combustible comme s'ils ne vieillissaient jamais : le même rendement pendant 15 ans et un seul stack. En réalité, un stack perd en performance avec l'usage et doit être remplacé en fin de vie. Ignorer ce phénomène sous-estime l'impact, mais on ne savait pas de combien.
-
-Ce dépôt répond à deux questions :
-
-- **De combien ?** La hausse de l'impact due au vieillissement, pour chaque composant seul et pour la chaîne complète.
-- **Par quelle voie ?** Le vieillissement agit de deux façons, calculées séparément :
-  1. **la surconsommation** : un électrolyseur vieilli consomme plus d'électricité par kg d'hydrogène, et une pile vieillie plus d'hydrogène par km ;
-  2. **le remplacement** : un stack en fin de vie (10 % de variation de tension, critère du DOE) est remplacé par un neuf, qu'il faut fabriquer.
-
-Pour la chaîne complète (changement climatique, cas central), la hausse de +31,1 % se partage en +5,2 % dus à la surconsommation et +25,9 % dus au remplacement des stacks, en pourcentage de l'impact sans vieillissement. Le détail par composant et par cas est dans le second tableau de la section 10.
-
-**Ce que comprend l'impact.** La fabrication d'un stack ou du réservoir est comptée du berceau à la porte de l'usine : extraction des ressources, transformation des matériaux (raffinage, fusion, synthèse), énergie et transports de ces étapes, et électricité de l'usine. L'usage comprend l'électricité (combustibles, centrales, réseau), l'eau et l'hydrogène perdu par perméation. Ne sont pas comptés : le transport du composant fini, l'usine elle-même, la fin de vie et le recyclage, les auxiliaires et le reste du véhicule. Détail : [docs/METHOD.md](docs/METHOD.md#what-each-impact-includes).
-
-**Le dépôt.** Ce dépôt calcule l'effet du vieillissement des stacks sur l'analyse du cycle de vie d'une chaîne hydrogène (électrolyseur PEM, compression, réservoir de type IV, pile à combustible PEM). Le vieillissement agit par deux voies, calculées séparément : la surconsommation et le remplacement des stacks. Une commande (`python scripts/run.py`) redonne tous les résultats ; toutes les valeurs d'entrée, avec leur source, sont dans `config/default.yaml` et peuvent être changées. Les notebooks de recherche d'origine, en français, sont dans `notebooks/`.

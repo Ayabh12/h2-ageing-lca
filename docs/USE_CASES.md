@@ -1,5 +1,7 @@
 # Worked examples
 
+**English** | [Français](USE_CASES.fr.md)
+
 Each example asks a question, gives the command that answers it, and shows the result obtained with the shipped data (climate change, whole chain, g CO2-eq/km). All commands run in a few seconds, without ecoinvent. Change the values to answer your own question.
 
 The reference results, for comparison:

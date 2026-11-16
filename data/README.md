@@ -1,5 +1,7 @@
 # Data
 
+**English** | [Français](README.fr.md)
+
 ## measurements/
 
 | File | Content | Origin |

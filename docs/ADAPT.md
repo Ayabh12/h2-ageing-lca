@@ -1,5 +1,7 @@
 # Use and adapt the model
 
+**English** | [Français](ADAPT.fr.md)
+
 This page shows how someone else can use this model for their own question, from simply running it to replacing an ageing law. Each level comes with an example and the result it gives with the shipped data. You only write what you change: the end-of-life search, the stack counting and the LCA are recomputed automatically.
 
 The same examples, ready to run in Jupyter: [`examples/adapt_the_model.ipynb`](../examples/adapt_the_model.ipynb).

@@ -1,5 +1,7 @@
 # Method
 
+**English** | [Français](METHOD.fr.md)
+
 This page summarises what the code computes and why. Each value of `config/default.yaml` gives its source.
 
 ## 1. Functional units and system

@@ -1,5 +1,7 @@
 # Limits and validity domain
 
+**English** | [Français](LIMITS.fr.md)
+
 This page lists what the model does not know or does not include, the effect on the results, and how each limit is tested or could be lifted. It is meant to help you judge when the results apply to your own case.
 
 ## What the results are, and are not
