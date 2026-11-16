@@ -52,6 +52,20 @@ electricity source -> PEM electrolyser -> compression -> type IV tank -> PEM fue
 3. **End of life and number of stacks.** A stack reaches its end of life when its voltage has changed by 10 % from new (US DOE criterion): for the fuel cell, a 10 % voltage loss at 300 A; for the electrolyser, a 10 % voltage rise at the mean current density of the profile. The model finds the age at which each stack reaches this criterion, then counts the stacks needed over 15 years.
 4. **LCA.** Use-phase flows and fabrication of the stacks and tank are combined with characterised impacts (ecoinvent 3.11 cut-off, EF 3.1, 16 categories). Fabrication is counted from cradle to gate: extraction of resources, processing of materials, energy and transport of these steps, and the factory electricity; end of life is not counted ([what each impact includes](docs/METHOD.md#what-each-impact-includes)). Results are given for each component alone and for the whole chain, with and without ageing.
 
+### The three ageing cases
+
+No degradation rate is published for the two stacks studied. In the absence of these data, three cases bracket ageing: the DOE target (optimistic), the real state measured by the DOE (central) and laboratory constants (pessimistic).
+
+| | Optimistic | Central | Pessimistic |
+|---|---|---|---|
+| Model | linear | linear | semi-empirical |
+| Fuel cell | 8 000 h to end of life (DOE target) | 4 100 h (best fleet followed by the DOE, 2006–2016) | laboratory constants (Colombo et al. 2023): end of life at 2 895 h |
+| Electrolyser | 2.3 µV/h per cell (DOE 2026 target) | 4.8 µV/h (DOE 2022 status) | laboratory constants (Padgett et al. 2025; Chandesris et al. 2015) |
+| Tank permeation (mL/h/L, from year 0 to 15) | 6 → 6 | 6 → 14 | 6 → 46 (UN R134 limit) |
+| What it represents | what the technology aims for | the current state of real systems | an upper bound, on cells more stressed than commercial stacks |
+
+The examples highlight the central case, because it rests on real systems measured by the DOE; the optimistic and pessimistic cases are bounds, one taken from targets, the other from laboratory cells. The central case is not an average of the other two, and the three cases are always given side by side. The values and their sources are in `cases` of `config/default.yaml`.
+
 The full method, with every equation and its source, is in [docs/METHOD.md](docs/METHOD.md).
 
 ## 3. Who can use it, and for what

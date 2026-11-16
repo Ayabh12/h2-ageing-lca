@@ -52,6 +52,20 @@ source d'électricité -> électrolyseur PEM -> compression -> réservoir type I
 3. **Fin de vie et nombre de stacks.** Un stack atteint sa fin de vie quand sa tension a varié de 10 % par rapport à l'état neuf (critère du DOE) : pour la pile, une perte de tension de 10 % à 300 A ; pour l'électrolyseur, une hausse de tension de 10 % à la densité de courant moyenne du profil. Le modèle cherche l'âge auquel chaque stack atteint ce critère, puis compte les stacks nécessaires sur 15 ans.
 4. **ACV.** Les flux de la phase d'usage et la fabrication des stacks et du réservoir sont combinés avec des impacts caractérisés (ecoinvent 3.11 cut-off, EF 3.1, 16 catégories). La fabrication est comptée du berceau à la porte de l'usine : extraction des ressources, transformation des matériaux, énergie et transports de ces étapes, et électricité de l'usine ; la fin de vie n'est pas comptée ([ce que comprend chaque impact](docs/METHOD.fr.md#ce-que-comprend-chaque-impact)). Les résultats sont donnés pour chaque composant seul et pour la chaîne complète, avec et sans vieillissement.
 
+### Les trois cas de vieillissement
+
+Aucune vitesse de dégradation n'est publiée pour les deux stacks étudiés. Faute de ces données, trois cas encadrent le vieillissement : l'objectif du DOE (optimiste), l'état réel mesuré par le DOE (central) et des constantes de laboratoire (pessimiste).
+
+| | Optimiste | Central | Pessimiste |
+|---|---|---|---|
+| Modèle | linéaire | linéaire | semi-empirique |
+| Pile | 8 000 h jusqu'à la fin de vie (objectif du DOE) | 4 100 h (meilleure flotte suivie par le DOE, 2006–2016) | constantes de laboratoire (Colombo et al. 2023) : fin de vie à 2 895 h |
+| Électrolyseur | 2,3 µV/h par cellule (objectif 2026 du DOE) | 4,8 µV/h (statut 2022 du DOE) | constantes de laboratoire (Padgett et al. 2025 ; Chandesris et al. 2015) |
+| Perméation du réservoir (mL/h/L, de 0 à 15 ans) | 6 → 6 | 6 → 14 | 6 → 46 (limite UN R134) |
+| Ce qu'il représente | ce que vise la technologie | l'état actuel des systèmes réels | une borne haute, sur des cellules plus sollicitées que des stacks commerciaux |
+
+Les exemples mettent en avant le cas central, parce qu'il repose sur des systèmes réels mesurés par le DOE ; l'optimiste et le pessimiste sont des bornes, l'une tirée d'objectifs, l'autre de cellules de laboratoire. Le cas central n'est pas une moyenne des deux autres, et les trois cas sont toujours donnés côte à côte. Les valeurs et leurs sources sont dans `cases` de `config/default.yaml`.
+
 La méthode complète, avec chaque équation et sa source, est dans [docs/METHOD.fr.md](docs/METHOD.fr.md).
 
 ## 3. Qui peut l'utiliser, et pour quoi
