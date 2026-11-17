@@ -36,9 +36,9 @@ La plupart des ACV de la mobilité hydrogène traitent l'électrolyseur et la pi
 Ce dépôt répond à deux questions :
 
 - **De combien ?** La hausse de l'impact due au vieillissement, pour chaque composant seul et pour la chaîne complète.
-- **Par quelle voie ?** Le vieillissement agit à deux niveaux, calculés séparément :
-  1. **La surconsommation, pendant tout l'usage.** Avec l'âge, la tension de la pile baisse : pour fournir la même puissance, elle demande plus de courant, donc plus d'hydrogène par km. La tension de l'électrolyseur monte : pour produire le même hydrogène, il consomme plus d'électricité par kg. Le réservoir, lui, perd un peu plus d'hydrogène par perméation. Le modèle suit cette dérive sur toute la vie du véhicule et en fait la moyenne.
-  2. **Le remplacement, à la fin de vie.** Un stack atteint sa fin de vie quand sa tension a varié de 10 % par rapport à l'état neuf (critère du DOE) : une perte de 10 % à 300 A pour la pile, une hausse de 10 % à la densité de courant moyenne du profil pour l'électrolyseur. Il est alors remplacé par un neuf, qu'il faut fabriquer. Le modèle compte les stacks nécessaires sur 15 ans, et chaque stack ajoute son impact de fabrication.
+- **Par quelle voie ?** Le vieillissement agit à deux niveaux :
+  1. **La surconsommation** : la pile vieillie consomme plus d'hydrogène par km, l'électrolyseur plus d'électricité par kg, et le réservoir perd plus d'hydrogène.
+  2. **Le remplacement** : un stack est remplacé quand sa tension a varié de 10 % (critère du DOE) ; chaque stack neuf ajoute son impact de fabrication.
 
 **Le résultat en bref.** Sur la vie du véhicule (15 ans, 200 000 km), le vieillissement des stacks augmente l'impact de la chaîne sur le changement climatique, par rapport à la même chaîne sans vieillissement, de :
 
@@ -84,7 +84,7 @@ source d'électricité -> électrolyseur PEM -> compression -> réservoir type I
 
 1. **Performance de référence tirée de mesures.** Un modèle de polarisation est ajusté sur un profil de fonctionnement éolien mesuré d'un électrolyseur Nel MC250 (données publiques du NLR) et sur des mesures sur route de la pile d'une Toyota Mirai II. Le profil éolien décrit *comment* l'électrolyseur fonctionne ; il ne fixe pas l'origine de l'électricité, qui est une entrée séparée (mix résiduel français par défaut).
 2. **Vieillissement dans trois cas.** Optimiste et central : modèle linéaire, avec des vitesses publiées par le DOE américain. Pessimiste : modèle semi-empirique, avec des constantes mesurées sur des cellules de laboratoire (perte de surface de platine, hausse de la résistance, crossover, activité de l'anode, amincissement de la membrane). Il est dit semi-empirique car sa structure est physique, chaque mécanisme de dégradation agissant sur un terme de l'équation de polarisation, alors que ses lois d'évolution dans le temps sont ajustées sur des mesures de laboratoire. La perméation du réservoir augmente sur 15 ans.
-3. **Fin de vie et nombre de stacks.** Le modèle cherche l'âge auquel chaque stack atteint le critère de fin de vie ([section 1](#1-pourquoi-cest-important)), puis compte les stacks nécessaires sur 15 ans.
+3. **Fin de vie et nombre de stacks.** Le modèle cherche l'âge auquel la tension a varié de 10 % (à 300 A pour la pile, à la densité de courant moyenne du profil pour l'électrolyseur), puis compte les stacks nécessaires sur 15 ans.
 4. **ACV.** Les flux de la phase d'usage et la fabrication des stacks et du réservoir sont combinés avec des impacts caractérisés (ecoinvent 3.11 cut-off, EF 3.1, 16 catégories). La fabrication est comptée du berceau à la porte de l'usine : extraction des ressources, transformation des matériaux, énergie et transports de ces étapes, et électricité de l'usine ; la fin de vie n'est pas comptée ([ce que comprend chaque impact](docs/METHOD.fr.md#ce-que-comprend-chaque-impact)). Les résultats sont donnés pour chaque composant seul et pour la chaîne complète, avec et sans vieillissement.
 
 ### Les trois cas de vieillissement
