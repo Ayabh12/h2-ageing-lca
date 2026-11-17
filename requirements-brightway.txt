@@ -3,3 +3,5 @@
 brightway25
 # bw2calc needs ThreadpoolController (threadpoolctl 3.0 or later); older Anaconda installs ship an older version
 threadpoolctl>=3.0
+# fast sparse solver for bw2calc on Intel/AMD processors (much faster calculations); not available on ARM
+pypardiso; platform_machine == "x86_64" or platform_machine == "AMD64"

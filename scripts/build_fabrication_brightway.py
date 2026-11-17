@@ -172,7 +172,8 @@ def main():
     if not a.project:
         ap.error("--project is required (or use --check)")
     import warnings
-    # Brightway notices that do not change the result (solver speed, default activity type)
+    # Brightway notices that do not change the result (solver speed, default activity type);
+    # install pypardiso (requirements-brightway.txt) for the fast solver
     warnings.filterwarnings("ignore", message="No fast sparse solver found")
     warnings.filterwarnings("ignore", message=".*has no `type` specified.*")
     import bw2calc as bc
@@ -189,10 +190,17 @@ def main():
     for name in COMPONENTS:
         act = build(bd, read_inventory(name), name)
         res[name] = {}
+        # one inventory calculation per component, then the 16 methods on the same inventory
+        lca = bc.LCA({act: 1}, methods["climate_change"])
+        lca.lci()
         for key in EF31:
-            lca = bc.LCA({act: 1}, methods[key])
-            lca.lci()
-            lca.lcia()
+            if hasattr(lca, "switch_method"):
+                lca.switch_method(methods[key])
+                lca.lcia()
+            else:  # older bw2calc: one calculation per method
+                lca = bc.LCA({act: 1}, methods[key])
+                lca.lci()
+                lca.lcia()
             res[name][key] = lca.score
         print(name, "climate change:", round(res[name]["climate_change"], 1))
     out = pd.DataFrame(res)
