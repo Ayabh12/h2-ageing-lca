@@ -90,16 +90,16 @@ flowchart TB
         c1["Electricity<br/>configurable"] --> c2["PEM electrolyser<br/>Nel MC250, 1.25 MW"] --> c3["Compression<br/>700 bar"] --> c4["Type IV tank<br/>142.2 L"] --> c5["PEM fuel cell<br/>Toyota Mirai II"] --> c6(["1 km driven"])
     end
 
-    subgraph M["What the code computes"]
+    subgraph M["What the code computes · ★ contribution of this work"]
         direction LR
-        m1["1 · Reference<br/>performance"] --> m2["2 · Ageing<br/>over 15 years"] --> m3["3 · End of life<br/>and number of stacks"] --> m4["4 · LCA<br/>over-consumption + replacement"]
+        m1["1 · Reference<br/>performance"] --> m2["★ 2 · Ageing<br/>over 15 years, three cases"] --> m3["★ 3 · End of life<br/>and number of stacks"] --> m4["★ 4 · LCA of ageing<br/>over-consumption + replacement"]
     end
 
     subgraph R["Results"]
         direction LR
         r1["Each component<br/>and the whole chain"]
-        r2["With and without ageing<br/>16 EF 3.1 categories"]
-        r3["Sensitivity<br/>electricity · threshold · Sobol"]
+        r2["★ Rise due to ageing<br/>with / without, 16 EF 3.1 categories"]
+        r3["Sensitivity tests"]
         r1 ~~~ r2 ~~~ r3
     end
 
@@ -117,6 +117,8 @@ flowchart TB
     style C fill:#ffffff,stroke:#c9892b
     style M fill:#ffffff,stroke:#6c4fa3
     style R fill:#ffffff,stroke:#3d8b3d
+    classDef key fill:#fde3e1,stroke:#c0392b,stroke-width:3px,color:#4a1410,font-weight:bold
+    class m2,m3,m4,r2 key
 ```
 
 1. **Reference performance.** A polarisation model is fitted on measurements: the wind profile of a Nel MC250 electrolyser (public NLR data) and road trips of a Toyota Mirai II fuel cell. The profile says how the electrolyser operates, not where the electricity comes from, which is chosen separately (French residual mix by default).

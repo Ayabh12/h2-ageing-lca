@@ -90,16 +90,16 @@ flowchart TB
         c1["Électricité<br/>au choix"] --> c2["Électrolyseur PEM<br/>Nel MC250, 1,25 MW"] --> c3["Compression<br/>700 bar"] --> c4["Réservoir type IV<br/>142,2 L"] --> c5["Pile PEM<br/>Toyota Mirai II"] --> c6(["1 km parcouru"])
     end
 
-    subgraph M["Ce que calcule le code"]
+    subgraph M["Ce que calcule le code · ★ apport de ce travail"]
         direction LR
-        m1["1 · Performance<br/>de référence"] --> m2["2 · Vieillissement<br/>sur 15 ans"] --> m3["3 · Fin de vie<br/>et nombre de stacks"] --> m4["4 · ACV<br/>surconsommation + remplacement"]
+        m1["1 · Performance<br/>de référence"] --> m2["★ 2 · Vieillissement<br/>sur 15 ans, trois cas"] --> m3["★ 3 · Fin de vie<br/>et nombre de stacks"] --> m4["★ 4 · ACV du vieillissement<br/>surconsommation + remplacement"]
     end
 
     subgraph R["Résultats"]
         direction LR
         r1["Chaque composant<br/>et la chaîne complète"]
-        r2["Avec et sans vieillissement<br/>16 catégories EF 3.1"]
-        r3["Sensibilité<br/>électricité · seuil · Sobol"]
+        r2["★ Hausse due au vieillissement<br/>avec / sans, 16 catégories EF 3.1"]
+        r3["Tests de sensibilité"]
         r1 ~~~ r2 ~~~ r3
     end
 
@@ -117,6 +117,8 @@ flowchart TB
     style C fill:#ffffff,stroke:#c9892b
     style M fill:#ffffff,stroke:#6c4fa3
     style R fill:#ffffff,stroke:#3d8b3d
+    classDef key fill:#fde3e1,stroke:#c0392b,stroke-width:3px,color:#4a1410,font-weight:bold
+    class m2,m3,m4,r2 key
 ```
 
 1. **Performance de référence.** Un modèle de polarisation est ajusté sur des mesures : le profil éolien d'un électrolyseur Nel MC250 (données publiques du NLR) et des trajets sur route de la pile d'une Toyota Mirai II. Le profil dit comment l'électrolyseur fonctionne, pas d'où vient l'électricité, qui se choisit à part (mix résiduel français par défaut).
