@@ -54,12 +54,26 @@ EF31 = {"acidification": "acidification", "climate_change": "climate change", "e
 
 
 def pick_method(bd, key):
-    cands = [m for m in bd.methods if "EF v3.1" in " ".join(m) and EF31[key] in " ".join(m).lower()
-             and "inorganics" not in " ".join(m) and "organics" not in " ".join(m).replace("inorganics", "")
-             and "no LT" not in " ".join(m)]
+    """EF v3.1 method of one category.
+
+    The category is matched on the start of its own name (the element after "EF v3.1"),
+    not anywhere in the method name: "land use" must not pick
+    "climate change: land use and land use change". When several names start the same way
+    (for example "climate change" and "climate change: biogenic"), the shortest is the
+    category itself.
+    """
+    target = EF31[key]
+    cands = []
+    for m in bd.methods:
+        parts = [str(x) for x in m]
+        if "EF v3.1" not in parts:
+            continue
+        i = parts.index("EF v3.1")
+        if i + 1 < len(parts) and parts[i + 1].lower().startswith(target):
+            cands.append((len(parts[i + 1]), m))
     if not cands:
         raise LookupError(f"no EF v3.1 method found for {key}")
-    return sorted(cands, key=len)[0]
+    return sorted(cands)[0][1]
 
 
 def find(bd, row):
@@ -167,12 +181,16 @@ def main():
     bd.projects.set_current(a.project)
     if a.import_ecoinvent:
         import_ecoinvent(bd)
+    methods = {key: pick_method(bd, key) for key in EF31}
+    print("EF 3.1 methods used:")
+    for key, m in methods.items():
+        print(f"  {key:32s} {' | '.join(m)}")
     res = {}
     for name in COMPONENTS:
         act = build(bd, read_inventory(name), name)
         res[name] = {}
         for key in EF31:
-            lca = bc.LCA({act: 1}, pick_method(bd, key))
+            lca = bc.LCA({act: 1}, methods[key])
             lca.lci()
             lca.lcia()
             res[name][key] = lca.score
