@@ -314,9 +314,9 @@ Ce que montrent ces chiffres :
 
 - **La pile est dominée par le remplacement.** Un stack de pile est réparti sur les 200 000 km d'un seul véhicule ; un second stack ajoute 18,5 g CO2-éq/km, soit 30 % de l'impact de la pile sans vieillissement (61,9 g/km). Dans le cas central, 91 % de la hausse de la pile vient du stack en plus.
 - **L'électrolyseur est dominé par la surconsommation.** Un stack d'électrolyseur est réparti sur environ 1,19 million de kg d'hydrogène et pèse 0,8 % de l'impact d'1 kg ; l'électricité en plus compte davantage.
-- **Le résultat évolue par paliers.** Toute fin de vie de la pile comprise entre la moitié de l'horizon et l'horizon donne deux stacks ; la durée de vie exacte compte peu à l'intérieur d'un palier et beaucoup à ses bords.
+- **Le résultat avance par paliers, car le nombre de stacks est entier.** La pile fonctionne 5 554 h sur 200 000 km : au-dessus, 1 stack suffit (+6 %) ; entre 2 777 et 5 554 h, il en faut 2 (+31 %). Ce qui compte est de franchir le seuil de 5 554 h, pas de gagner quelques heures.
 - **La durée de vie de la pile est l'entrée clé.** Dans l'analyse de sensibilité globale, elle explique presque toute la variation de la hausse (indice de Sobol total 0,94).
-- **Une électricité plus propre fait peser davantage le vieillissement, en valeur relative.** Les stacks de remplacement ajoutent le même impact quelle que soit l'électricité ; avec l'électricité éolienne, la hausse de la chaîne dans le cas central est de +48,6 % au lieu de +31,1 %.
+- **Plus l'électricité est propre, plus le vieillissement pèse en %.** L'impact de l'électricité baisse, mais celui des stacks de remplacement reste le même : avec l'éolien, la chaîne passe de 97,2 à 61,3 g/km dans le cas central, et la hausse de +31,1 % à +48,6 %.
 
 ## 11. Citer, licence, contact
 
