@@ -132,7 +132,13 @@ def build(bd, inv: pd.DataFrame, name: str):
     """One foreground activity (one unit of the component) with every inventory row as an input."""
     db_name = f"h2ageing_{name}"
     if db_name in bd.databases:
-        del bd.databases[db_name]
+        # remove the activities and exchanges of an earlier run (also an interrupted one), then the database
+        try:
+            bd.Database(db_name).delete(warn=False)
+        except TypeError:
+            bd.Database(db_name).delete()
+        if db_name in bd.databases:
+            del bd.databases[db_name]
     fg = bd.Database(db_name)
     fg.register()
     act = fg.new_activity(code=name, name=name, unit="unit", location="GLO", type="process")
@@ -141,6 +147,12 @@ def build(bd, inv: pd.DataFrame, name: str):
     for _, r in inv.iterrows():
         kind = "biosphere" if r["flow_type"] == "resource" else "technosphere"
         act.new_exchange(input=find(bd, r), amount=float(r["amount"]), type=kind).save()
+    # the activity must hold exactly one production of 1 unit and one input per inventory row
+    n_inputs = len(list(act.technosphere())) + len(list(act.biosphere()))
+    production = sum(e["amount"] for e in act.production())
+    if n_inputs != len(inv) or abs(production - 1) > 1e-9:
+        raise RuntimeError(f"{name}: {n_inputs} inputs for {len(inv)} inventory rows, production {production}; "
+                           f"delete the database {db_name} from the project and run again")
     return act
 
 
