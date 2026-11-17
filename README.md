@@ -280,7 +280,7 @@ Default configuration: climate change (EF 3.1), French residual mix (79.6 g CO2-
 | Fuel cell alone (g CO2-eq/km) | 61.9 | 63.4 (+2.4 %) | 82.2 (+32.8 %) | 83.4 (+34.6 %) |
 | **Whole chain (g CO2-eq/km)** | **74.1** | **77.8 (+5.0 %)** | **97.2 (+31.1 %)** | **100.1 (+35.0 %)** |
 
-Each value is a total: **use and fabrication**. For the whole chain, in g CO2-eq/km:
+Each value is a total: **use and fabrication**. For the whole chain, in g CO2-eq/km (rounded values):
 
 | | No ageing | Optimistic | Central | Pessimistic |
 |---|---|---|---|---|

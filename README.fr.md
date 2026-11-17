@@ -280,7 +280,7 @@ Configuration par défaut : changement climatique (EF 3.1), mix résiduel franç
 | Pile seule (g CO2-éq/km) | 61,9 | 63,4 (+2,4 %) | 82,2 (+32,8 %) | 83,4 (+34,6 %) |
 | **Chaîne complète (g CO2-éq/km)** | **74,1** | **77,8 (+5,0 %)** | **97,2 (+31,1 %)** | **100,1 (+35,0 %)** |
 
-Chaque valeur est un total : **usage et fabrication**. Pour la chaîne complète, en g CO2-éq/km :
+Chaque valeur est un total : **usage et fabrication**. Pour la chaîne complète, en g CO2-éq/km (valeurs arrondies) :
 
 | | Sans vieillissement | Optimiste | Central | Pessimiste |
 |---|---|---|---|---|
