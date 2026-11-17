@@ -18,7 +18,7 @@ Colonnes des fichiers CSV :
 | `included` | `yes` ou `no` : mettez `no` pour retirer une ligne quand l'impact est reconstruit |
 | `source` | d'où vient la quantité |
 
-Pour afficher les trois inventaires (sans licence) : `python scripts/build_fabrication_brightway.py --check`. Pour recalculer les impacts après avoir changé une quantité, avec votre propre licence ecoinvent : `pip install -r requirements-brightway.txt`, puis `python scripts/build_fabrication_brightway.py --project h2ageing --import-ecoinvent` ; le script demande votre identifiant et votre mot de passe ecoinvent, importe ecoinvent 3.11 cut-off dans Brightway et écrit un nouveau fichier d'impacts. Avec les inventaires tels que fournis, il redonne les mêmes impacts sur le changement climatique qu'Activity Browser (3 698,3, 39 509,4 et 2 332,0 kg CO2-éq) : lancez-le une fois ainsi pour vérifier votre installation.
+Pour afficher les trois inventaires (sans licence) : `python scripts/build_fabrication_brightway.py --check`. Pour recalculer les impacts après avoir changé une quantité, avec votre propre licence ecoinvent : `pip install -r requirements-brightway.txt`, puis `python scripts/build_fabrication_brightway.py --project h2ageing --import-ecoinvent` ; le script demande votre identifiant et votre mot de passe ecoinvent, importe ecoinvent 3.11 cut-off dans Brightway et écrit un nouveau fichier d'impacts. Avec les inventaires tels que fournis, il redonne les mêmes impacts qu'Activity Browser dans les 16 catégories EF 3.1 (écart inférieur à 0,01 % ; changement climatique : 3 698,3, 39 509,4 et 2 332,0 kg CO2-éq) : lancez-le une fois ainsi pour vérifier votre installation.
 
 ---
 

@@ -32,8 +32,9 @@ Set ``included`` to ``no`` to leave a row out.
 Then point ``fabrication.file`` of your configuration to the new file.
 
 Check: with ecoinvent 3.11 cut-off and the default inventories, this script gives the
-same climate change impacts as the shipped file, computed with Activity Browser
-(3 698.3, 39 509.4 and 2 332.0 kg CO2-eq). Run it once on the default inventories to
+same impacts as the shipped file, computed with Activity Browser, in the 16 EF 3.1
+categories and for the three components (difference below 0.01 %; climate change
+3 698.3, 39 509.4 and 2 332.0 kg CO2-eq). Run it once on the default inventories to
 check your installation before using your own values.
 """
 import argparse
