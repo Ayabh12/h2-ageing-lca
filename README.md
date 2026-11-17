@@ -221,6 +221,7 @@ The code of every level, explained: [docs/ADAPT.md](docs/ADAPT.md). The same, re
 | Bar chart of the chain by item (after `run.py`) | `python scripts/plot.py --results results` | ~2 s |
 | Electricity sources, electrolyser hours, stack counting | `run.py` with `--set` (see [docs/USE_CASES.md](docs/USE_CASES.md)) | ~2 s each |
 | Impact versus stack lifetime (steps and thresholds) | `python scripts/threshold.py --out results` | ~30 s |
+| Figure of the steps (after `run.py` and `threshold.py`) | `python scripts/plot_steps.py --results results --lang en` | ~2 s |
 | Crossover law of the semi-empirical fuel cell model, mean speed | `python scripts/fuel_cell_tests.py` | ~10 s |
 | Effect of each semi-empirical constant (published alternative values) | `python scripts/semi_empirical_constants.py` | ~5 s |
 | Global sensitivity (Sobol indices, 10 240 runs) | `python scripts/sobol.py --out results` | ~15 min (2 cores) |
@@ -315,6 +316,11 @@ What these numbers show:
 - **The fuel cell is dominated by replacement.** One fuel cell stack is spread over the 200 000 km of a single vehicle; a second stack adds 18.5 g CO2-eq/km, that is 30 % of the impact of the fuel cell without ageing (61.9 g/km). In the central case, 91 % of the fuel cell rise comes from the extra stack.
 - **The electrolyser is dominated by over-consumption.** One electrolyser stack is spread over about 1.19 million kg of hydrogen and weighs 0.8 % of the impact of 1 kg; the extra electricity matters more.
 - **The result moves in steps, because the number of stacks is a whole number.** The fuel cell runs 5 554 h over 200 000 km: above that, 1 stack is enough (+6 %); between 2 777 and 5 554 h, 2 are needed (+31 %). What matters is crossing the 5 554 h threshold, not gaining a few hours.
+
+![Rise of the chain as a function of the fuel cell stack lifetime](docs/figures/steps.png)
+
+*Rise of the chain as a function of the lifetime of one fuel cell stack. Curve: only the fuel cell lifetime varies (linear model, other values of the central case); points: the three cases. Figure made by `scripts/plot_steps.py`.*
+
 - **The fuel cell lifetime is the key input.** In the global sensitivity analysis, it explains almost all the variation of the rise (total Sobol index 0.94).
 
 ## 11. Cite, licence, contact
