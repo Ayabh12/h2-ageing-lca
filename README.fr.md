@@ -280,6 +280,19 @@ Configuration par défaut : changement climatique (EF 3.1), mix résiduel franç
 | Pile seule (g CO2-éq/km) | 61,9 | 63,4 (+2,4 %) | 82,2 (+32,8 %) | 83,4 (+34,6 %) |
 | **Chaîne complète (g CO2-éq/km)** | **74,1** | **77,8 (+5,0 %)** | **97,2 (+31,1 %)** | **100,1 (+35,0 %)** |
 
+Chaque valeur est un total : **usage et fabrication**. Pour la chaîne complète, en g CO2-éq/km :
+
+| | Sans vieillissement | Optimiste | Central | Pessimiste |
+|---|---|---|---|---|
+| Usage : électricité et eau de l'électrolyse | 41,5 | 44,8 | 45,2 | 48,0 |
+| Usage : compression | 2,2 | 2,2 | 2,3 | 2,4 |
+| Fabrication : stacks de pile | 18,5 | 18,5 | 37,0 | 37,0 |
+| Fabrication : réservoir | 11,7 | 11,7 | 11,7 | 11,7 |
+| Fabrication : stacks d'électrolyseur | 0,3 | 0,7 | 1,0 | 1,1 |
+| **Total** | **74,1** | **77,8** | **97,2** | **100,1** |
+
+L'hydrogène perdu par perméation est compté dans l'usage, comme de l'hydrogène à produire en plus.
+
 La hausse due au vieillissement, séparée selon ses deux voies. Chaque ligne donne la part de la hausse due à une voie, en % de l'impact sans vieillissement ; les deux lignes s'additionnent pour donner la hausse totale (à 0,1 près, à cause des arrondis).
 
 | Composant | Voie | Optimiste | Central | Pessimiste |

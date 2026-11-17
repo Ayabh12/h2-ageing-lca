@@ -280,6 +280,19 @@ Default configuration: climate change (EF 3.1), French residual mix (79.6 g CO2-
 | Fuel cell alone (g CO2-eq/km) | 61.9 | 63.4 (+2.4 %) | 82.2 (+32.8 %) | 83.4 (+34.6 %) |
 | **Whole chain (g CO2-eq/km)** | **74.1** | **77.8 (+5.0 %)** | **97.2 (+31.1 %)** | **100.1 (+35.0 %)** |
 
+Each value is a total: **use and fabrication**. For the whole chain, in g CO2-eq/km:
+
+| | No ageing | Optimistic | Central | Pessimistic |
+|---|---|---|---|---|
+| Use: electricity and water of electrolysis | 41.5 | 44.8 | 45.2 | 48.0 |
+| Use: compression | 2.2 | 2.2 | 2.3 | 2.4 |
+| Fabrication: fuel cell stacks | 18.5 | 18.5 | 37.0 | 37.0 |
+| Fabrication: tank | 11.7 | 11.7 | 11.7 | 11.7 |
+| Fabrication: electrolyser stacks | 0.3 | 0.7 | 1.0 | 1.1 |
+| **Total** | **74.1** | **77.8** | **97.2** | **100.1** |
+
+The hydrogen lost by permeation is counted in use, as extra hydrogen to produce.
+
 The rise due to ageing, split into its two routes. Each line gives the part of the rise due to one route, as a % of the impact without ageing; the two lines add up to the total rise (within 0.1 because of rounding).
 
 | Component | Route | Optimistic | Central | Pessimistic |
