@@ -9,39 +9,13 @@ Code : MIT · Données : CC BY 4.0
 
 Ce dépôt contient les modèles, les données et le code d'une analyse du cycle de vie (ACV) qui tient compte du vieillissement des stacks électrochimiques d'une chaîne hydrogène : un électrolyseur PEM, la compression, un réservoir de type IV et une pile à combustible PEM. Chaque résultat se recalcule avec une seule commande, et chaque valeur d'entrée se change dans un seul fichier de configuration.
 
-**Le résultat en bref.** Sur la vie du véhicule (15 ans, 200 000 km), le vieillissement des stacks augmente l'impact de la chaîne sur le changement climatique, par rapport à la même chaîne sans vieillissement, de :
-
-- **+5,0 %** dans le cas **optimiste** : modèle linéaire, avec les objectifs du DOE (durée de vie de la pile, vitesse de dégradation de l'électrolyseur) ;
-- **+31,1 %** dans le cas **central** : modèle linéaire, avec l'état actuel mesuré par le DOE sur des systèmes réels ;
-- **+35,0 %** dans le cas **pessimiste** : modèle semi-empirique, plus détaillé, qui décrit la dégradation des matériaux du stack (pour la pile : perte de surface active du platine, hausse de la résistance, crossover de la membrane ; pour l'électrolyseur : perte d'activité de l'anode, hausse de la résistance, amincissement de la membrane), avec des constantes mesurées sur des cellules de laboratoire.
-
-Ce dépôt permet à chacun de recalculer ce résultat pour son propre cas.
-
-**Ce qui distingue ce dépôt**
-
-- **Des modèles construits sur des mesures réelles** : une pile de Toyota Mirai II enregistrée sur route, et un électrolyseur Nel MC250 qui suit un profil de production éolienne (données publiques du NLR).
-- **Des inventaires vérifiés avec deux logiciels** : avec ecoinvent 3.11, Brightway redonne les impacts de fabrication calculés avec Activity Browser dans les 16 catégories EF 3.1.
-- **Utilisable sans licence ecoinvent**, et complet avec une licence : les deux façons de faire sont décrites pas à pas ([section 4](#4-utilisation-sans-et-avec-licence-ecoinvent)).
-- **10 tests automatiques** vérifient les résultats de référence à chaque modification du dépôt.
-- **Ouvert et bilingue** : chaque page existe en français et en anglais, et n'importe qui peut reproduire les résultats ou tester son propre cas.
-
-**À essayer en une commande.** Si la pile dure 6 000 h au lieu de 4 100 h, un seul stack suffit sur toute la vie du véhicule, et la hausse du cas central passe de +31,1 % à +6,4 % :
-
-```bash
-python scripts/run.py --set cases.central.fuel_cell.hours_to_end_of_life=6000
-```
-
-La durée de vie de la pile est le levier principal : dans l'analyse de sensibilité globale, elle explique presque toute la variation de la hausse (indice de Sobol total 0,94).
-
-**À quoi sert ce dépôt.** Un praticien de l'ACV peut ajouter le vieillissement à son étude sans réécrire son modèle : il change ses propres valeurs (électricité, durée de vie, kilométrage, inventaires), et la fin de vie, le nombre de stacks et l'impact sont recalculés automatiquement.
-
 ---
 
 ## Sommaire
 
 1. [Pourquoi c'est important](#1-pourquoi-cest-important)
-2. [Ce que fait le code](#2-ce-que-fait-le-code)
-3. [Qui peut l'utiliser, et pour quoi](#3-qui-peut-lutiliser-et-pour-quoi)
+2. [Qui peut l'utiliser, et pour quoi](#2-qui-peut-lutiliser-et-pour-quoi)
+3. [Ce que fait le code](#3-ce-que-fait-le-code)
 4. [Utilisation sans et avec licence ecoinvent](#4-utilisation-sans-et-avec-licence-ecoinvent)
 5. [L'utiliser et l'adapter : six niveaux, avec exemples](#5-lutiliser-et-ladapter--six-niveaux-avec-exemples)
 6. [Reproduire chaque résultat](#6-reproduire-chaque-résultat)
@@ -66,7 +40,42 @@ Ce dépôt répond à deux questions :
   1. **la surconsommation** : un électrolyseur vieilli consomme plus d'électricité par kg d'hydrogène, et une pile vieillie plus d'hydrogène par km ;
   2. **le remplacement** : un stack en fin de vie (variation de tension de 10 %, critère du DOE) est remplacé par un neuf, qu'il faut fabriquer.
 
-## 2. Ce que fait le code
+**Le résultat en bref.** Sur la vie du véhicule (15 ans, 200 000 km), le vieillissement des stacks augmente l'impact de la chaîne sur le changement climatique, par rapport à la même chaîne sans vieillissement, de :
+
+- **+5,0 %** dans le cas **optimiste** : modèle linéaire, avec les objectifs du DOE (durée de vie de la pile, vitesse de dégradation de l'électrolyseur) ;
+- **+31,1 %** dans le cas **central** : modèle linéaire, avec l'état actuel mesuré par le DOE sur des systèmes réels ;
+- **+35,0 %** dans le cas **pessimiste** : modèle semi-empirique, plus détaillé, qui décrit la dégradation des matériaux du stack (pour la pile : perte de surface active du platine, hausse de la résistance, crossover de la membrane ; pour l'électrolyseur : perte d'activité de l'anode, hausse de la résistance, amincissement de la membrane), avec des constantes mesurées sur des cellules de laboratoire.
+
+Ce dépôt permet à chacun de recalculer ce résultat pour son propre cas.
+
+**Ce que ce dépôt apporte**
+
+- **Une méthode prête à l'emploi.** Les modèles de vieillissement, la recherche de la fin de vie, le comptage des stacks et l'ACV sont déjà reliés entre eux, et chaque équation est documentée avec sa source ([docs/METHOD.fr.md](docs/METHOD.fr.md)).
+- **N'importe quelle valeur ou n'importe quel inventaire se change sans réécrire le code.** Les valeurs d'entrée sont dans un seul fichier de configuration, les inventaires de fabrication dans des tableaux CSV ; après un changement, la fin de vie, le nombre de stacks et l'impact sont recalculés automatiquement.
+- **Des modèles construits sur des mesures réelles** : une pile de Toyota Mirai II enregistrée sur route, et un électrolyseur Nel MC250 qui suit un profil de production éolienne (données publiques du NLR).
+- **Des inventaires vérifiés avec deux logiciels** : avec ecoinvent 3.11, Brightway redonne les impacts de fabrication calculés avec Activity Browser dans les 16 catégories EF 3.1.
+- **Utilisable sans licence ecoinvent**, et complet avec une licence : les deux façons de faire sont décrites pas à pas ([section 4](#4-utilisation-sans-et-avec-licence-ecoinvent)).
+- **Des résultats contrôlés automatiquement.** À chaque modification du dépôt, GitHub relance 10 tests. Chacun recalcule un résultat (fin de vie et nombre de stacks, chaque composant seul, chaîne complète, 16 catégories, sources d'électricité, entre autres) et vérifie qu'il est identique au résultat de référence. Le badge « tests » en haut de cette page est vert quand tous les tests passent ; il devient rouge si une modification change un résultat.
+- **Ouvert et bilingue** : chaque page existe en français et en anglais, et n'importe qui peut reproduire les résultats ou tester son propre cas.
+
+**À essayer en une commande.** Si la pile dure 6 000 h au lieu de 4 100 h, un seul stack suffit sur toute la vie du véhicule, et la hausse du cas central passe de +31,1 % à +6,4 % :
+
+```bash
+python scripts/run.py --set cases.central.fuel_cell.hours_to_end_of_life=6000
+```
+
+La durée de vie de la pile est le levier principal : dans l'analyse de sensibilité globale, elle explique presque toute la variation de la hausse (indice de Sobol total 0,94).
+
+## 2. Qui peut l'utiliser, et pour quoi
+
+| Vous êtes | Ce que vous pouvez faire | Par où commencer |
+|---|---|---|
+| **Praticien de l'ACV** | Ajouter le vieillissement à une ACV de la mobilité hydrogène ; tester votre propre mix électrique, horizon, inventaire ou règle de comptage des stacks | [docs/USE_CASES.fr.md](docs/USE_CASES.fr.md), exemples 1 à 3 et 7 |
+| **Ingénieur ou constructeur** | Voir ce que vaut, en CO2-éq, un stack qui dure plus longtemps ou qui se dégrade moins vite ; trouver la durée de vie qui évite un remplacement | `scripts/threshold.py`, exemple 4 |
+| **Chercheur sur la dégradation** | Brancher vos propres constantes ou votre propre loi de vieillissement et voir l'effet sur l'ACV, sans réécrire l'ACV | [docs/ADAPT.fr.md](docs/ADAPT.fr.md), niveaux 4 et 5 |
+| **Étudiant** | Lire un petit modèle complet d'ACV avec vieillissement, le lancer et le modifier pas à pas | [docs/METHOD.fr.md](docs/METHOD.fr.md), puis les notebooks |
+
+## 3. Ce que fait le code
 
 ```
 source d'électricité -> électrolyseur PEM -> compression -> réservoir type IV -> pile PEM
@@ -93,17 +102,6 @@ Aucune vitesse de dégradation n'est publiée pour les deux stacks étudiés. Fa
 Les exemples mettent en avant le cas central, parce qu'il repose sur des systèmes réels mesurés par le DOE ; l'optimiste et le pessimiste sont des bornes, l'une tirée d'objectifs, l'autre de cellules de laboratoire. Le cas central n'est pas une moyenne des deux autres, et les trois cas sont toujours donnés côte à côte. Les valeurs et leurs sources sont dans `cases` de `config/default.yaml`.
 
 La méthode complète, avec chaque équation et sa source, est dans [docs/METHOD.fr.md](docs/METHOD.fr.md).
-
-## 3. Qui peut l'utiliser, et pour quoi
-
-| Vous êtes | Ce que vous pouvez faire | Par où commencer |
-|---|---|---|
-| **Praticien de l'ACV** | Ajouter le vieillissement à une ACV de la mobilité hydrogène ; tester votre propre mix électrique, horizon, inventaire ou règle de comptage des stacks | [docs/USE_CASES.fr.md](docs/USE_CASES.fr.md), exemples 1 à 3 et 7 |
-| **Ingénieur ou constructeur** | Voir ce que vaut, en CO2-éq, un stack qui dure plus longtemps ou qui se dégrade moins vite ; trouver la durée de vie qui évite un remplacement | `scripts/threshold.py`, exemple 5 |
-| **Chercheur sur la dégradation** | Brancher vos propres constantes ou votre propre loi de vieillissement et voir l'effet sur l'ACV, sans réécrire l'ACV | [docs/ADAPT.fr.md](docs/ADAPT.fr.md), niveaux 4 et 5 |
-| **Étudiant** | Lire un petit modèle complet d'ACV avec vieillissement, le lancer et le modifier pas à pas | [docs/METHOD.fr.md](docs/METHOD.fr.md), puis les notebooks |
-
-Pourquoi partir de ce dépôt plutôt que de zéro : les modèles de vieillissement, la recherche de la fin de vie, le comptage des stacks et l'ACV sont déjà reliés, donc changer une entrée met à jour automatiquement tout ce qui en dépend ; et chaque entrée est reliée à sa source dans un seul fichier.
 
 ## 4. Utilisation sans et avec licence ecoinvent
 
@@ -272,7 +270,7 @@ Le modèle dit clairement ce qu'il ne sait pas ; les limites principales sont ci
 
 ## 10. Résultats principaux
 
-Ces résultats découlent de la méthode de la [section 2](#2-ce-que-fait-le-code) (détails dans [docs/METHOD.fr.md](docs/METHOD.fr.md)) et sont valables dans les limites de la [section 9](#9-limites). « Sans vieillissement » désigne la même chaîne avec des stacks qui ne vieillissent jamais : un stack de chaque convertisseur, des performances constantes.
+Ces résultats découlent de la méthode de la [section 3](#3-ce-que-fait-le-code) (détails dans [docs/METHOD.fr.md](docs/METHOD.fr.md)) et sont valables dans les limites de la [section 9](#9-limites). « Sans vieillissement » désigne la même chaîne avec des stacks qui ne vieillissent jamais : un stack de chaque convertisseur, des performances constantes.
 
 Configuration par défaut : changement climatique (EF 3.1), mix résiduel français (79,6 g CO2-éq/kWh, données AIB 2024), 200 000 km en 15 ans.
 

@@ -9,39 +9,13 @@ Code: MIT · Data: CC BY 4.0
 
 This repository contains the models, data and code of a life cycle assessment (LCA) that accounts for the ageing of the electrochemical stacks of a hydrogen chain: a PEM electrolyser, compression, a type IV tank and a PEM fuel cell. Every result can be recomputed with one command, and every input can be changed in one configuration file.
 
-**The result in short.** Over the vehicle life (15 years, 200 000 km), stack ageing raises the climate change impact of the chain, compared with the same chain without ageing, by:
-
-- **+5.0 %** in the **optimistic** case: linear model, with the DOE targets (fuel cell lifetime, electrolyser degradation rate);
-- **+31.1 %** in the **central** case: linear model, with the current status measured by the DOE on real systems;
-- **+35.0 %** in the **pessimistic** case: semi-empirical model, more detailed, describing the degradation of the stack materials (fuel cell: loss of platinum active area, rise of the resistance, membrane crossover; electrolyser: loss of anode activity, rise of the resistance, membrane thinning), with constants measured on laboratory cells.
-
-This repository lets anyone recompute this result for their own case.
-
-**What sets this repository apart**
-
-- **Models built on real measurements**: a Toyota Mirai II fuel cell recorded on the road, and a Nel MC250 electrolyser following a wind production profile (public NLR data).
-- **Inventories checked with two software tools**: with ecoinvent 3.11, Brightway gives back the fabrication impacts computed with Activity Browser in the 16 EF 3.1 categories.
-- **Usable without an ecoinvent licence**, and complete with one: both ways are described step by step ([section 4](#4-use-without-and-with-an-ecoinvent-licence)).
-- **10 automated tests** check the reference results at every change of the repository.
-- **Open and bilingual**: every page exists in English and French, and anyone can reproduce the results or test their own case.
-
-**Try it in one command.** If the fuel cell lasts 6 000 h instead of 4 100 h, one stack lasts the whole vehicle life, and the rise of the central case falls from +31.1 % to +6.4 %:
-
-```bash
-python scripts/run.py --set cases.central.fuel_cell.hours_to_end_of_life=6000
-```
-
-The fuel cell lifetime is the main lever: in the global sensitivity analysis, it explains almost all the variation of the rise (total Sobol index 0.94).
-
-**What it is for.** An LCA practitioner can add ageing to their study without rewriting their model: they change their own values (electricity, lifetime, mileage, inventories), and the end of life, the number of stacks and the impact are recomputed automatically.
-
 ---
 
 ## Contents
 
 1. [Why this matters](#1-why-this-matters)
-2. [What the code does](#2-what-the-code-does)
-3. [Who can use it, and for what](#3-who-can-use-it-and-for-what)
+2. [Who can use it, and for what](#2-who-can-use-it-and-for-what)
+3. [What the code does](#3-what-the-code-does)
 4. [Use without and with an ecoinvent licence](#4-use-without-and-with-an-ecoinvent-licence)
 5. [Use and adapt it: six levels, with examples](#5-use-and-adapt-it-six-levels-with-examples)
 6. [Reproduce every result](#6-reproduce-every-result)
@@ -66,7 +40,42 @@ This repository answers two questions:
   1. **over-consumption**: an aged electrolyser needs more electricity per kg of hydrogen, an aged fuel cell more hydrogen per km;
   2. **replacement**: a stack at end of life (10 % voltage change, DOE criterion) is replaced by a new one, which must be manufactured.
 
-## 2. What the code does
+**The result in short.** Over the vehicle life (15 years, 200 000 km), stack ageing raises the climate change impact of the chain, compared with the same chain without ageing, by:
+
+- **+5.0 %** in the **optimistic** case: linear model, with the DOE targets (fuel cell lifetime, electrolyser degradation rate);
+- **+31.1 %** in the **central** case: linear model, with the current status measured by the DOE on real systems;
+- **+35.0 %** in the **pessimistic** case: semi-empirical model, more detailed, describing the degradation of the stack materials (fuel cell: loss of platinum active area, rise of the resistance, membrane crossover; electrolyser: loss of anode activity, rise of the resistance, membrane thinning), with constants measured on laboratory cells.
+
+This repository lets anyone recompute this result for their own case.
+
+**What this repository brings**
+
+- **A ready-to-use method.** The ageing models, the end-of-life search, the stack counting and the LCA are already linked, and every equation is documented with its source ([docs/METHOD.md](docs/METHOD.md)).
+- **Any value or any inventory can be changed without rewriting the code.** The inputs are in one configuration file, the fabrication inventories in CSV tables; after a change, the end of life, the number of stacks and the impact are recomputed automatically.
+- **Models built on real measurements**: a Toyota Mirai II fuel cell recorded on the road, and a Nel MC250 electrolyser following a wind production profile (public NLR data).
+- **Inventories checked with two software tools**: with ecoinvent 3.11, Brightway gives back the fabrication impacts computed with Activity Browser in the 16 EF 3.1 categories.
+- **Usable without an ecoinvent licence**, and complete with one: both ways are described step by step ([section 4](#4-use-without-and-with-an-ecoinvent-licence)).
+- **Results checked automatically.** At every change of the repository, GitHub runs 10 tests again. Each one recomputes a result (end of life and number of stacks, each component alone, whole chain, 16 categories, electricity sources, among others) and checks that it is identical to the reference result. The "tests" badge at the top of this page is green when all tests pass; it turns red if a change alters a result.
+- **Open and bilingual**: every page exists in English and French, and anyone can reproduce the results or test their own case.
+
+**Try it in one command.** If the fuel cell lasts 6 000 h instead of 4 100 h, one stack lasts the whole vehicle life, and the rise of the central case falls from +31.1 % to +6.4 %:
+
+```bash
+python scripts/run.py --set cases.central.fuel_cell.hours_to_end_of_life=6000
+```
+
+The fuel cell lifetime is the main lever: in the global sensitivity analysis, it explains almost all the variation of the rise (total Sobol index 0.94).
+
+## 2. Who can use it, and for what
+
+| You are | What you can do | Where to start |
+|---|---|---|
+| **LCA practitioner** | Add ageing to an LCA of hydrogen mobility; test your own electricity mix, horizon, inventories or stack counting rule | [docs/USE_CASES.md](docs/USE_CASES.md), examples 1–3 and 7 |
+| **Engineer or manufacturer** | See what a longer stack lifetime or a slower degradation rate is worth in CO2-eq; find the lifetime threshold that removes one replacement | `scripts/threshold.py`, example 4 |
+| **Researcher on degradation** | Plug in your own ageing constants or ageing law and see the effect on the LCA, without rewriting the LCA | [docs/ADAPT.md](docs/ADAPT.md), levels 4 and 5 |
+| **Student** | Read a complete, small LCA model with ageing, run it, and modify it step by step | [docs/METHOD.md](docs/METHOD.md), then the notebooks |
+
+## 3. What the code does
 
 ```
 electricity source -> PEM electrolyser -> compression -> type IV tank -> PEM fuel cell
@@ -93,17 +102,6 @@ No degradation rate is published for the two stacks studied. In the absence of t
 The examples highlight the central case, because it rests on real systems measured by the DOE; the optimistic and pessimistic cases are bounds, one taken from targets, the other from laboratory cells. The central case is not an average of the other two, and the three cases are always given side by side. The values and their sources are in `cases` of `config/default.yaml`.
 
 The full method, with every equation and its source, is in [docs/METHOD.md](docs/METHOD.md).
-
-## 3. Who can use it, and for what
-
-| You are | What you can do | Where to start |
-|---|---|---|
-| **LCA practitioner** | Add ageing to an LCA of hydrogen mobility; test your own electricity mix, horizon, inventories or stack counting rule | [docs/USE_CASES.md](docs/USE_CASES.md), examples 1–3 and 7 |
-| **Engineer or manufacturer** | See what a longer stack lifetime or a slower degradation rate is worth in CO2-eq; find the lifetime threshold that removes one replacement | `scripts/threshold.py`, example 5 |
-| **Researcher on degradation** | Plug in your own ageing constants or ageing law and see the effect on the LCA, without rewriting the LCA | [docs/ADAPT.md](docs/ADAPT.md), levels 4 and 5 |
-| **Student** | Read a complete, small LCA model with ageing, run it, and modify it step by step | [docs/METHOD.md](docs/METHOD.md), then the notebooks |
-
-Why use this repository rather than start from scratch: the ageing models, the end-of-life search, the stack counting and the LCA are already linked, so changing one input automatically updates everything downstream; and every input is traced to a source in a single file.
 
 ## 4. Use without and with an ecoinvent licence
 
@@ -272,7 +270,7 @@ The model is transparent about what it does not know; the main limits are below,
 
 ## 10. Main results
 
-These results follow from the method of [section 2](#2-what-the-code-does) (details in [docs/METHOD.md](docs/METHOD.md)) and are valid within the limits of [section 9](#9-limits). "No ageing" is the same chain with stacks that never age: one stack of each converter, constant performance.
+These results follow from the method of [section 3](#3-what-the-code-does) (details in [docs/METHOD.md](docs/METHOD.md)) and are valid within the limits of [section 9](#9-limits). "No ageing" is the same chain with stacks that never age: one stack of each converter, constant performance.
 
 Default configuration: climate change (EF 3.1), French residual mix (79.6 g CO2-eq/kWh, AIB 2024 data), 200 000 km over 15 years.
 
