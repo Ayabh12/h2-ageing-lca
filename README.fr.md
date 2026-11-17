@@ -63,8 +63,6 @@ Ce dépôt permet à chacun de recalculer ce résultat pour son propre cas.
 python scripts/run.py --set cases.central.fuel_cell.hours_to_end_of_life=6000
 ```
 
-La durée de vie de la pile est le levier principal : dans l'analyse de sensibilité globale, elle explique presque toute la variation de la hausse (indice de Sobol total 0,94).
-
 ## 2. Qui peut l'utiliser, et pour quoi
 
 | Vous êtes | Ce que vous pouvez faire | Par où commencer |

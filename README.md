@@ -63,8 +63,6 @@ This repository lets anyone recompute this result for their own case.
 python scripts/run.py --set cases.central.fuel_cell.hours_to_end_of_life=6000
 ```
 
-The fuel cell lifetime is the main lever: in the global sensitivity analysis, it explains almost all the variation of the rise (total Sobol index 0.94).
-
 ## 2. Who can use it, and for what
 
 | You are | What you can do | Where to start |
