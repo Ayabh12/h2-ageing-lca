@@ -143,6 +143,9 @@ def build(bd, inv: pd.DataFrame, name: str):
     fg.register()
     act = fg.new_activity(code=name, name=name, unit="unit", location="GLO", type="process")
     act.save()
+    # start from an empty activity (some Brightway versions add exchanges when the activity is saved)
+    for e in list(act.exchanges()):
+        e.delete()
     act.new_exchange(input=act, amount=1, type="production").save()
     for _, r in inv.iterrows():
         kind = "biosphere" if r["flow_type"] == "resource" else "technosphere"
@@ -151,8 +154,9 @@ def build(bd, inv: pd.DataFrame, name: str):
     n_inputs = len(list(act.technosphere())) + len(list(act.biosphere()))
     production = sum(e["amount"] for e in act.production())
     if n_inputs != len(inv) or abs(production - 1) > 1e-9:
-        raise RuntimeError(f"{name}: {n_inputs} inputs for {len(inv)} inventory rows, production {production}; "
-                           f"delete the database {db_name} from the project and run again")
+        listing = "\n".join(f"  {e['type']:12s} {e['amount']:>12.6g}  {e.input['name']} ({e.input.get('location', '')})"
+                            for e in act.exchanges())
+        raise RuntimeError(f"{name}: {n_inputs} inputs for {len(inv)} inventory rows, production {production}\n{listing}")
     return act
 
 
