@@ -14,7 +14,7 @@ This repository contains the models, data and code of a life cycle assessment (L
 **What sets this repository apart**
 
 - **Models built on real measurements**: a Toyota Mirai II fuel cell recorded on the road, and a Nel MC250 electrolyser following a wind production profile (public NLR data).
-- **Inventories checked with two software tools**: with ecoinvent 3.11, Brightway gives back the fabrication impacts computed with Activity Browser in the 16 EF 3.1 categories (difference below 0.01 %).
+- **Inventories checked with two software tools**: with ecoinvent 3.11, Brightway gives back the fabrication impacts computed with Activity Browser in the 16 EF 3.1 categories.
 - **Usable without an ecoinvent licence**, and complete with one: both ways are described step by step ([section 4](#4-use-without-and-with-an-ecoinvent-licence)).
 - **10 automated tests** check the reference results at every change of the repository.
 - **Open and bilingual**: every page exists in English and French, and anyone can reproduce the results or test their own case.

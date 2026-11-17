@@ -14,7 +14,7 @@ Ce dépôt contient les modèles, les données et le code d'une analyse du cycle
 **Ce qui distingue ce dépôt**
 
 - **Des modèles construits sur des mesures réelles** : une pile de Toyota Mirai II enregistrée sur route, et un électrolyseur Nel MC250 qui suit un profil de production éolienne (données publiques du NLR).
-- **Des inventaires vérifiés avec deux logiciels** : avec ecoinvent 3.11, Brightway redonne les impacts de fabrication calculés avec Activity Browser dans les 16 catégories EF 3.1 (écart inférieur à 0,01 %).
+- **Des inventaires vérifiés avec deux logiciels** : avec ecoinvent 3.11, Brightway redonne les impacts de fabrication calculés avec Activity Browser dans les 16 catégories EF 3.1.
 - **Utilisable sans licence ecoinvent**, et complet avec une licence : les deux façons de faire sont décrites pas à pas ([section 4](#4-utilisation-sans-et-avec-licence-ecoinvent)).
 - **10 tests automatiques** vérifient les résultats de référence à chaque modification du dépôt.
 - **Ouvert et bilingue** : chaque page existe en français et en anglais, et n'importe qui peut reproduire les résultats ou tester son propre cas.
