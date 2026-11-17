@@ -9,7 +9,13 @@ Code : MIT · Données : CC BY 4.0
 
 Ce dépôt contient les modèles, les données et le code d'une analyse du cycle de vie (ACV) qui tient compte du vieillissement des stacks électrochimiques d'une chaîne hydrogène : un électrolyseur PEM, la compression, un réservoir de type IV et une pile à combustible PEM. Chaque résultat se recalcule avec une seule commande, et chaque valeur d'entrée se change dans un seul fichier de configuration.
 
-**Le résultat en bref.** Sur la vie du véhicule (15 ans, 200 000 km), le vieillissement des stacks augmente l'impact de la chaîne sur le changement climatique de **+5,0 %** (cas optimiste) à **+35,0 %** (cas pessimiste), et de **+31,1 %** dans le cas central, fondé sur des systèmes réels mesurés par le DOE. Ce dépôt permet à chacun de recalculer ce résultat pour son propre cas.
+**Le résultat en bref.** Sur la vie du véhicule (15 ans, 200 000 km), le vieillissement des stacks augmente l'impact de la chaîne sur le changement climatique, par rapport à la même chaîne sans vieillissement, de :
+
+- **+5,0 %** dans le cas **optimiste** : modèle linéaire, avec les objectifs du DOE (durée de vie de la pile, vitesse de dégradation de l'électrolyseur) ;
+- **+31,1 %** dans le cas **central** : modèle linéaire, avec l'état actuel mesuré par le DOE sur des systèmes réels ;
+- **+35,0 %** dans le cas **pessimiste** : modèle semi-empirique, plus détaillé, qui décrit la dégradation des matériaux du stack (pour la pile : perte de surface active du platine, hausse de la résistance, crossover de la membrane ; pour l'électrolyseur : perte d'activité de l'anode, hausse de la résistance, amincissement de la membrane), avec des constantes mesurées sur des cellules de laboratoire.
+
+Ce dépôt permet à chacun de recalculer ce résultat pour son propre cas.
 
 **Ce qui distingue ce dépôt**
 

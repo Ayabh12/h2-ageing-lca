@@ -9,7 +9,13 @@ Code: MIT · Data: CC BY 4.0
 
 This repository contains the models, data and code of a life cycle assessment (LCA) that accounts for the ageing of the electrochemical stacks of a hydrogen chain: a PEM electrolyser, compression, a type IV tank and a PEM fuel cell. Every result can be recomputed with one command, and every input can be changed in one configuration file.
 
-**The result in short.** Over the vehicle life (15 years, 200 000 km), stack ageing raises the climate change impact of the chain by **+5.0 %** (optimistic case) to **+35.0 %** (pessimistic case), and by **+31.1 %** in the central case, based on real systems measured by the DOE. This repository lets anyone recompute this result for their own case.
+**The result in short.** Over the vehicle life (15 years, 200 000 km), stack ageing raises the climate change impact of the chain, compared with the same chain without ageing, by:
+
+- **+5.0 %** in the **optimistic** case: linear model, with the DOE targets (fuel cell lifetime, electrolyser degradation rate);
+- **+31.1 %** in the **central** case: linear model, with the current status measured by the DOE on real systems;
+- **+35.0 %** in the **pessimistic** case: semi-empirical model, more detailed, describing the degradation of the stack materials (fuel cell: loss of platinum active area, rise of the resistance, membrane crossover; electrolyser: loss of anode activity, rise of the resistance, membrane thinning), with constants measured on laboratory cells.
+
+This repository lets anyone recompute this result for their own case.
 
 **What sets this repository apart**
 
