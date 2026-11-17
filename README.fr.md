@@ -218,9 +218,18 @@ Dans Jupyter, écrivez `!{sys.executable}` à la place de `python` au début de 
    - laisser le script le demander : il demande votre identifiant, puis votre mot de passe (le mot de passe ne s'affiche pas pendant la saisie) ;
    - ou le définir avant, dans deux variables d'environnement, `EI_USERNAME` et `EI_PASSWORD` : dans un terminal Windows `set EI_USERNAME=...`, sous macOS ou Linux `export EI_USERNAME=...` (de même pour `EI_PASSWORD`) ; dans Jupyter, `os.environ["EI_USERNAME"] = input()` et `os.environ["EI_PASSWORD"] = getpass.getpass()`.
 
-   Votre identifiant est seulement envoyé à ecoinvent pour télécharger la base ; il n'est jamais écrit dans un fichier. Ne le tapez pas dans une cellule de notebook que vous partagez.
+   L'identifiant peut être le vôtre ou celui d'une licence partagée par votre établissement, si ses conditions le permettent. Il est seulement envoyé à ecoinvent pour télécharger la base et n'est jamais écrit dans un fichier. Ne mettez jamais d'identifiant dans ce dépôt ni dans une cellule de notebook que vous partagez : les licences ecoinvent sont personnelles ou propres à un établissement.
 3. **Importer ecoinvent et recalculer les impacts** : `python scripts/build_fabrication_brightway.py --project <projet> --import-ecoinvent --out results/<fichier>.csv`. La première fois, ecoinvent 3.11 cut-off, sa biosphère et ses méthodes d'impact sont téléchargés et importés dans le projet Brightway `<projet>` ; cela prend d'environ 20 minutes à moins d'une heure. Les fois suivantes, le script trouve ecoinvent dans le projet et ne fait que recalculer (environ une minute). Il affiche les 16 méthodes EF 3.1 utilisées, puis l'impact de chaque composant sur le changement climatique.
-4. **Vérifier votre installation** (une fois) : lancez l'étape 3 sur les inventaires tels que fournis et comparez le fichier écrit avec `data/impacts/fabrication_per_unit.csv` : les valeurs doivent être les mêmes dans les 16 catégories (écart inférieur à 0,01 %, comme obtenu avec ecoinvent 3.11 cut-off).
+4. **Vérifier votre installation** (une fois) : lancez l'étape 3 sur les inventaires tels que fournis, puis comparez le fichier écrit avec les impacts fournis, en pourcentage :
+
+   ```python
+   import pandas as pd
+   nouveau = pd.read_csv("results/<fichier>.csv").set_index("category")
+   fourni = pd.read_csv("data/impacts/fabrication_per_unit.csv").set_index("category")
+   ((nouveau - fourni) / fourni * 100).round(2)
+   ```
+
+   Toutes les valeurs doivent être à 0 (ou −0, un arrondi) : avec ecoinvent 3.11 cut-off, l'écart avec les impacts fournis (calculés avec Activity Browser) est inférieur à 0,01 % dans les 16 catégories et pour les trois composants.
 5. **Changer un inventaire** : dans `data/inventories/*.csv`, changez une quantité, l'activité ecoinvent ou sa localisation, ou mettez `included` à `no` pour retirer une ligne (colonnes expliquées dans [data/inventories/README.fr.md](data/inventories/README.fr.md)).
 6. **Recalculer** : relancez l'étape 3 avec un autre fichier de sortie.
 7. **Utiliser les nouveaux impacts dans le modèle** : `python scripts/run.py --set fabrication.file=results/<fichier>.csv --out results/<nom>`.

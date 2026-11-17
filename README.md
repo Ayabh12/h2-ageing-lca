@@ -218,9 +218,18 @@ In Jupyter, write `!{sys.executable}` instead of `python` at the start of each c
    - let the script ask for it: it asks for your username, then your password (the password is not shown while you type);
    - or set it beforehand in two environment variables, `EI_USERNAME` and `EI_PASSWORD`: in a Windows terminal `set EI_USERNAME=...`, in macOS or Linux `export EI_USERNAME=...` (same for `EI_PASSWORD`); in Jupyter, `os.environ["EI_USERNAME"] = input()` and `os.environ["EI_PASSWORD"] = getpass.getpass()`.
 
-   Your login is only sent to ecoinvent to download the database; it is never written to a file. Do not type it in a notebook cell you share.
+   The login can be your own or that of a licence shared by your institution, if its terms allow it. It is only sent to ecoinvent to download the database and is never written to a file. Never put a login in this repository or in a notebook cell you share: ecoinvent licences are personal or per institution.
 3. **Import ecoinvent and recompute the impacts**: `python scripts/build_fabrication_brightway.py --project <project> --import-ecoinvent --out results/<file>.csv`. The first time, ecoinvent 3.11 cut-off, its biosphere and its impact methods are downloaded and imported into the Brightway project `<project>`; this takes from about 20 minutes to under an hour. The next times, the script finds ecoinvent in the project and only recomputes (about one minute). It prints the 16 EF 3.1 methods it uses, then the climate change impact of each component.
-4. **Check your installation** (once): run step 3 on the inventories as shipped and compare the file written with `data/impacts/fabrication_per_unit.csv`: the values should be the same in the 16 categories (difference below 0.01 %, as obtained with ecoinvent 3.11 cut-off).
+4. **Check your installation** (once): run step 3 on the inventories as shipped, then compare the file written with the shipped impacts, in percent:
+
+   ```python
+   import pandas as pd
+   new = pd.read_csv("results/<file>.csv").set_index("category")
+   shipped = pd.read_csv("data/impacts/fabrication_per_unit.csv").set_index("category")
+   ((new - shipped) / shipped * 100).round(2)
+   ```
+
+   Every value should be 0 (or −0, a rounding): with ecoinvent 3.11 cut-off, the difference with the shipped impacts (computed with Activity Browser) is below 0.01 % in the 16 categories and for the three components.
 5. **Change an inventory**: in `data/inventories/*.csv`, change an amount, the ecoinvent activity or its location, or set `included` to `no` to leave a row out (columns explained in [data/inventories/README.md](data/inventories/README.md)).
 6. **Recompute**: run step 3 again with another output file.
 7. **Use the new impacts in the model**: `python scripts/run.py --set fabrication.file=results/<file>.csv --out results/<name>`.
