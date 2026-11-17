@@ -36,9 +36,9 @@ Most LCAs of hydrogen mobility treat the electrolyser and the fuel cell as if th
 This repository answers two questions:
 
 - **How much?** The rise of the impact due to ageing, for each component alone and for the whole chain.
-- **Through which route?** Ageing acts in two ways, computed separately:
-  1. **over-consumption**: an aged electrolyser needs more electricity per kg of hydrogen, an aged fuel cell more hydrogen per km;
-  2. **replacement**: a stack at end of life (10 % voltage change, DOE criterion) is replaced by a new one, which must be manufactured.
+- **Through which route?** Ageing acts at two levels, computed separately:
+  1. **Over-consumption, throughout use.** With age, the fuel cell voltage falls: to deliver the same power, it draws more current, hence more hydrogen per km. The electrolyser voltage rises: to produce the same hydrogen, it uses more electricity per kg. The tank loses a little more hydrogen by permeation. The model follows this drift over the whole vehicle life and averages it.
+  2. **Replacement, at end of life.** A stack reaches its end of life when its voltage has changed by 10 % from new (US DOE criterion): a 10 % loss at 300 A for the fuel cell, a 10 % rise at the mean current density of the profile for the electrolyser. It is then replaced by a new one, which must be manufactured. The model counts the stacks needed over 15 years, and each stack adds its fabrication impact.
 
 **The result in short.** Over the vehicle life (15 years, 200 000 km), stack ageing raises the climate change impact of the chain, compared with the same chain without ageing, by:
 
@@ -84,7 +84,7 @@ electricity source -> PEM electrolyser -> compression -> type IV tank -> PEM fue
 
 1. **Reference performance from measurements.** A polarisation model is fitted on a measured wind-driven operating profile of a Nel MC250 electrolyser (public NLR data) and on road measurements of a Toyota Mirai II fuel cell. The wind profile describes *how* the electrolyser operates; it does not fix the origin of the electricity, which is a separate input (French residual mix by default).
 2. **Ageing in three cases.** Optimistic and central: linear model with rates published by the US DOE. Pessimistic: semi-empirical model with constants measured on laboratory cells (platinum surface loss, resistance growth, crossover, anode activity, membrane thinning). It is called semi-empirical because its structure is physical, each degradation mechanism acting on one term of the polarisation equation, while its laws of change with time are fitted on laboratory measurements. The tank permeation grows over 15 years.
-3. **End of life and number of stacks.** A stack reaches its end of life when its voltage has changed by 10 % from new (US DOE criterion): for the fuel cell, a 10 % voltage loss at 300 A; for the electrolyser, a 10 % voltage rise at the mean current density of the profile. The model finds the age at which each stack reaches this criterion, then counts the stacks needed over 15 years.
+3. **End of life and number of stacks.** The model finds the age at which each stack reaches the end-of-life criterion ([section 1](#1-why-this-matters)), then counts the stacks needed over 15 years.
 4. **LCA.** Use-phase flows and fabrication of the stacks and tank are combined with characterised impacts (ecoinvent 3.11 cut-off, EF 3.1, 16 categories). Fabrication is counted from cradle to gate: extraction of resources, processing of materials, energy and transport of these steps, and the factory electricity; end of life is not counted ([what each impact includes](docs/METHOD.md#what-each-impact-includes)). Results are given for each component alone and for the whole chain, with and without ageing.
 
 ### The three ageing cases
