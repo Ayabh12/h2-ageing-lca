@@ -31,11 +31,10 @@ Set ``included`` to ``no`` to leave a row out.
 
 Then point ``fabrication.file`` of your configuration to the new file.
 
-Note: this script was written for this repository and has not been run by its author
-(no ecoinvent licence on the machine that built the repository). The impacts shipped in
-data/impacts were computed with Activity Browser on the same inventories. Check the
-climate change result of the default inventories against the shipped file (3 698, 39 509
-and 2 332 kg CO2-eq) before using your own values.
+Check: with ecoinvent 3.11 cut-off and the default inventories, this script gives the
+same climate change impacts as the shipped file, computed with Activity Browser
+(3 698.3, 39 509.4 and 2 332.0 kg CO2-eq). Run it once on the default inventories to
+check your installation before using your own values.
 """
 import argparse
 from pathlib import Path
@@ -122,7 +121,7 @@ def build(bd, inv: pd.DataFrame, name: str):
         del bd.databases[db_name]
     fg = bd.Database(db_name)
     fg.register()
-    act = fg.new_activity(code=name, name=name, unit="unit", location="GLO")
+    act = fg.new_activity(code=name, name=name, unit="unit", location="GLO", type="process")
     act.save()
     act.new_exchange(input=act, amount=1, type="production").save()
     for _, r in inv.iterrows():
@@ -176,6 +175,7 @@ def main():
         print(name, "climate change:", round(res[name]["climate_change"], 1))
     out = pd.DataFrame(res)
     out.index.name = "category"
+    Path(a.out).parent.mkdir(parents=True, exist_ok=True)
     out.reset_index().to_csv(a.out, index=False, float_format="%.10g")
     print("written to", a.out)
 
