@@ -349,7 +349,7 @@ The rise due to ageing, split into its two routes. Each line gives the part of t
 | Fuel cell alone | over-consumption (more hydrogen per km) | +2.4 % | +2.9 % | +4.8 % |
 | | replacement (extra stack) | 0.0 % | +29.9 % | +29.9 % |
 | | **both** | **+2.4 %** | **+32.8 %** | **+34.6 %** |
-| Whole chain | over-consumption (electricity, water and compression) | +4.6 % | +5.2 % | +9.1 % |
+| Whole chain | over-consumption (electricity, water and compression) | +4.5 % | +5.2 % | +9.1 % |
 | | replacement (fuel cell and electrolyser stacks) | +0.5 % | +25.9 % | +25.9 % |
 | | **both** | **+5.0 %** | **+31.1 %** | **+35.0 %** |
 

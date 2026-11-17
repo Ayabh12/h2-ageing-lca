@@ -349,7 +349,7 @@ La hausse due au vieillissement, séparée selon ses deux voies. Chaque ligne do
 | Pile seule | surconsommation (plus d'hydrogène par km) | +2,4 % | +2,9 % | +4,8 % |
 | | remplacement (stack en plus) | 0,0 % | +29,9 % | +29,9 % |
 | | **les deux** | **+2,4 %** | **+32,8 %** | **+34,6 %** |
-| Chaîne complète | surconsommation (électricité, eau et compression) | +4,6 % | +5,2 % | +9,1 % |
+| Chaîne complète | surconsommation (électricité, eau et compression) | +4,5 % | +5,2 % | +9,1 % |
 | | remplacement (stacks de pile et d'électrolyseur) | +0,5 % | +25,9 % | +25,9 % |
 | | **les deux** | **+5,0 %** | **+31,1 %** | **+35,0 %** |
 

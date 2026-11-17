@@ -73,9 +73,9 @@ It computes the impact for every stack lifetime from 1 500 to 12 000 h (`results
 
 | Stack lifetime | Fuel cell stacks | Whole chain rise |
 |---|---|---|
-| 1 851 to 2 777 h | 3 | about +57 % |
+| 1 851 to 2 777 h | 3 | about +56 % |
 | 2 777 to 5 554 h | 2 | about +31 % |
-| more than 5 554 h | 1 | about +7 % |
+| more than 5 554 h | 1 | about +6 % |
 
 **What it shows:** the result moves by steps. A stack that lasts 4 100 h and one that lasts 5 000 h both need a replacement, so they give almost the same result (+31.1 % and +31.4 %). A stack that goes from 5 500 to 5 600 h crosses the threshold: one stack is enough, and the rise falls from about +31 % to about +7 %. Gaining a few hundred hours is useless unless it crosses a threshold; for this vehicle, the target is to exceed 5 554 h.
 

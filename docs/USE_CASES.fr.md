@@ -73,9 +73,9 @@ Le script calcule l'impact pour chaque durée de vie de 1 500 à 12 000 h (`resu
 
 | Durée de vie du stack | Stacks de pile | Hausse de la chaîne |
 |---|---|---|
-| de 1 851 à 2 777 h | 3 | environ +57 % |
+| de 1 851 à 2 777 h | 3 | environ +56 % |
 | de 2 777 à 5 554 h | 2 | environ +31 % |
-| plus de 5 554 h | 1 | environ +7 % |
+| plus de 5 554 h | 1 | environ +6 % |
 
 **Ce que ça montre :** le résultat évolue par paliers. Un stack qui dure 4 100 h et un stack qui dure 5 000 h demandent tous deux un remplacement, donc ils donnent presque le même résultat (+31,1 % et +31,4 %). Un stack qui passe de 5 500 à 5 600 h franchit le seuil : un seul stack suffit, et la hausse tombe d'environ +31 % à environ +7 %. Gagner quelques centaines d'heures ne sert à rien tant qu'aucun seuil n'est franchi ; pour ce véhicule, l'objectif est de dépasser 5 554 h.
 
