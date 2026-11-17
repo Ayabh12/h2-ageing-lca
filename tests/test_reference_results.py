@@ -131,6 +131,35 @@ def test_own_fabrication_file():
     close_pt(ch.loc["central", "rise_pct"], 25.49)
 
 
+def test_semi_empirical_constant():
+    """Pessimistic fuel cell: high-current voltage loss 27 mV instead of 45 mV (value of another cell)."""
+    cfg = load_config()
+    cfg["cases"]["pessimistic"]["fuel_cell"]["voltage_loss_at_1p8_A_cm2_1000h_V"] = 0.027
+    out = run(cfg)
+    life = out["life"].set_index("case").loc["pessimistic"]
+    close_rel(life["fuel_cell_end_of_life_h"], 5652.435)
+    assert life["fuel_cell_stacks"] == 1
+    close_pt(out["chain"].set_index("case").loc["pessimistic", "rise_pct"], 12.82)
+
+
+def test_crossover_law_exponential():
+    """Exponential crossover law instead of linear: same end of life, slightly higher over-consumption."""
+    cfg = load_config()
+    cfg["fuel_cell"]["crossover_law"] = "exponential"
+    out = run(cfg)
+    close_rel(out["life"].set_index("case").loc["pessimistic", "fuel_cell_end_of_life_h"], 2894.516)
+    close_pt(out["chain"].set_index("case").loc["pessimistic", "rise_pct"], 36.93)
+
+
+def test_linear_model_same_end_of_life():
+    """Pessimistic fuel cell with the linear model set to the same end of life: only the shape changes."""
+    cfg = load_config()
+    cfg["cases"]["pessimistic"]["fuel_cell"] = {"model": "linear", "hours_to_end_of_life": 2895}
+    out = run(cfg)
+    assert out["life"].set_index("case").loc["pessimistic", "fuel_cell_stacks"] == 2
+    close_pt(out["chain"].set_index("case").loc["pessimistic", "rise_pct"], 33.74)
+
+
 if __name__ == "__main__":
     tests = [v for k, v in dict(globals()).items() if k.startswith("test_")]
     for t in tests:

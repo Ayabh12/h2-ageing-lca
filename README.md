@@ -54,7 +54,7 @@ This repository lets anyone recompute this result for their own case.
 - **Any value or any inventory can be changed without rewriting the code.** The inputs are in one configuration file, the fabrication inventories in CSV tables; after a change, the end of life, the number of stacks and the impact are recomputed automatically.
 - **Models built on real measurements**: a Toyota Mirai II fuel cell recorded on the road, and a Nel MC250 electrolyser following a wind production profile (public NLR data).
 - **Usable without an ecoinvent licence**, and complete with one: both ways are described step by step ([section 4](#4-use-without-and-with-an-ecoinvent-licence)).
-- **Results checked automatically.** At every change of the repository, GitHub runs 10 tests again. Each one recomputes a result (end of life and number of stacks, each component alone, whole chain, 16 categories, electricity sources, among others) and checks that it is identical to the reference result. The "tests" badge at the top of this page is green when all tests pass; it turns red if a change alters a result.
+- **Results checked automatically.** At every change of the repository, GitHub runs 13 tests again. Each one recomputes a result (end of life and number of stacks, each component alone, whole chain, 16 categories, electricity sources, among others) and checks that it is identical to the reference result. The "tests" badge at the top of this page is green when all tests pass; it turns red if a change alters a result.
 - **Open and bilingual**: every page exists in English and French, and anyone can reproduce the results or test their own case.
 
 **Try it in one command.** If the fuel cell lasts 6 000 h instead of 4 100 h, one stack lasts the whole vehicle life, and the rise of the central case falls from +31.1 % to +6.4 %:
@@ -121,7 +121,7 @@ git clone https://github.com/Ayabh12/h2-ageing-lca
 cd h2-ageing-lca
 pip install -r requirements.txt
 python scripts/run.py                    # default configuration, about 2 s
-python tests/test_reference_results.py   # 10 tests: the default configuration gives the reference results
+python tests/test_reference_results.py   # 13 tests: the default configuration gives the reference results
 ```
 
 **In Jupyter**, this method works everywhere, with or without Git installed. Copy these two cells into a new notebook:
@@ -186,7 +186,7 @@ print(run(cfg)["chain"])
 
 If the script stops with "0 matches" or "2 matches", the ecoinvent activity named in the inventory was not found, or not found once: check its name, location and reference product in your ecoinvent database. If the download fails, check that your ecoinvent account gives access to version 3.11.
 
-All these steps, with the check of the 16 categories and examples with and without a licence (expected values given), are ready to run in Jupyter: [examples/check_and_examples.ipynb](examples/check_and_examples.ipynb).
+All these steps, with the check of the 16 categories and examples with and without a licence, including examples that change a constant, a law or the model of a case (expected values given), are ready to run in Jupyter: [examples/check_and_examples.ipynb](examples/check_and_examples.ipynb).
 
 ## 5. Use and adapt it: six levels, with examples
 

@@ -54,7 +54,7 @@ Ce dépôt permet à chacun de recalculer ce résultat pour son propre cas.
 - **N'importe quelle valeur ou n'importe quel inventaire se change sans réécrire le code.** Les valeurs d'entrée sont dans un seul fichier de configuration, les inventaires de fabrication dans des tableaux CSV ; après un changement, la fin de vie, le nombre de stacks et l'impact sont recalculés automatiquement.
 - **Des modèles construits sur des mesures réelles** : une pile de Toyota Mirai II enregistrée sur route, et un électrolyseur Nel MC250 qui suit un profil de production éolienne (données publiques du NLR).
 - **Utilisable sans licence ecoinvent**, et complet avec une licence : les deux façons de faire sont décrites pas à pas ([section 4](#4-utilisation-sans-et-avec-licence-ecoinvent)).
-- **Des résultats contrôlés automatiquement.** À chaque modification du dépôt, GitHub relance 10 tests. Chacun recalcule un résultat (fin de vie et nombre de stacks, chaque composant seul, chaîne complète, 16 catégories, sources d'électricité, entre autres) et vérifie qu'il est identique au résultat de référence. Le badge « tests » en haut de cette page est vert quand tous les tests passent ; il devient rouge si une modification change un résultat.
+- **Des résultats contrôlés automatiquement.** À chaque modification du dépôt, GitHub relance 13 tests. Chacun recalcule un résultat (fin de vie et nombre de stacks, chaque composant seul, chaîne complète, 16 catégories, sources d'électricité, entre autres) et vérifie qu'il est identique au résultat de référence. Le badge « tests » en haut de cette page est vert quand tous les tests passent ; il devient rouge si une modification change un résultat.
 - **Ouvert et bilingue** : chaque page existe en français et en anglais, et n'importe qui peut reproduire les résultats ou tester son propre cas.
 
 **À essayer en une commande.** Si la pile dure 6 000 h au lieu de 4 100 h, un seul stack suffit sur toute la vie du véhicule, et la hausse du cas central passe de +31,1 % à +6,4 % :
@@ -121,7 +121,7 @@ git clone https://github.com/Ayabh12/h2-ageing-lca
 cd h2-ageing-lca
 pip install -r requirements.txt
 python scripts/run.py                    # configuration par défaut, environ 2 s
-python tests/test_reference_results.py   # 10 tests : la configuration par défaut redonne les résultats de référence
+python tests/test_reference_results.py   # 13 tests : la configuration par défaut redonne les résultats de référence
 ```
 
 **Dans Jupyter**, cette méthode marche partout, avec ou sans Git installé. Copiez ces deux cellules dans un nouveau notebook :
@@ -186,7 +186,7 @@ print(run(cfg)["chain"])
 
 Si le script s'arrête avec « 0 matches » ou « 2 matches », l'activité ecoinvent nommée dans l'inventaire n'a pas été trouvée, ou pas une seule fois : vérifiez son nom, sa localisation et son produit de référence dans votre base ecoinvent. Si le téléchargement échoue, vérifiez que votre compte ecoinvent donne accès à la version 3.11.
 
-Toutes ces étapes, avec la vérification des 16 catégories et des exemples avec et sans licence (valeurs attendues indiquées), sont prêtes à lancer dans Jupyter : [examples/check_and_examples.fr.ipynb](examples/check_and_examples.fr.ipynb).
+Toutes ces étapes, avec la vérification des 16 catégories et des exemples avec et sans licence, dont des exemples qui changent une constante, une loi ou le modèle d'un cas (valeurs attendues indiquées), sont prêtes à lancer dans Jupyter : [examples/check_and_examples.fr.ipynb](examples/check_and_examples.fr.ipynb).
 
 ## 5. L'utiliser et l'adapter : six niveaux, avec exemples
 
