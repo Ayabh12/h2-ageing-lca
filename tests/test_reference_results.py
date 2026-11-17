@@ -104,6 +104,33 @@ def test_electrolyser_hours():
             assert life.loc[case, "electrolyser_stacks"] == r["electrolyser_stacks"][case]
 
 
+def test_fuel_cell_lifetime_6000h():
+    """Central fuel cell at 6 000 h instead of 4 100 h: one stack instead of two (threshold 5 554 h)."""
+    out = run(with_values(CFG, **{"cases.central.fuel_cell.hours_to_end_of_life": 6000}))
+    assert out["life"].set_index("case").loc["central", "fuel_cell_stacks"] == 1
+    ch = out["chain"].set_index("case")
+    close_rel(ch.loc["central", "total_g_per_km"], 78.882177)
+    close_pt(ch.loc["central", "rise_pct"], 6.42)
+
+
+def test_own_fabrication_file():
+    """A fabrication file of your own (here: fuel cell stack 30 % lower in climate change) is used by the model."""
+    import tempfile
+
+    import pandas as pd
+
+    fab = pd.read_csv(ROOT / "data/impacts/fabrication_per_unit.csv").set_index("category")
+    fab.loc["climate_change", "fuel_cell_stack_128kW"] *= 0.7
+    with tempfile.TemporaryDirectory() as d:
+        path = Path(d) / "my_fabrication.csv"
+        fab.to_csv(path)
+        out = run(with_values(CFG, **{"fabrication.file": str(path)}))
+    ch = out["chain"].set_index("case")
+    close_rel(ch.loc["no_ageing", "total_g_per_km"], 68.575087)
+    close_rel(ch.loc["central", "total_g_per_km"], 86.057652)
+    close_pt(ch.loc["central", "rise_pct"], 25.49)
+
+
 if __name__ == "__main__":
     tests = [v for k, v in dict(globals()).items() if k.startswith("test_")]
     for t in tests:

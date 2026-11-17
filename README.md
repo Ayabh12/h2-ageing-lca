@@ -190,7 +190,7 @@ data/
 tests/                     reference results and the tests that check them
 notebooks/                 original research notebooks (French)
 docs/                      method, use and adaptation, worked examples, customisation, limits
-examples/                  Jupyter notebook: use and adapt the model in six levels
+examples/                  Jupyter notebooks: use and adapt the model in six levels; checks and examples with and without ecoinvent
 ```
 
 ## 8. Data and ecoinvent
@@ -235,6 +235,8 @@ In Jupyter, write `!{sys.executable}` instead of `python` at the start of each c
 7. **Use the new impacts in the model**: `python scripts/run.py --set fabrication.file=results/<file>.csv --out results/<name>`.
 
 If the script stops with "0 matches" or "2 matches", the ecoinvent activity named in the inventory was not found, or not found once: check its name, location and reference product in your ecoinvent database. If the download fails, check that your ecoinvent account gives access to version 3.11.
+
+All these steps, with the check of the 16 categories and examples with and without a licence (expected values given), are ready to run in Jupyter: [examples/check_and_examples.ipynb](examples/check_and_examples.ipynb).
 
 The foreground inventories, with the ecoinvent activity used for each flow, are in `data/inventories`. Sources and licences of each file: [data/README.md](data/README.md).
 
