@@ -74,9 +74,49 @@ python scripts/run.py --set cases.central.fuel_cell.hours_to_end_of_life=6000
 
 ## 3. What the code does
 
-```
-electricity source -> PEM electrolyser -> compression -> type IV tank -> PEM fuel cell
-(configurable)        Nel MC250, 1.25 MW   700 bar        142.2 L         Toyota Mirai II
+```mermaid
+flowchart TB
+    subgraph E["Inputs · config/default.yaml and data/"]
+        direction LR
+        e1["Measurements<br/>wind profile of the Nel MC250<br/>road trips of the Mirai II"]
+        e2["Three ageing cases<br/>optimistic · central · pessimistic"]
+        e3["Fabrication inventories<br/>stacks and tank"]
+        e4["Characterised impacts<br/>ecoinvent 3.11 · EF 3.1"]
+        e1 ~~~ e2 ~~~ e3 ~~~ e4
+    end
+
+    subgraph C["The chain studied"]
+        direction LR
+        c1["Electricity<br/>configurable"] --> c2["PEM electrolyser<br/>Nel MC250, 1.25 MW"] --> c3["Compression<br/>700 bar"] --> c4["Type IV tank<br/>142.2 L"] --> c5["PEM fuel cell<br/>Toyota Mirai II"] --> c6(["1 km driven"])
+    end
+
+    subgraph M["What the code computes"]
+        direction LR
+        m1["1 · Reference<br/>performance"] --> m2["2 · Ageing<br/>over 15 years"] --> m3["3 · End of life<br/>and number of stacks"] --> m4["4 · LCA<br/>over-consumption + replacement"]
+    end
+
+    subgraph R["Results"]
+        direction LR
+        r1["Each component<br/>and the whole chain"]
+        r2["With and without ageing<br/>16 EF 3.1 categories"]
+        r3["Sensitivity<br/>electricity · threshold · Sobol"]
+        r1 ~~~ r2 ~~~ r3
+    end
+
+    E --> C --> M --> R
+
+    classDef inp fill:#e8f0fa,stroke:#3b6ea5,color:#1d2b3a
+    classDef chain fill:#fdf1dc,stroke:#c9892b,color:#3a2a10
+    classDef code fill:#ece6f6,stroke:#6c4fa3,color:#2a1d40
+    classDef res fill:#e3f1e3,stroke:#3d8b3d,color:#163016
+    class e1,e2,e3,e4 inp
+    class c1,c2,c3,c4,c5,c6 chain
+    class m1,m2,m3,m4 code
+    class r1,r2,r3 res
+    style E fill:#ffffff,stroke:#3b6ea5
+    style C fill:#ffffff,stroke:#c9892b
+    style M fill:#ffffff,stroke:#6c4fa3
+    style R fill:#ffffff,stroke:#3d8b3d
 ```
 
 1. **Reference performance.** A polarisation model is fitted on measurements: the wind profile of a Nel MC250 electrolyser (public NLR data) and road trips of a Toyota Mirai II fuel cell. The profile says how the electrolyser operates, not where the electricity comes from, which is chosen separately (French residual mix by default).

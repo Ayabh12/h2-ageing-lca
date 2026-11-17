@@ -74,9 +74,49 @@ python scripts/run.py --set cases.central.fuel_cell.hours_to_end_of_life=6000
 
 ## 3. Ce que fait le code
 
-```
-source d'électricité -> électrolyseur PEM -> compression -> réservoir type IV -> pile PEM
-(au choix)              Nel MC250, 1,25 MW   700 bar        142,2 L             Toyota Mirai II
+```mermaid
+flowchart TB
+    subgraph E["Entrées · config/default.yaml et data/"]
+        direction LR
+        e1["Mesures<br/>profil éolien du Nel MC250<br/>trajets sur route de la Mirai II"]
+        e2["Trois cas de vieillissement<br/>optimiste · central · pessimiste"]
+        e3["Inventaires de fabrication<br/>stacks et réservoir"]
+        e4["Impacts caractérisés<br/>ecoinvent 3.11 · EF 3.1"]
+        e1 ~~~ e2 ~~~ e3 ~~~ e4
+    end
+
+    subgraph C["La chaîne étudiée"]
+        direction LR
+        c1["Électricité<br/>au choix"] --> c2["Électrolyseur PEM<br/>Nel MC250, 1,25 MW"] --> c3["Compression<br/>700 bar"] --> c4["Réservoir type IV<br/>142,2 L"] --> c5["Pile PEM<br/>Toyota Mirai II"] --> c6(["1 km parcouru"])
+    end
+
+    subgraph M["Ce que calcule le code"]
+        direction LR
+        m1["1 · Performance<br/>de référence"] --> m2["2 · Vieillissement<br/>sur 15 ans"] --> m3["3 · Fin de vie<br/>et nombre de stacks"] --> m4["4 · ACV<br/>surconsommation + remplacement"]
+    end
+
+    subgraph R["Résultats"]
+        direction LR
+        r1["Chaque composant<br/>et la chaîne complète"]
+        r2["Avec et sans vieillissement<br/>16 catégories EF 3.1"]
+        r3["Sensibilité<br/>électricité · seuil · Sobol"]
+        r1 ~~~ r2 ~~~ r3
+    end
+
+    E --> C --> M --> R
+
+    classDef inp fill:#e8f0fa,stroke:#3b6ea5,color:#1d2b3a
+    classDef chain fill:#fdf1dc,stroke:#c9892b,color:#3a2a10
+    classDef code fill:#ece6f6,stroke:#6c4fa3,color:#2a1d40
+    classDef res fill:#e3f1e3,stroke:#3d8b3d,color:#163016
+    class e1,e2,e3,e4 inp
+    class c1,c2,c3,c4,c5,c6 chain
+    class m1,m2,m3,m4 code
+    class r1,r2,r3 res
+    style E fill:#ffffff,stroke:#3b6ea5
+    style C fill:#ffffff,stroke:#c9892b
+    style M fill:#ffffff,stroke:#6c4fa3
+    style R fill:#ffffff,stroke:#3d8b3d
 ```
 
 1. **Performance de référence.** Un modèle de polarisation est ajusté sur des mesures : le profil éolien d'un électrolyseur Nel MC250 (données publiques du NLR) et des trajets sur route de la pile d'une Toyota Mirai II. Le profil dit comment l'électrolyseur fonctionne, pas d'où vient l'électricité, qui se choisit à part (mix résiduel français par défaut).
