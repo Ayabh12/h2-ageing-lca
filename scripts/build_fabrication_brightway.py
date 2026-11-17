@@ -157,6 +157,10 @@ def main():
         return
     if not a.project:
         ap.error("--project is required (or use --check)")
+    import warnings
+    # Brightway notices that do not change the result (solver speed, default activity type)
+    warnings.filterwarnings("ignore", message="No fast sparse solver found")
+    warnings.filterwarnings("ignore", message=".*has no `type` specified.*")
     import bw2calc as bc
     import bw2data as bd
 
