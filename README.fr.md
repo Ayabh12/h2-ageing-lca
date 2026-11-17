@@ -201,9 +201,33 @@ Aucune donnée ecoinvent n'est distribuée, conformément à sa licence. Le mod�
 |---|---|---|
 | Ce que vous pouvez faire | lancer le modèle, changer n'importe quelle entrée et reproduire tous les résultats | en plus, changer un inventaire de fabrication et recalculer son impact |
 | Ce qui est utilisé | `data/impacts` : résultats caractérisés seulement (impact d'1 kWh, d'1 kg d'eau, d'un stack ou d'un réservoir fabriqué) | votre propre ecoinvent 3.11 cut-off, importé dans Brightway avec votre identifiant ecoinvent |
-| Commandes | `python scripts/run.py` | `pip install -r requirements-brightway.txt`, puis `python scripts/build_fabrication_brightway.py --project h2ageing --import-ecoinvent` |
+| Ce qu'il faut installer | `requirements.txt` | `requirements.txt` et `requirements-brightway.txt` |
 
-Avec une licence, le script demande votre identifiant et votre mot de passe ecoinvent (ou les lit dans les variables d'environnement `EI_USERNAME` et `EI_PASSWORD`), télécharge et importe ecoinvent 3.11 cut-off dans le projet Brightway, reconstruit les deux stacks et le réservoir à partir de `data/inventories`, et écrit un nouveau fichier de fabrication ; votre identifiant n'est jamais écrit dans un fichier. Les inventaires de premier plan, avec l'activité ecoinvent utilisée pour chaque flux, sont dans `data/inventories`. Sources et licences de chaque fichier : [data/README.fr.md](data/README.fr.md).
+Dans Jupyter, écrivez `!{sys.executable}` à la place de `python` au début de chaque commande (voir [Démarrage rapide](#4-démarrage-rapide)).
+
+### Sans licence ecoinvent
+
+1. **Lancer le modèle** : `python scripts/run.py --out results/<nom>`. Les tableaux sont écrits dans ce dossier (liste dans [docs/CUSTOMISE.fr.md](docs/CUSTOMISE.fr.md)).
+2. **Changer une entrée** : ajoutez `--set clé=valeur` à la commande (un par valeur), ou copiez `config/default.yaml`, modifiez-le et lancez avec `--config <votre fichier>`. Toutes les clés sont listées dans [docs/CUSTOMISE.fr.md](docs/CUSTOMISE.fr.md).
+3. **Utiliser votre propre impact de fabrication** : copiez `data/impacts/fabrication_per_unit.csv`, changez les valeurs (impact d'une unité de chaque composant dans les 16 catégories EF 3.1), puis lancez avec `--set fabrication.file=<votre fichier>`.
+
+### Avec une licence ecoinvent
+
+1. **Installer Brightway** (une fois) : `pip install -U -r requirements-brightway.txt`.
+2. **Donner votre identifiant ecoinvent.** Deux façons :
+   - laisser le script le demander : il demande votre identifiant, puis votre mot de passe (le mot de passe ne s'affiche pas pendant la saisie) ;
+   - ou le définir avant, dans deux variables d'environnement, `EI_USERNAME` et `EI_PASSWORD` : dans un terminal Windows `set EI_USERNAME=...`, sous macOS ou Linux `export EI_USERNAME=...` (de même pour `EI_PASSWORD`) ; dans Jupyter, `os.environ["EI_USERNAME"] = input()` et `os.environ["EI_PASSWORD"] = getpass.getpass()`.
+
+   Votre identifiant est seulement envoyé à ecoinvent pour télécharger la base ; il n'est jamais écrit dans un fichier. Ne le tapez pas dans une cellule de notebook que vous partagez.
+3. **Importer ecoinvent et recalculer les impacts** : `python scripts/build_fabrication_brightway.py --project <projet> --import-ecoinvent --out results/<fichier>.csv`. La première fois, ecoinvent 3.11 cut-off, sa biosphère et ses méthodes d'impact sont téléchargés et importés dans le projet Brightway `<projet>` ; cela prend d'environ 20 minutes à moins d'une heure. Les fois suivantes, le script trouve ecoinvent dans le projet et ne fait que recalculer (environ une minute). Il affiche les 16 méthodes EF 3.1 utilisées, puis l'impact de chaque composant sur le changement climatique.
+4. **Vérifier votre installation** (une fois) : lancez l'étape 3 sur les inventaires tels que fournis et comparez le fichier écrit avec `data/impacts/fabrication_per_unit.csv` : les valeurs doivent être les mêmes.
+5. **Changer un inventaire** : dans `data/inventories/*.csv`, changez une quantité, l'activité ecoinvent ou sa localisation, ou mettez `included` à `no` pour retirer une ligne (colonnes expliquées dans [data/inventories/README.fr.md](data/inventories/README.fr.md)).
+6. **Recalculer** : relancez l'étape 3 avec un autre fichier de sortie.
+7. **Utiliser les nouveaux impacts dans le modèle** : `python scripts/run.py --set fabrication.file=results/<fichier>.csv --out results/<nom>`.
+
+Si le script s'arrête avec « 0 matches » ou « 2 matches », l'activité ecoinvent nommée dans l'inventaire n'a pas été trouvée, ou pas une seule fois : vérifiez son nom, sa localisation et son produit de référence dans votre base ecoinvent. Si le téléchargement échoue, vérifiez que votre compte ecoinvent donne accès à la version 3.11.
+
+Les inventaires de premier plan, avec l'activité ecoinvent utilisée pour chaque flux, sont dans `data/inventories`. Sources et licences de chaque fichier : [data/README.fr.md](data/README.fr.md).
 
 ## 9. Limites
 

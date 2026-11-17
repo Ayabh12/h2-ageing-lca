@@ -201,9 +201,33 @@ No ecoinvent dataset is distributed, in line with its licence. The model can be 
 |---|---|---|
 | What you can do | run the model, change any input and reproduce every result | in addition, change a fabrication inventory and recompute its impact |
 | What is used | `data/impacts`: characterised results only (impact of 1 kWh, of 1 kg of water, of one manufactured stack or tank) | your own ecoinvent 3.11 cut-off, imported in Brightway with your ecoinvent login |
-| Commands | `python scripts/run.py` | `pip install -r requirements-brightway.txt`, then `python scripts/build_fabrication_brightway.py --project h2ageing --import-ecoinvent` |
+| What to install | `requirements.txt` | `requirements.txt` and `requirements-brightway.txt` |
 
-With a licence, the script asks for your ecoinvent username and password (or reads them from the environment variables `EI_USERNAME` and `EI_PASSWORD`), downloads and imports ecoinvent 3.11 cut-off into the Brightway project, rebuilds the two stacks and the tank from `data/inventories`, and writes a new fabrication file; your login is never written to a file. The foreground inventories, with the ecoinvent activity used for each flow, are in `data/inventories`. Sources and licences of each file: [data/README.md](data/README.md).
+In Jupyter, write `!{sys.executable}` instead of `python` at the start of each command (see [Quick start](#4-quick-start)).
+
+### Without an ecoinvent licence
+
+1. **Run the model**: `python scripts/run.py --out results/<name>`. The tables are written in that folder (list in [docs/CUSTOMISE.md](docs/CUSTOMISE.md)).
+2. **Change an input**: add `--set key=value` to the command (one per value), or copy `config/default.yaml`, change it and run with `--config <your file>`. Every key is listed in [docs/CUSTOMISE.md](docs/CUSTOMISE.md).
+3. **Use your own fabrication impact**: copy `data/impacts/fabrication_per_unit.csv`, change the values (impact of one unit of each component in the 16 EF 3.1 categories), then run with `--set fabrication.file=<your file>`.
+
+### With an ecoinvent licence
+
+1. **Install Brightway** (once): `pip install -U -r requirements-brightway.txt`.
+2. **Give your ecoinvent login.** Two ways:
+   - let the script ask for it: it asks for your username, then your password (the password is not shown while you type);
+   - or set it beforehand in two environment variables, `EI_USERNAME` and `EI_PASSWORD`: in a Windows terminal `set EI_USERNAME=...`, in macOS or Linux `export EI_USERNAME=...` (same for `EI_PASSWORD`); in Jupyter, `os.environ["EI_USERNAME"] = input()` and `os.environ["EI_PASSWORD"] = getpass.getpass()`.
+
+   Your login is only sent to ecoinvent to download the database; it is never written to a file. Do not type it in a notebook cell you share.
+3. **Import ecoinvent and recompute the impacts**: `python scripts/build_fabrication_brightway.py --project <project> --import-ecoinvent --out results/<file>.csv`. The first time, ecoinvent 3.11 cut-off, its biosphere and its impact methods are downloaded and imported into the Brightway project `<project>`; this takes from about 20 minutes to under an hour. The next times, the script finds ecoinvent in the project and only recomputes (about one minute). It prints the 16 EF 3.1 methods it uses, then the climate change impact of each component.
+4. **Check your installation** (once): run step 3 on the inventories as shipped and compare the file written with `data/impacts/fabrication_per_unit.csv`: the values should be the same.
+5. **Change an inventory**: in `data/inventories/*.csv`, change an amount, the ecoinvent activity or its location, or set `included` to `no` to leave a row out (columns explained in [data/inventories/README.md](data/inventories/README.md)).
+6. **Recompute**: run step 3 again with another output file.
+7. **Use the new impacts in the model**: `python scripts/run.py --set fabrication.file=results/<file>.csv --out results/<name>`.
+
+If the script stops with "0 matches" or "2 matches", the ecoinvent activity named in the inventory was not found, or not found once: check its name, location and reference product in your ecoinvent database. If the download fails, check that your ecoinvent account gives access to version 3.11.
+
+The foreground inventories, with the ecoinvent activity used for each flow, are in `data/inventories`. Sources and licences of each file: [data/README.md](data/README.md).
 
 ## 9. Limits
 
