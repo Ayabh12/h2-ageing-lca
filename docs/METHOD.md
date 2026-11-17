@@ -132,7 +132,7 @@ $`t_{\mathrm{EoL}}`$ is the published time to end of life: 8 000 h (DOE target, 
 
 ### 2.5 End of life
 
-Age at which the stack voltage at 300 A has lost 10 % (DOE criterion), found with Brent's method between 0 and 60 000 h.
+Age at which the stack voltage at 300 A has lost 10 % (DOE criterion), found with Brent's method between 0 and 60 000 h. The DOE measures this loss between 1.0 and 1.5 A/cm² (DOE technical targets for PEM fuel cell components, 2017); with 297 cm² of active area, 300 A corresponds to 1.01 A/cm². At this current, the reference cell voltage is 0.7324 V; end of life is reached at 0.6592 V.
 
 ---
 

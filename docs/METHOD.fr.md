@@ -132,7 +132,7 @@ $`t_{\mathrm{FdV}}`$ est la durée de vie publiée : 8 000 h (objectif du DOE, o
 
 ### 2.5 Fin de vie
 
-Âge auquel la tension du stack à 300 A a perdu 10 % (critère du DOE), trouvé par la méthode de Brent entre 0 et 60 000 h.
+Âge auquel la tension du stack à 300 A a perdu 10 % (critère du DOE), trouvé par la méthode de Brent entre 0 et 60 000 h. Le DOE mesure cette perte entre 1,0 et 1,5 A/cm² (objectifs techniques du DOE pour les composants de pile PEM, 2017) ; avec 297 cm² de surface active, 300 A correspondent à 1,01 A/cm². À ce courant, la tension de cellule de référence est de 0,7324 V ; la fin de vie est atteinte à 0,6592 V.
 
 ---
 
