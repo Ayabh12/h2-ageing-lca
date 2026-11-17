@@ -39,24 +39,9 @@ python scripts/run.py --set cases.central.fuel_cell.hours_to_end_of_life=6000
 | Stacks de pile | 2 | 1 |
 | Chaîne complète (g CO2-éq/km) | 97,15 (+31,1 %) | 78,88 (+6,4 %) |
 
-**Ce que ça montre :** au-delà de l'horizon de 5 554 heures de fonctionnement, un seul stack suffit, et la hausse passe de +31 % à +6 %. L'exemple 5 donne les seuils exacts.
+**Ce que ça montre :** au-delà de l'horizon de 5 554 heures de fonctionnement, un seul stack suffit, et la hausse passe de +31 % à +6 %. L'exemple 4 donne les seuils exacts.
 
-## 3. Et si le dernier stack a une seconde vie ?
-
-**Pourquoi se poser la question :** la référence compte chaque stack commencé comme un stack entier (`integer`). Si la vie restante du dernier stack est utilisée ailleurs, seule la part de vie utilisée devrait être comptée (`prorata`).
-
-```bash
-python scripts/run.py --set usage.stack_counting=prorata
-```
-
-| | Optimiste | Central | Pessimiste |
-|---|---|---|---|
-| Hausse, comptage entier (référence) | +5,0 % | +31,1 % | +35,0 % |
-| Hausse, comptage au prorata | +4,6 % | +14,7 % | +32,8 % |
-
-**Ce que ça montre :** seul le cas central change beaucoup, car son second stack de pile n'est utilisé qu'à 35 % avant la fin de l'horizon. Le prorata est une borne basse : il suppose une filière de seconde vie qui n'existe pas aujourd'hui pour ces stacks.
-
-## 4. Et si le véhicule roule moins ?
+## 3. Et si le véhicule roule moins ?
 
 **Pourquoi se poser la question :** 200 000 km est la cible de Toyota pour le stack de la Mirai II ; un véhicule peut être retiré plus tôt.
 
@@ -70,7 +55,7 @@ python scripts/run.py --set horizon.vehicle_km_total=150000
 
 **Ce que ça montre :** la fabrication est répartie sur moins de kilomètres, donc toutes les valeurs augmentent, et le poids du stack de remplacement aussi.
 
-## 5. Combien de temps un stack de pile doit-il durer pour éviter un remplacement ?
+## 4. Combien de temps un stack de pile doit-il durer pour éviter un remplacement ?
 
 **Pourquoi se poser la question :** pour un constructeur ou un gestionnaire de flotte, la question utile est le seuil, pas la durée de vie exacte.
 
@@ -94,7 +79,7 @@ Le script calcule l'impact pour chaque durée de vie de 1 500 à 12 000 h (`resu
 
 **Ce que ça montre :** le résultat évolue par paliers. Un stack qui dure 4 100 h et un stack qui dure 5 000 h demandent tous deux un remplacement, donc ils donnent presque le même résultat (+31,1 % et +31,4 %). Un stack qui passe de 5 500 à 5 600 h franchit le seuil : un seul stack suffit, et la hausse tombe d'environ +31 % à environ +7 %. Gagner quelques centaines d'heures ne sert à rien tant qu'aucun seuil n'est franchi ; pour ce véhicule, l'objectif est de dépasser 5 554 h.
 
-## 6. Et si j'utilise mes propres constantes de vieillissement ?
+## 5. Et si j'utilise mes propres constantes de vieillissement ?
 
 **Pourquoi se poser la question :** le cas pessimiste utilise des constantes mesurées sur des cellules de laboratoire. Vous avez peut-être d'autres mesures.
 
@@ -118,7 +103,7 @@ Le script change chaque constante du modèle semi-empirique seule, vers une autr
 python scripts/run.py --set cases.pessimistic.fuel_cell.voltage_loss_at_1p8_A_cm2_1000h_V=0.035
 ```
 
-## 7. Quelles entrées comptent le plus, toutes ensemble ?
+## 6. Quelles entrées comptent le plus, toutes ensemble ?
 
 **Pourquoi se poser la question :** les exemples ci-dessus changent une entrée à la fois. L'analyse de sensibilité globale change huit entrées ensemble et les classe.
 
@@ -130,6 +115,22 @@ python scripts/sobol.py --out results      # environ 15 min sur 2 cœurs
 ```
 
 **Ce que ça montre :** l'impact absolu dépend surtout de la source d'électricité (indice de Sobol total 0,78) ; la hausse due au vieillissement dépend presque seulement de la durée de vie du stack de pile (0,94). Les facteurs et leurs plages sont dans `global_sensitivity` de `config/default.yaml`.
+
+
+## 7. Et si le dernier stack a une seconde vie ?
+
+**Pourquoi se poser la question :** la référence compte chaque stack commencé comme un stack entier (`integer`). Si la vie restante du dernier stack est utilisée ailleurs, seule la part de vie utilisée devrait être comptée (`prorata`).
+
+```bash
+python scripts/run.py --set usage.stack_counting=prorata
+```
+
+| | Optimiste | Central | Pessimiste |
+|---|---|---|---|
+| Hausse, comptage entier (référence) | +5,0 % | +31,1 % | +35,0 % |
+| Hausse, comptage au prorata | +4,6 % | +14,7 % | +32,8 % |
+
+**Ce que ça montre :** seul le cas central change beaucoup, car son second stack de pile n'est utilisé qu'à 35 % avant la fin de l'horizon. Le prorata est une borne basse : il suppose une filière de seconde vie qui n'existe pas aujourd'hui pour ces stacks.
 
 ---
 

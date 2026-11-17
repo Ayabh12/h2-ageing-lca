@@ -72,7 +72,7 @@ La méthode complète, avec chaque équation et sa source, est dans [docs/METHOD
 
 | Vous êtes | Ce que vous pouvez faire | Par où commencer |
 |---|---|---|
-| **Praticien de l'ACV** | Ajouter le vieillissement à une ACV de la mobilité hydrogène ; tester votre propre mix électrique, horizon, inventaire ou règle de comptage des stacks | [docs/USE_CASES.fr.md](docs/USE_CASES.fr.md), exemples 1 à 4 |
+| **Praticien de l'ACV** | Ajouter le vieillissement à une ACV de la mobilité hydrogène ; tester votre propre mix électrique, horizon, inventaire ou règle de comptage des stacks | [docs/USE_CASES.fr.md](docs/USE_CASES.fr.md), exemples 1 à 3 et 7 |
 | **Ingénieur ou constructeur** | Voir ce que vaut, en CO2-éq, un stack qui dure plus longtemps ou qui se dégrade moins vite ; trouver la durée de vie qui évite un remplacement | `scripts/threshold.py`, exemple 5 |
 | **Chercheur sur la dégradation** | Brancher vos propres constantes ou votre propre loi de vieillissement et voir l'effet sur l'ACV, sans réécrire l'ACV | [docs/ADAPT.fr.md](docs/ADAPT.fr.md), niveaux 4 et 5 |
 | **Étudiant** | Lire un petit modèle complet d'ACV avec vieillissement, le lancer et le modifier pas à pas | [docs/METHOD.fr.md](docs/METHOD.fr.md), puis les notebooks |

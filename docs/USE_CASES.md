@@ -39,24 +39,9 @@ python scripts/run.py --set cases.central.fuel_cell.hours_to_end_of_life=6000
 | Fuel cell stacks | 2 | 1 |
 | Whole chain (g CO2-eq/km) | 97.15 (+31.1 %) | 78.88 (+6.4 %) |
 
-**What it shows:** above the horizon of 5 554 operating hours, a single stack is enough, and the rise falls from +31 % to +6 %. Example 5 gives the exact thresholds.
+**What it shows:** above the horizon of 5 554 operating hours, a single stack is enough, and the rise falls from +31 % to +6 %. Example 4 gives the exact thresholds.
 
-## 3. What if the last stack gets a second life?
-
-**Why ask:** the reference counts every started stack as a whole stack (`integer`). If the remaining life of the last stack is used elsewhere, only the share of life used should be counted (`prorata`).
-
-```bash
-python scripts/run.py --set usage.stack_counting=prorata
-```
-
-| | Optimistic | Central | Pessimistic |
-|---|---|---|---|
-| Rise, integer counting (reference) | +5.0 % | +31.1 % | +35.0 % |
-| Rise, prorata counting | +4.6 % | +14.7 % | +32.8 % |
-
-**What it shows:** only the central case changes much, because its second fuel cell stack is used at 35 % only before the end of the horizon. Prorata is a lower bound: it assumes a second-life route that does not exist today for these stacks.
-
-## 4. What if the vehicle drives less?
+## 3. What if the vehicle drives less?
 
 **Why ask:** 200 000 km is the Toyota target for the Mirai II stack; a vehicle may be scrapped earlier.
 
@@ -70,7 +55,7 @@ python scripts/run.py --set horizon.vehicle_km_total=150000
 
 **What it shows:** fabrication is spread over fewer kilometres, so every value rises, and so does the weight of the replacement stack.
 
-## 5. How long must a fuel cell stack last to avoid a replacement?
+## 4. How long must a fuel cell stack last to avoid a replacement?
 
 **Why ask:** for a manufacturer or a fleet operator, the useful question is the threshold, not the exact lifetime.
 
@@ -94,7 +79,7 @@ It computes the impact for every stack lifetime from 1 500 to 12 000 h (`results
 
 **What it shows:** the result moves by steps. A stack that lasts 4 100 h and one that lasts 5 000 h both need a replacement, so they give almost the same result (+31.1 % and +31.4 %). A stack that goes from 5 500 to 5 600 h crosses the threshold: one stack is enough, and the rise falls from about +31 % to about +7 %. Gaining a few hundred hours is useless unless it crosses a threshold; for this vehicle, the target is to exceed 5 554 h.
 
-## 6. What if I use my own ageing constants?
+## 5. What if I use my own ageing constants?
 
 **Why ask:** the pessimistic case uses constants measured on laboratory cells. You may have other measurements.
 
@@ -118,7 +103,7 @@ It changes each constant of the semi-empirical model alone, to another published
 python scripts/run.py --set cases.pessimistic.fuel_cell.voltage_loss_at_1p8_A_cm2_1000h_V=0.035
 ```
 
-## 7. Which inputs matter most, all together?
+## 6. Which inputs matter most, all together?
 
 **Why ask:** the examples above change one input at a time. The global sensitivity analysis changes eight inputs together and ranks them.
 
@@ -130,6 +115,22 @@ python scripts/sobol.py --out results      # about 15 min on 2 cores
 ```
 
 **What it shows:** the absolute impact depends mostly on the electricity source (total Sobol index 0.78); the rise due to ageing depends almost only on the fuel cell stack lifetime (0.94). The factors and their ranges are in `global_sensitivity` of `config/default.yaml`.
+
+
+## 7. What if the last stack gets a second life?
+
+**Why ask:** the reference counts every started stack as a whole stack (`integer`). If the remaining life of the last stack is used elsewhere, only the share of life used should be counted (`prorata`).
+
+```bash
+python scripts/run.py --set usage.stack_counting=prorata
+```
+
+| | Optimistic | Central | Pessimistic |
+|---|---|---|---|
+| Rise, integer counting (reference) | +5.0 % | +31.1 % | +35.0 % |
+| Rise, prorata counting | +4.6 % | +14.7 % | +32.8 % |
+
+**What it shows:** only the central case changes much, because its second fuel cell stack is used at 35 % only before the end of the horizon. Prorata is a lower bound: it assumes a second-life route that does not exist today for these stacks.
 
 ---
 
