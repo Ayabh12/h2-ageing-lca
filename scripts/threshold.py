@@ -2,8 +2,8 @@
 
 For each converter, the lifetime of the stack (hours to the 10 % criterion) is varied with the
 linear model; the results of the configured cases (and of the semi-empirical variants) are added
-as points. Writes results/threshold_fuel_cell.csv, results/threshold_electrolyser.csv,
-results/model_choice.csv and results/threshold.pdf.
+as points. Writes results/threshold_fuel_cell.csv, results/threshold_electrolyser.csv and
+results/model_choice.csv.
 
     python scripts/threshold.py [--config ...] [--out results]
 """

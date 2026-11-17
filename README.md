@@ -186,7 +186,7 @@ print(run(cfg)["chain"])
 
 If the script stops with "0 matches" or "2 matches", the ecoinvent activity named in the inventory was not found, or not found once: check its name, location and reference product in your ecoinvent database. If the download fails, check that your ecoinvent account gives access to version 3.11.
 
-All these steps, with the check of the 16 categories and examples with and without a licence, including examples that change a constant, a law or the model of a case (expected values given), are ready to run in Jupyter: [examples/check_and_examples.ipynb](examples/check_and_examples.ipynb).
+All these steps, with the check of the 16 categories and examples with and without a licence, including examples that change a constant, a law or the model of a case, then the 16 impact categories and the sensitivity (electricity source, lifetime threshold, Sobol) (expected values given), are ready to run in Jupyter: [examples/check_and_examples.ipynb](examples/check_and_examples.ipynb).
 
 ## 5. Use and adapt it: six levels, with examples
 

@@ -186,7 +186,7 @@ print(run(cfg)["chain"])
 
 Si le script s'arrête avec « 0 matches » ou « 2 matches », l'activité ecoinvent nommée dans l'inventaire n'a pas été trouvée, ou pas une seule fois : vérifiez son nom, sa localisation et son produit de référence dans votre base ecoinvent. Si le téléchargement échoue, vérifiez que votre compte ecoinvent donne accès à la version 3.11.
 
-Toutes ces étapes, avec la vérification des 16 catégories et des exemples avec et sans licence, dont des exemples qui changent une constante, une loi ou le modèle d'un cas (valeurs attendues indiquées), sont prêtes à lancer dans Jupyter : [examples/check_and_examples.fr.ipynb](examples/check_and_examples.fr.ipynb).
+Toutes ces étapes, avec la vérification des 16 catégories et des exemples avec et sans licence, dont des exemples qui changent une constante, une loi ou le modèle d'un cas, puis les 16 catégories d'impact et la sensibilité (source d'électricité, seuil de durée de vie, Sobol) (valeurs attendues indiquées), sont prêtes à lancer dans Jupyter : [examples/check_and_examples.fr.ipynb](examples/check_and_examples.fr.ipynb).
 
 ## 5. L'utiliser et l'adapter : six niveaux, avec exemples
 
