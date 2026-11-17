@@ -9,6 +9,26 @@ Code : MIT · Données : CC BY 4.0
 
 Ce dépôt contient les modèles, les données et le code d'une analyse du cycle de vie (ACV) qui tient compte du vieillissement des stacks électrochimiques d'une chaîne hydrogène : un électrolyseur PEM, la compression, un réservoir de type IV et une pile à combustible PEM. Chaque résultat se recalcule avec une seule commande, et chaque valeur d'entrée se change dans un seul fichier de configuration.
 
+**Le résultat en bref.** Sur la vie du véhicule (15 ans, 200 000 km), le vieillissement des stacks augmente l'impact de la chaîne sur le changement climatique de **+5,0 %** (cas optimiste) à **+35,0 %** (cas pessimiste), et de **+31,1 %** dans le cas central, fondé sur des systèmes réels mesurés par le DOE. Ce dépôt permet à chacun de recalculer ce résultat pour son propre cas.
+
+**Ce qui distingue ce dépôt**
+
+- **Des modèles construits sur des mesures réelles** : une pile de Toyota Mirai II enregistrée sur route, et un électrolyseur Nel MC250 qui suit un profil de production éolienne (données publiques du NLR).
+- **Des inventaires vérifiés avec deux logiciels** : avec ecoinvent 3.11, Brightway redonne les impacts de fabrication calculés avec Activity Browser dans les 16 catégories EF 3.1 (écart inférieur à 0,01 %).
+- **Utilisable sans licence ecoinvent**, et complet avec une licence : les deux façons de faire sont décrites pas à pas ([section 4](#4-utilisation-sans-et-avec-licence-ecoinvent)).
+- **10 tests automatiques** vérifient les résultats de référence à chaque modification du dépôt.
+- **Ouvert et bilingue** : chaque page existe en français et en anglais, et n'importe qui peut reproduire les résultats ou tester son propre cas.
+
+**À essayer en une commande.** Si la pile dure 6 000 h au lieu de 4 100 h, un seul stack suffit sur toute la vie du véhicule, et la hausse du cas central passe de +31,1 % à +6,4 % :
+
+```bash
+python scripts/run.py --set cases.central.fuel_cell.hours_to_end_of_life=6000
+```
+
+La durée de vie de la pile est le levier principal : dans l'analyse de sensibilité globale, elle explique presque toute la variation de la hausse (indice de Sobol total 0,94).
+
+**À quoi sert ce dépôt.** Un praticien de l'ACV peut ajouter le vieillissement à son étude sans réécrire son modèle : il change ses propres valeurs (électricité, durée de vie, kilométrage, inventaires), et la fin de vie, le nombre de stacks et l'impact sont recalculés automatiquement.
+
 ---
 
 ## Sommaire

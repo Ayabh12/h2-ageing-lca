@@ -9,6 +9,26 @@ Code: MIT · Data: CC BY 4.0
 
 This repository contains the models, data and code of a life cycle assessment (LCA) that accounts for the ageing of the electrochemical stacks of a hydrogen chain: a PEM electrolyser, compression, a type IV tank and a PEM fuel cell. Every result can be recomputed with one command, and every input can be changed in one configuration file.
 
+**The result in short.** Over the vehicle life (15 years, 200 000 km), stack ageing raises the climate change impact of the chain by **+5.0 %** (optimistic case) to **+35.0 %** (pessimistic case), and by **+31.1 %** in the central case, based on real systems measured by the DOE. This repository lets anyone recompute this result for their own case.
+
+**What sets this repository apart**
+
+- **Models built on real measurements**: a Toyota Mirai II fuel cell recorded on the road, and a Nel MC250 electrolyser following a wind production profile (public NLR data).
+- **Inventories checked with two software tools**: with ecoinvent 3.11, Brightway gives back the fabrication impacts computed with Activity Browser in the 16 EF 3.1 categories (difference below 0.01 %).
+- **Usable without an ecoinvent licence**, and complete with one: both ways are described step by step ([section 4](#4-use-without-and-with-an-ecoinvent-licence)).
+- **10 automated tests** check the reference results at every change of the repository.
+- **Open and bilingual**: every page exists in English and French, and anyone can reproduce the results or test their own case.
+
+**Try it in one command.** If the fuel cell lasts 6 000 h instead of 4 100 h, one stack lasts the whole vehicle life, and the rise of the central case falls from +31.1 % to +6.4 %:
+
+```bash
+python scripts/run.py --set cases.central.fuel_cell.hours_to_end_of_life=6000
+```
+
+The fuel cell lifetime is the main lever: in the global sensitivity analysis, it explains almost all the variation of the rise (total Sobol index 0.94).
+
+**What it is for.** An LCA practitioner can add ageing to their study without rewriting their model: they change their own values (electricity, lifetime, mileage, inventories), and the end of life, the number of stacks and the impact are recomputed automatically.
+
 ---
 
 ## Contents
