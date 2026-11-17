@@ -316,7 +316,6 @@ Ce que montrent ces chiffres :
 - **L'électrolyseur est dominé par la surconsommation.** Un stack d'électrolyseur est réparti sur environ 1,19 million de kg d'hydrogène et pèse 0,8 % de l'impact d'1 kg ; l'électricité en plus compte davantage.
 - **Le résultat avance par paliers, car le nombre de stacks est entier.** La pile fonctionne 5 554 h sur 200 000 km : au-dessus, 1 stack suffit (+6 %) ; entre 2 777 et 5 554 h, il en faut 2 (+31 %). Ce qui compte est de franchir le seuil de 5 554 h, pas de gagner quelques heures.
 - **La durée de vie de la pile est l'entrée clé.** Dans l'analyse de sensibilité globale, elle explique presque toute la variation de la hausse (indice de Sobol total 0,94).
-- **Plus l'électricité est propre, plus le vieillissement pèse en %.** L'impact de l'électricité baisse, mais celui des stacks de remplacement reste le même : avec l'éolien, la chaîne passe de 97,2 à 61,3 g/km dans le cas central, et la hausse de +31,1 % à +48,6 %.
 
 ## 11. Citer, licence, contact
 

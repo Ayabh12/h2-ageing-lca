@@ -316,7 +316,6 @@ What these numbers show:
 - **The electrolyser is dominated by over-consumption.** One electrolyser stack is spread over about 1.19 million kg of hydrogen and weighs 0.8 % of the impact of 1 kg; the extra electricity matters more.
 - **The result moves in steps, because the number of stacks is a whole number.** The fuel cell runs 5 554 h over 200 000 km: above that, 1 stack is enough (+6 %); between 2 777 and 5 554 h, 2 are needed (+31 %). What matters is crossing the 5 554 h threshold, not gaining a few hours.
 - **The fuel cell lifetime is the key input.** In the global sensitivity analysis, it explains almost all the variation of the rise (total Sobol index 0.94).
-- **The cleaner the electricity, the more ageing weighs in %.** The electricity impact falls, but that of the replacement stacks stays the same: with wind, the chain goes from 97.2 to 61.3 g/km in the central case, and the rise from +31.1 % to +48.6 %.
 
 ## 11. Cite, licence, contact
 
