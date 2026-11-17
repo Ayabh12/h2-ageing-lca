@@ -85,9 +85,9 @@ flowchart TB
         e1 ~~~ e2 ~~~ e3 ~~~ e4
     end
 
-    subgraph C["The chain studied"]
+    subgraph C["The chain studied · linked by the kg of hydrogen"]
         direction LR
-        c1["Electricity<br/>configurable"] --> c2["PEM electrolyser<br/>Nel MC250, 1.25 MW"] --> c3["Compression<br/>700 bar"] --> c4["Type IV tank<br/>142.2 L"] --> c5["PEM fuel cell<br/>Toyota Mirai II"] --> c6(["1 km driven"])
+        c1["Electricity<br/>configurable"] -->|"kWh per kg H₂"| c2["PEM electrolyser<br/>Nel MC250, 1.25 MW"] -->|"kg H₂"| c3["Compression<br/>700 bar"] -->|"kg H₂"| c4["Type IV tank<br/>142.2 L"] -->|"kg H₂"| c5["PEM fuel cell<br/>Toyota Mirai II"] -->|"kg H₂ per km"| c6(["1 km driven"])
     end
 
     subgraph M["What the code computes · ★ contribution of this work"]
