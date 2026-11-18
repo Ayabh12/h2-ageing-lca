@@ -154,7 +154,8 @@ Aucune donnée ecoinvent n'est distribuée, conformément à sa licence. Le mod�
 
 | | Sans licence ecoinvent | Avec une licence ecoinvent |
 |---|---|---|
-| Ce que vous pouvez faire | lancer le modèle, changer n'importe quelle entrée et reproduire tous les résultats | en plus, changer un inventaire de fabrication et recalculer son impact |
+| **Ce que vous pouvez changer** | toutes les entrées du modèle : durées de vie et constantes de vieillissement, lois de vieillissement, kilométrage, heures de l'électrolyseur, compression, règle de comptage des stacks, source d'électricité (parmi les cinq fournies, ou une nouvelle si vous avez son impact par kWh) ; et l'**impact de fabrication** d'un stack ou du réservoir, en donnant directement votre propre valeur | tout ce qui est possible sans licence, et en plus le **contenu des inventaires de fabrication** : quantités de matériaux et d'énergie, données ecoinvent reliées, lieu de fabrication ; l'impact est alors recalculé |
+| **Ce que vous ne pouvez pas changer** | le **contenu** d'un inventaire de fabrication (par exemple la masse de platine d'un stack) : sans les données ecoinvent, son impact ne peut pas être recalculé | les données ecoinvent elles-mêmes (les procédés d'arrière-plan), que le dépôt utilise sans les modifier |
 | Ce qui est utilisé | `data/impacts` : résultats caractérisés seulement (impact d'1 kWh, d'1 kg d'eau, d'un stack ou d'un réservoir fabriqué) | votre propre ecoinvent 3.11 cut-off, importé dans Brightway avec votre identifiant ecoinvent |
 | Ce qu'il faut installer | `requirements.txt` | `requirements.txt` et `requirements-brightway.txt` |
 
