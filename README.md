@@ -189,6 +189,8 @@ In the steps below, write `!{sys.executable}` instead of `python` if you work in
 
 ### Without an ecoinvent licence
 
+The model then uses impacts already computed with ecoinvent 3.11 (in `data/impacts`, for the 16 EF 3.1 categories): the impact of **1 kWh** of electricity for each of the five sources, of **1 kg** of deionised water, and of the **fabrication of one unit** of each component (one fuel cell stack, one electrolyser stack, one tank). The model computes the quantities (kWh, kg of water, number of stacks) and multiplies them by these impacts. All quantities can therefore be changed, but not the content of a fabrication inventory.
+
 1. **Run the model**: `python scripts/run.py --out results/<name>`. The tables are written in that folder (list in [docs/CUSTOMISE.md](docs/CUSTOMISE.md)).
 2. **Change an input**: add `--set key=value` to the command (one per value), or copy `config/default.yaml`, change it and run with `--config <your file>`. Every key is listed in [docs/CUSTOMISE.md](docs/CUSTOMISE.md).
 3. **Use your own fabrication impact**: copy `data/impacts/fabrication_per_unit.csv`, change the values (impact of one unit of each component in the 16 EF 3.1 categories), then run with `--set fabrication.file=<your file>`.

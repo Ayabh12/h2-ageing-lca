@@ -189,6 +189,8 @@ Dans les étapes ci-dessous, écrivez `!{sys.executable}` à la place de `python
 
 ### Sans licence ecoinvent
 
+Le modèle utilise alors des impacts déjà calculés avec ecoinvent 3.11 (dans `data/impacts`, pour les 16 catégories EF 3.1) : l'impact d'**1 kWh** d'électricité pour chacune des cinq sources, d'**1 kg** d'eau déionisée, et de la **fabrication d'une unité** de chaque composant (un stack de pile, un stack d'électrolyseur, un réservoir). Le modèle calcule les quantités (kWh, kg d'eau, nombre de stacks) et les multiplie par ces impacts. On peut donc changer toutes les quantités, mais pas le contenu d'un inventaire de fabrication.
+
 1. **Lancer le modèle** : `python scripts/run.py --out results/<nom>`. Les tableaux sont écrits dans ce dossier (liste dans [docs/CUSTOMISE.fr.md](docs/CUSTOMISE.fr.md)).
 2. **Changer une entrée** : ajoutez `--set clé=valeur` à la commande (un par valeur), ou copiez `config/default.yaml`, modifiez-le et lancez avec `--config <votre fichier>`. Toutes les clés sont listées dans [docs/CUSTOMISE.fr.md](docs/CUSTOMISE.fr.md).
 3. **Utiliser votre propre impact de fabrication** : copiez `data/impacts/fabrication_per_unit.csv`, changez les valeurs (impact d'une unité de chaque composant dans les 16 catégories EF 3.1), puis lancez avec `--set fabrication.file=<votre fichier>`.
