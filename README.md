@@ -25,7 +25,7 @@ This repository contains the models, data and code of a life cycle assessment (L
 10. [Main results](#10-main-results)
 11. [Cite, licence, contact](#11-cite-licence-contact)
 
-Further documentation: [method](docs/METHOD.md) · [use and adapt the model](docs/ADAPT.md) · [worked examples](docs/USE_CASES.md) · [change any input](docs/CUSTOMISE.md) · [limits and validity domain](docs/LIMITS.md) · [data](data/README.md) · [research notebooks](notebooks/README.md)
+Further documentation: [method](docs/METHOD.md) · [use and adapt the model, with examples](docs/GUIDE.md) · [limits and validity domain](docs/LIMITS.md) · [data](data/README.md) · [research notebooks](notebooks/README.md)
 
 ---
 
@@ -67,9 +67,9 @@ python scripts/run.py --set cases.central.fuel_cell.hours_to_end_of_life=6000
 
 | You are | What you can do | Where to start |
 |---|---|---|
-| **LCA practitioner** | Add ageing to an LCA of hydrogen mobility; test your own electricity mix, horizon, inventories or stack counting rule | [docs/USE_CASES.md](docs/USE_CASES.md), examples 1–3 and 7 |
+| **LCA practitioner** | Add ageing to an LCA of hydrogen mobility; test your own electricity mix, horizon, inventories or stack counting rule | [docs/GUIDE.md](docs/GUIDE.md#5-worked-examples), examples 1–3 and 9 |
 | **Engineer or manufacturer** | See what a longer stack lifetime or a slower degradation rate is worth in CO2-eq; find the lifetime threshold that removes one replacement | `scripts/threshold.py`, example 4 |
-| **Researcher on degradation** | Plug in your own ageing constants or ageing law and see the effect on the LCA, without rewriting the LCA | [docs/ADAPT.md](docs/ADAPT.md), levels 4 and 5 |
+| **Researcher on degradation** | Plug in your own ageing constants or ageing law and see the effect on the LCA, without rewriting the LCA | [docs/GUIDE.md](docs/GUIDE.md#5-worked-examples), examples 5 and 7 |
 | **Student** | Read a complete, small LCA model with ageing, run it, and modify it step by step | [docs/METHOD.md](docs/METHOD.md), then the notebooks |
 
 ## 3. What the code does
@@ -197,8 +197,8 @@ In the steps below, write `!{sys.executable}` instead of `python` if you work in
 
 The model then uses impacts already computed with ecoinvent 3.11 (in `data/impacts`, for the 16 EF 3.1 categories): the impact of **1 kWh** of electricity for each of the five sources, of **1 kg** of deionised water, and of the **fabrication of one unit** of each component (one fuel cell stack, one electrolyser stack, one tank). The model computes the quantities (kWh, kg of water, number of stacks) and multiplies them by these impacts. All quantities can therefore be changed, but not the content of a fabrication inventory.
 
-1. **Run the model**: `python scripts/run.py --out results/<name>`. The tables are written in that folder (list in [docs/CUSTOMISE.md](docs/CUSTOMISE.md)).
-2. **Change an input**: add `--set key=value` to the command (one per value), or copy `config/default.yaml`, change it and run with `--config <your file>`. Every key is listed in [docs/CUSTOMISE.md](docs/CUSTOMISE.md).
+1. **Run the model**: `python scripts/run.py --out results/<name>`. The tables are written in that folder (list in [docs/GUIDE.md](docs/GUIDE.md#1-install-and-run)).
+2. **Change an input**: add `--set key=value` to the command (one per value), or copy `config/default.yaml`, change it and run with `--config <your file>`. Every key is listed in [docs/GUIDE.md](docs/GUIDE.md#3-everything-that-can-be-changed).
 3. **Use your own fabrication impact**: copy `data/impacts/fabrication_per_unit.csv`, change the values (impact of one unit of each component in the 16 EF 3.1 categories), then run with `--set fabrication.file=<your file>`.
 
 From Python or Jupyter, once inside the repository folder, `h2-ageing-lca` or `h2-ageing-lca-main` (the `src` folder must be visible from where the code runs):
@@ -260,7 +260,7 @@ r = run(with_values(cfg, **{"cases.central.fuel_cell.hours_to_end_of_life": 5000
 print(r["chain"][["case", "total_g_per_km", "rise_pct"]])
 ```
 
-The code of every level, explained: [docs/ADAPT.md](docs/ADAPT.md). The same, ready to run in Jupyter: [examples/adapt_the_model.ipynb](examples/adapt_the_model.ipynb). To ask a question, open an *Issue*; to keep your own version online, *Fork* the repository; to propose an improvement, open a *Pull request* from your fork.
+The code, everything that can be changed and worked examples: [docs/GUIDE.md](docs/GUIDE.md). The same, ready to run in Jupyter: [examples/adapt_the_model.ipynb](examples/adapt_the_model.ipynb). To ask a question, open an *Issue*; to keep your own version online, *Fork* the repository; to propose an improvement, open a *Pull request* from your fork.
 
 ## 6. Reproduce every result
 
@@ -269,7 +269,7 @@ The code of every level, explained: [docs/ADAPT.md](docs/ADAPT.md). The same, re
 | Three cases: end of life, stacks, each component, whole chain, 16 categories | `python scripts/run.py --out results` | ~2 s |
 | Check against the reference values | `python tests/test_reference_results.py` (also run automatically on every push) | ~10 s |
 | Bar chart of the chain by item (after `run.py`) | `python scripts/plot.py --results results` | ~2 s |
-| Electricity sources, electrolyser hours, stack counting | `run.py` with `--set` (see [docs/USE_CASES.md](docs/USE_CASES.md)) | ~2 s each |
+| Electricity sources, electrolyser hours, stack counting | `run.py` with `--set` (see [docs/GUIDE.md](docs/GUIDE.md#5-worked-examples)) | ~2 s each |
 | Impact versus stack lifetime (steps and thresholds) | `python scripts/threshold.py --out results` | ~30 s |
 | Crossover law of the semi-empirical fuel cell model, mean speed | `python scripts/fuel_cell_tests.py` | ~10 s |
 | Effect of each semi-empirical constant (published alternative values) | `python scripts/semi_empirical_constants.py` | ~5 s |
@@ -298,7 +298,7 @@ data/
     impacts/               characterised impacts (per kWh, per kg of water, per stack or tank)
 tests/                     reference results and the tests that check them
 notebooks/                 original research notebooks (French)
-docs/                      method, use and adaptation, worked examples, customisation, limits
+docs/                      method, user guide with examples, limits
 examples/                  Jupyter notebooks: use and adapt the model in six levels; checks and examples with and without ecoinvent
 ```
 
@@ -365,7 +365,7 @@ What these numbers show:
 - **The fuel cell is dominated by replacement.** One fuel cell stack is spread over the 200 000 km of a single vehicle; a second stack adds 18.5 g CO2-eq/km, that is 30 % of the impact of the fuel cell without ageing (61.9 g/km). In the central case, 91 % of the fuel cell rise comes from the extra stack.
 - **The electrolyser is dominated by over-consumption.** Over 15 years, the electrolyser runs 90 000 h and produces about 1.19 million kg of hydrogen. The fabrication of one stack (39 509 kg CO2-eq) is spread over all this hydrogen: 0.033 kg CO2-eq/kg, that is 0.8 % of the impact of 1 kg (4.31). In the central case, the extra stacks add 0.07 kg CO2-eq/kg, but the extra electricity adds 0.19: over-consumption weighs almost three times more than replacement.
 - **The result moves in steps, because the number of stacks is a whole number.** The fuel cell runs 5 554 h over 200 000 km: above that, 1 stack is enough (+6 %); between 2 777 and 5 554 h, 2 are needed (+31 %). What matters is crossing the 5 554 h threshold, not gaining a few hours.
-- **The fuel cell lifetime is the key input.** The global sensitivity analysis (Sobol method) varies the eight uncertain inputs at the same time and measures the share of the variation of the result due to each one: its total index goes from 0 (the input does not matter) to 1 (it explains everything). The fuel cell lifetime explains almost all the variation of the rise (total Sobol index 0.94; method in [docs/METHOD.md](docs/METHOD.md#6-sensitivity-analyses), results in [docs/USE_CASES.md](docs/USE_CASES.md#6-which-inputs-matter-most-all-together)).
+- **The fuel cell lifetime is the key input.** The global sensitivity analysis (Sobol method) varies the eight uncertain inputs at the same time and measures the share of the variation of the result due to each one: its total index goes from 0 (the input does not matter) to 1 (it explains everything). The fuel cell lifetime explains almost all the variation of the rise (total Sobol index 0.94; method in [docs/METHOD.md](docs/METHOD.md#6-sensitivity-analyses), results in [docs/GUIDE.md](docs/GUIDE.md#8-which-inputs-matter-most-all-together)).
 
 ## 11. Cite, licence, contact
 

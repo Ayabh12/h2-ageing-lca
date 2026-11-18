@@ -25,7 +25,7 @@ Ce dépôt contient les modèles, les données et le code d'une analyse du cycle
 10. [Résultats principaux](#10-résultats-principaux)
 11. [Citer, licence, contact](#11-citer-licence-contact)
 
-Documentation complémentaire : [méthode](docs/METHOD.fr.md) · [utiliser et adapter le modèle](docs/ADAPT.fr.md) · [exemples commentés](docs/USE_CASES.fr.md) · [changer une valeur d'entrée](docs/CUSTOMISE.fr.md) · [limites et domaine de validité](docs/LIMITS.fr.md) · [données](data/README.fr.md) · [notebooks de recherche](notebooks/README.fr.md)
+Documentation complémentaire : [méthode](docs/METHOD.fr.md) · [utiliser et adapter le modèle, avec des exemples](docs/GUIDE.fr.md) · [limites et domaine de validité](docs/LIMITS.fr.md) · [données](data/README.fr.md) · [notebooks de recherche](notebooks/README.fr.md)
 
 ---
 
@@ -67,9 +67,9 @@ python scripts/run.py --set cases.central.fuel_cell.hours_to_end_of_life=6000
 
 | Vous êtes | Ce que vous pouvez faire | Par où commencer |
 |---|---|---|
-| **Praticien de l'ACV** | Ajouter le vieillissement à une ACV de la mobilité hydrogène ; tester votre propre mix électrique, horizon, inventaire ou règle de comptage des stacks | [docs/USE_CASES.fr.md](docs/USE_CASES.fr.md), exemples 1 à 3 et 7 |
+| **Praticien de l'ACV** | Ajouter le vieillissement à une ACV de la mobilité hydrogène ; tester votre propre mix électrique, horizon, inventaire ou règle de comptage des stacks | [docs/GUIDE.fr.md](docs/GUIDE.fr.md#5-exemples-commentés), exemples 1 à 3 et 9 |
 | **Ingénieur ou constructeur** | Voir ce que vaut, en CO2-éq, un stack qui dure plus longtemps ou qui se dégrade moins vite ; trouver la durée de vie qui évite un remplacement | `scripts/threshold.py`, exemple 4 |
-| **Chercheur sur la dégradation** | Brancher vos propres constantes ou votre propre loi de vieillissement et voir l'effet sur l'ACV, sans réécrire l'ACV | [docs/ADAPT.fr.md](docs/ADAPT.fr.md), niveaux 4 et 5 |
+| **Chercheur sur la dégradation** | Brancher vos propres constantes ou votre propre loi de vieillissement et voir l'effet sur l'ACV, sans réécrire l'ACV | [docs/GUIDE.fr.md](docs/GUIDE.fr.md#5-exemples-commentés), exemples 5 et 7 |
 | **Étudiant** | Lire un petit modèle complet d'ACV avec vieillissement, le lancer et le modifier pas à pas | [docs/METHOD.fr.md](docs/METHOD.fr.md), puis les notebooks |
 
 ## 3. Ce que fait le code
@@ -197,8 +197,8 @@ Dans les étapes ci-dessous, écrivez `!{sys.executable}` à la place de `python
 
 Le modèle utilise alors des impacts déjà calculés avec ecoinvent 3.11 (dans `data/impacts`, pour les 16 catégories EF 3.1) : l'impact d'**1 kWh** d'électricité pour chacune des cinq sources, d'**1 kg** d'eau déionisée, et de la **fabrication d'une unité** de chaque composant (un stack de pile, un stack d'électrolyseur, un réservoir). Le modèle calcule les quantités (kWh, kg d'eau, nombre de stacks) et les multiplie par ces impacts. On peut donc changer toutes les quantités, mais pas le contenu d'un inventaire de fabrication.
 
-1. **Lancer le modèle** : `python scripts/run.py --out results/<nom>`. Les tableaux sont écrits dans ce dossier (liste dans [docs/CUSTOMISE.fr.md](docs/CUSTOMISE.fr.md)).
-2. **Changer une entrée** : ajoutez `--set clé=valeur` à la commande (un par valeur), ou copiez `config/default.yaml`, modifiez-le et lancez avec `--config <votre fichier>`. Toutes les clés sont listées dans [docs/CUSTOMISE.fr.md](docs/CUSTOMISE.fr.md).
+1. **Lancer le modèle** : `python scripts/run.py --out results/<nom>`. Les tableaux sont écrits dans ce dossier (liste dans [docs/GUIDE.fr.md](docs/GUIDE.fr.md#1-installer-et-lancer)).
+2. **Changer une entrée** : ajoutez `--set clé=valeur` à la commande (un par valeur), ou copiez `config/default.yaml`, modifiez-le et lancez avec `--config <votre fichier>`. Toutes les clés sont listées dans [docs/GUIDE.fr.md](docs/GUIDE.fr.md#3-tout-ce-que-lon-peut-changer).
 3. **Utiliser votre propre impact de fabrication** : copiez `data/impacts/fabrication_per_unit.csv`, changez les valeurs (impact d'une unité de chaque composant dans les 16 catégories EF 3.1), puis lancez avec `--set fabrication.file=<votre fichier>`.
 
 Depuis Python ou Jupyter, une fois dans le dossier du dépôt, `h2-ageing-lca` ou `h2-ageing-lca-main` (le dossier `src` doit être visible depuis l'endroit où le code tourne) :
@@ -260,7 +260,7 @@ r = run(with_values(cfg, **{"cases.central.fuel_cell.hours_to_end_of_life": 5000
 print(r["chain"][["case", "total_g_per_km", "rise_pct"]])
 ```
 
-Le code de chaque niveau, expliqué : [docs/ADAPT.fr.md](docs/ADAPT.fr.md). Le même, prêt à lancer dans Jupyter : [examples/adapt_the_model.fr.ipynb](examples/adapt_the_model.fr.ipynb). Pour poser une question, ouvrez une *Issue* ; pour garder votre propre version en ligne, faites un *Fork* du dépôt ; pour proposer une amélioration, ouvrez une *Pull request* depuis votre fork.
+Le code, tout ce que l'on peut changer et des exemples commentés : [docs/GUIDE.fr.md](docs/GUIDE.fr.md). Le même, prêt à lancer dans Jupyter : [examples/adapt_the_model.fr.ipynb](examples/adapt_the_model.fr.ipynb). Pour poser une question, ouvrez une *Issue* ; pour garder votre propre version en ligne, faites un *Fork* du dépôt ; pour proposer une amélioration, ouvrez une *Pull request* depuis votre fork.
 
 ## 6. Reproduire chaque résultat
 
@@ -269,7 +269,7 @@ Le code de chaque niveau, expliqué : [docs/ADAPT.fr.md](docs/ADAPT.fr.md). Le m
 | Trois cas : fin de vie, stacks, chaque composant, chaîne complète, 16 catégories | `python scripts/run.py --out results` | ~2 s |
 | Vérification par rapport aux valeurs de référence | `python tests/test_reference_results.py` (lancé aussi automatiquement à chaque envoi) | ~10 s |
 | Diagramme en barres de la chaîne par poste (après `run.py`) | `python scripts/plot.py --results results` | ~2 s |
-| Sources d'électricité, heures de l'électrolyseur, comptage des stacks | `run.py` avec `--set` (voir [docs/USE_CASES.fr.md](docs/USE_CASES.fr.md)) | ~2 s chacun |
+| Sources d'électricité, heures de l'électrolyseur, comptage des stacks | `run.py` avec `--set` (voir [docs/GUIDE.fr.md](docs/GUIDE.fr.md#5-exemples-commentés)) | ~2 s chacun |
 | Impact en fonction de la durée de vie du stack (paliers et seuils) | `python scripts/threshold.py --out results` | ~30 s |
 | Loi de crossover du modèle semi-empirique de la pile, vitesse moyenne | `python scripts/fuel_cell_tests.py` | ~10 s |
 | Effet de chaque constante semi-empirique (autres valeurs publiées) | `python scripts/semi_empirical_constants.py` | ~5 s |
@@ -298,7 +298,7 @@ data/
     impacts/               impacts caractérisés (par kWh, par kg d'eau, par stack ou réservoir)
 tests/                     résultats de référence et tests qui les vérifient
 notebooks/                 notebooks de recherche d'origine (en français)
-docs/                      méthode, utilisation et adaptation, exemples, personnalisation, limites
+docs/                      méthode, guide d'utilisation avec exemples, limites
 examples/                  notebooks Jupyter : utiliser et adapter le modèle en six niveaux ; vérifications et exemples avec et sans ecoinvent
 ```
 
@@ -365,7 +365,7 @@ Ce que montrent ces chiffres :
 - **La pile est dominée par le remplacement.** Un stack de pile est réparti sur les 200 000 km d'un seul véhicule ; un second stack ajoute 18,5 g CO2-éq/km, soit 30 % de l'impact de la pile sans vieillissement (61,9 g/km). Dans le cas central, 91 % de la hausse de la pile vient du stack en plus.
 - **L'électrolyseur est dominé par la surconsommation.** En 15 ans, l'électrolyseur fonctionne 90 000 h et produit environ 1,19 million de kg d'hydrogène. La fabrication d'un stack (39 509 kg CO2-éq) est répartie sur tout cet hydrogène : 0,033 kg CO2-éq/kg, soit 0,8 % de l'impact d'1 kg (4,31). Dans le cas central, les stacks en plus ajoutent 0,07 kg CO2-éq/kg, mais l'électricité en plus en ajoute 0,19 : la surconsommation pèse près de trois fois plus que le remplacement.
 - **Le résultat avance par paliers, car le nombre de stacks est entier.** La pile fonctionne 5 554 h sur 200 000 km : au-dessus, 1 stack suffit (+6 %) ; entre 2 777 et 5 554 h, il en faut 2 (+31 %). Ce qui compte est de franchir le seuil de 5 554 h, pas de gagner quelques heures.
-- **La durée de vie de la pile est l'entrée clé.** L'analyse de sensibilité globale (méthode de Sobol) fait varier les huit entrées incertaines en même temps et mesure la part de la variation du résultat due à chacune : son indice total va de 0 (l'entrée ne compte pas) à 1 (elle explique tout). La durée de vie de la pile explique presque toute la variation de la hausse (indice de Sobol total 0,94 ; méthode dans [docs/METHOD.fr.md](docs/METHOD.fr.md#6-analyses-de-sensibilité), résultats dans [docs/USE_CASES.fr.md](docs/USE_CASES.fr.md#6-quelles-entrées-comptent-le-plus-toutes-ensemble-)).
+- **La durée de vie de la pile est l'entrée clé.** L'analyse de sensibilité globale (méthode de Sobol) fait varier les huit entrées incertaines en même temps et mesure la part de la variation du résultat due à chacune : son indice total va de 0 (l'entrée ne compte pas) à 1 (elle explique tout). La durée de vie de la pile explique presque toute la variation de la hausse (indice de Sobol total 0,94 ; méthode dans [docs/METHOD.fr.md](docs/METHOD.fr.md#6-analyses-de-sensibilité), résultats dans [docs/GUIDE.fr.md](docs/GUIDE.fr.md#8-quelles-entrées-comptent-le-plus-toutes-ensemble-)).
 
 ## 11. Citer, licence, contact
 
