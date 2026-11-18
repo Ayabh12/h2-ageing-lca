@@ -54,7 +54,7 @@ Ce dépôt permet à chacun de recalculer ce résultat pour son propre cas.
 - **N'importe quelle valeur ou n'importe quel inventaire se change sans réécrire le code.** Les valeurs d'entrée sont dans un seul fichier de configuration, les inventaires de fabrication dans des tableaux CSV ; après un changement, la fin de vie, le nombre de stacks et l'impact sont recalculés automatiquement.
 - **Des modèles construits sur des mesures réelles** : une pile de Toyota Mirai II enregistrée sur route, et un électrolyseur Nel MC250 qui suit un profil de production éolienne (données publiques du NLR).
 - **Utilisable sans licence ecoinvent**, et complet avec une licence : les deux façons de faire sont décrites pas à pas ([section 4](#4-utilisation-sans-et-avec-licence-ecoinvent)).
-- **Des résultats contrôlés automatiquement.** À chaque modification du dépôt, GitHub relance 13 tests. Chacun recalcule un résultat (fin de vie et nombre de stacks, chaque composant seul, chaîne complète, 16 catégories, sources d'électricité, entre autres) et vérifie qu'il est identique au résultat de référence. Le badge « tests » en haut de cette page est vert quand tous les tests passent ; il devient rouge si une modification change un résultat.
+- **Des résultats contrôlés automatiquement** : des tests vérifient les résultats à chaque modification du dépôt.
 - **Ouvert et bilingue** : chaque page existe en français et en anglais, et n'importe qui peut reproduire les résultats ou tester son propre cas.
 
 **À essayer en une commande.** Si la pile dure 6 000 h au lieu de 4 100 h, un seul stack suffit sur toute la vie du véhicule, et la hausse du cas central passe de +31,1 % à +6,4 % :

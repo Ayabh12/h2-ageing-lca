@@ -54,7 +54,7 @@ This repository lets anyone recompute this result for their own case.
 - **Any value or any inventory can be changed without rewriting the code.** The inputs are in one configuration file, the fabrication inventories in CSV tables; after a change, the end of life, the number of stacks and the impact are recomputed automatically.
 - **Models built on real measurements**: a Toyota Mirai II fuel cell recorded on the road, and a Nel MC250 electrolyser following a wind production profile (public NLR data).
 - **Usable without an ecoinvent licence**, and complete with one: both ways are described step by step ([section 4](#4-use-without-and-with-an-ecoinvent-licence)).
-- **Results checked automatically.** At every change of the repository, GitHub runs 13 tests again. Each one recomputes a result (end of life and number of stacks, each component alone, whole chain, 16 categories, electricity sources, among others) and checks that it is identical to the reference result. The "tests" badge at the top of this page is green when all tests pass; it turns red if a change alters a result.
+- **Results checked automatically**: tests check the results at every change of the repository.
 - **Open and bilingual**: every page exists in English and French, and anyone can reproduce the results or test their own case.
 
 **Try it in one command.** If the fuel cell lasts 6 000 h instead of 4 100 h, one stack lasts the whole vehicle life, and the rise of the central case falls from +31.1 % to +6.4 %:
