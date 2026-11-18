@@ -263,7 +263,7 @@ Le code de chaque niveau, expliqué : [docs/ADAPT.fr.md](docs/ADAPT.fr.md). Le m
 | Diagramme en barres de la chaîne par poste (après `run.py`) | `python scripts/plot.py --results results` | ~2 s |
 | Sources d'électricité, heures de l'électrolyseur, comptage des stacks | `run.py` avec `--set` (voir [docs/USE_CASES.fr.md](docs/USE_CASES.fr.md)) | ~2 s chacun |
 | Impact en fonction de la durée de vie du stack (paliers et seuils) | `python scripts/threshold.py --out results` | ~30 s |
-| Figure des paliers (après `run.py` et `threshold.py`) | `python scripts/plot_steps.py --results results --lang fr` | ~2 s |
+| Figure des paliers | `python scripts/plot_steps.py --lang fr` | ~1 min |
 | Loi de crossover du modèle semi-empirique de la pile, vitesse moyenne | `python scripts/fuel_cell_tests.py` | ~10 s |
 | Effet de chaque constante semi-empirique (autres valeurs publiées) | `python scripts/semi_empirical_constants.py` | ~5 s |
 | Sensibilité globale (indices de Sobol, 10 240 calculs) | `python scripts/sobol.py --out results` | ~15 min (2 cœurs) |
@@ -361,7 +361,7 @@ Ce que montrent ces chiffres :
 
 ![Hausse de la chaîne selon la durée de vie d'un stack de pile](docs/figures/steps.fr.png)
 
-*Hausse de la chaîne selon la durée de vie d'un stack de pile. Courbe : seule la durée de vie de la pile varie (modèle linéaire, autres valeurs du cas central) ; points : les trois cas. Figure produite par `scripts/plot_steps.py`.*
+*En haut : hausse de la chaîne selon la durée de vie d'un stack de pile ; la courbe fait varier seulement cette durée de vie (modèle linéaire, autres valeurs du cas central), les points sont les trois cas, et les pointillés donnent l'origine de chaque durée de vie. En bas, sur une échelle propre : la part de la hausse due à la surconsommation (usage de toute la chaîne), qui varie peu et sans à-coup. Figure produite par `scripts/plot_steps.py`.*
 
 - **La durée de vie de la pile est l'entrée clé.** Dans l'analyse de sensibilité globale, elle explique presque toute la variation de la hausse (indice de Sobol total 0,94).
 

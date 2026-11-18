@@ -263,7 +263,7 @@ The code of every level, explained: [docs/ADAPT.md](docs/ADAPT.md). The same, re
 | Bar chart of the chain by item (after `run.py`) | `python scripts/plot.py --results results` | ~2 s |
 | Electricity sources, electrolyser hours, stack counting | `run.py` with `--set` (see [docs/USE_CASES.md](docs/USE_CASES.md)) | ~2 s each |
 | Impact versus stack lifetime (steps and thresholds) | `python scripts/threshold.py --out results` | ~30 s |
-| Figure of the steps (after `run.py` and `threshold.py`) | `python scripts/plot_steps.py --results results --lang en` | ~2 s |
+| Figure of the steps | `python scripts/plot_steps.py --lang en` | ~1 min |
 | Crossover law of the semi-empirical fuel cell model, mean speed | `python scripts/fuel_cell_tests.py` | ~10 s |
 | Effect of each semi-empirical constant (published alternative values) | `python scripts/semi_empirical_constants.py` | ~5 s |
 | Global sensitivity (Sobol indices, 10 240 runs) | `python scripts/sobol.py --out results` | ~15 min (2 cores) |
@@ -361,7 +361,7 @@ What these numbers show:
 
 ![Rise of the chain as a function of the fuel cell stack lifetime](docs/figures/steps.png)
 
-*Rise of the chain as a function of the lifetime of one fuel cell stack. Curve: only the fuel cell lifetime varies (linear model, other values of the central case); points: the three cases. Figure made by `scripts/plot_steps.py`.*
+*Top: rise of the chain as a function of the lifetime of one fuel cell stack; the curve varies only this lifetime (linear model, other values of the central case), the points are the three cases, and the dotted lines give the origin of each lifetime. Bottom, on its own scale: the share of the rise due to over-consumption (use of the whole chain), which varies little and smoothly. Figure made by `scripts/plot_steps.py`.*
 
 - **The fuel cell lifetime is the key input.** In the global sensitivity analysis, it explains almost all the variation of the rise (total Sobol index 0.94).
 
