@@ -121,10 +121,7 @@ flowchart TB
     class m2,m3,m4,r2 key
 ```
 
-1. **Reference performance.** A polarisation model is fitted on measurements: the wind profile of a Nel MC250 electrolyser (public NLR data) and road trips of a Toyota Mirai II fuel cell. The profile says how the electrolyser operates, not where the electricity comes from, which is chosen separately (French residual mix by default).
-2. **Ageing.** Three cases, detailed below. The semi-empirical model has a physical structure (each degradation mechanism acts on one term of the polarisation equation) and laws of change fitted in the laboratory. The tank permeation grows over 15 years.
-3. **End of life.** The model finds the age at which the voltage has changed by 10 % (at 300 A for the fuel cell, at the mean current density of the profile for the electrolyser) and counts the stacks needed over 15 years.
-4. **LCA.** Use flows and fabrication are combined with characterised impacts (ecoinvent 3.11 cut-off, EF 3.1, 16 categories). Fabrication is counted from cradle to gate; end of life is not ([what each impact includes](docs/METHOD.md#what-each-impact-includes)). Results for each component and for the whole chain, with and without ageing.
+**Reading the diagram.** The **inputs** feed the **chain**, linked by the kg of hydrogen: the electrolyser produces it, compression and the tank store it, the fuel cell uses it at every km. The **code** fits the reference performance on the measurements, ages the stacks over 15 years, derives their end of life (10 % voltage change) and their number, then computes the LCA, separating over-consumption and replacement. The **results** give the rise due to ageing, for each component and for the chain, in the 16 EF 3.1 categories. The boxes marked ★ are the contribution of this work; each step is detailed in [docs/METHOD.md](docs/METHOD.md).
 
 ### The three ageing cases
 

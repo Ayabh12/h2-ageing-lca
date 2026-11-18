@@ -121,10 +121,7 @@ flowchart TB
     class m2,m3,m4,r2 key
 ```
 
-1. **Performance de référence.** Un modèle de polarisation est ajusté sur des mesures : le profil éolien d'un électrolyseur Nel MC250 (données publiques du NLR) et des trajets sur route de la pile d'une Toyota Mirai II. Le profil dit comment l'électrolyseur fonctionne, pas d'où vient l'électricité, qui se choisit à part (mix résiduel français par défaut).
-2. **Vieillissement.** Trois cas, détaillés ci-dessous. Le modèle semi-empirique a une structure physique (chaque mécanisme de dégradation agit sur un terme de l'équation de polarisation) et des lois d'évolution ajustées en laboratoire. La perméation du réservoir augmente sur 15 ans.
-3. **Fin de vie.** Le modèle cherche l'âge où la tension a varié de 10 % (à 300 A pour la pile, à la densité de courant moyenne du profil pour l'électrolyseur) et compte les stacks nécessaires sur 15 ans.
-4. **ACV.** Les flux d'usage et la fabrication sont combinés avec des impacts caractérisés (ecoinvent 3.11 cut-off, EF 3.1, 16 catégories). La fabrication est comptée du berceau à la porte de l'usine ; la fin de vie ne l'est pas ([ce que comprend chaque impact](docs/METHOD.fr.md#ce-que-comprend-chaque-impact)). Résultats par composant et pour la chaîne, avec et sans vieillissement.
+**Lecture du schéma.** Les **entrées** alimentent la **chaîne**, reliée par le kg d'hydrogène : l'électrolyseur le produit, la compression et le réservoir le stockent, la pile le consomme à chaque km. Le **code** ajuste la performance de référence sur les mesures, fait vieillir les stacks sur 15 ans, en déduit leur fin de vie (10 % de variation de tension) et leur nombre, puis calcule l'ACV en séparant la surconsommation et le remplacement. Les **résultats** donnent la hausse due au vieillissement, pour chaque composant et pour la chaîne, dans les 16 catégories EF 3.1. Les cases marquées ★ sont l'apport de ce travail ; le détail de chaque étape est dans [docs/METHOD.fr.md](docs/METHOD.fr.md).
 
 ### Les trois cas de vieillissement
 
