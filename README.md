@@ -121,13 +121,16 @@ flowchart TB
     class m2,m3,m4,r2 key
 ```
 
-**Reading the diagram:**
+**Reading the diagram, step by step:**
 
-- **Inputs**: measurements, ageing cases, inventories and characterised impacts.
-- **Chain**, linked by the kg of hydrogen: the electrolyser produces it, compression and the tank store it, the fuel cell uses it at every km.
-- **Code**: reference performance fitted on the measurements → ageing of the stacks over 15 years → end of life (10 % voltage change) and number of stacks → LCA, separating over-consumption and replacement.
-- **Results**: rise due to ageing, for each component and for the chain, in the 16 EF 3.1 categories.
-- **★**: contribution of this work. Each step is detailed in [docs/METHOD.md](docs/METHOD.md).
+1. **Reference performance**: from the measurements, the code fits a polarisation curve of the electrolyser and of the fuel cell when new.
+2. **Ageing**: from this reference performance, it ages each stack over 15 years according to the chosen case; the fuel cell voltage falls, the electrolyser voltage rises.
+3. **End of life and number of stacks**: from this voltage, it finds the age at which it has changed by 10 %, then the number of stacks needed over 15 years.
+4. **Chain flows**: from the same voltage, it computes the electricity per kg of hydrogen and the hydrogen per km; their rise is the over-consumption.
+5. **LCA**: it multiplies these flows and the number of stacks by the characterised impacts, which gives the impact of over-consumption and that of replacement.
+6. **Results**: the rise due to ageing, for each component and for the chain, in the 16 EF 3.1 categories.
+
+The boxes marked ★ are the contribution of this work. Each step is detailed in [docs/METHOD.md](docs/METHOD.md).
 
 ### The three ageing cases
 

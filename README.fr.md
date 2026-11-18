@@ -121,13 +121,16 @@ flowchart TB
     class m2,m3,m4,r2 key
 ```
 
-**Lecture du schéma :**
+**Lecture du schéma, étape par étape :**
 
-- **Entrées** : mesures, cas de vieillissement, inventaires et impacts caractérisés.
-- **Chaîne**, reliée par le kg d'hydrogène : l'électrolyseur le produit, la compression et le réservoir le stockent, la pile le consomme à chaque km.
-- **Code** : performance de référence ajustée sur les mesures → vieillissement des stacks sur 15 ans → fin de vie (10 % de variation de tension) et nombre de stacks → ACV, en séparant la surconsommation et le remplacement.
-- **Résultats** : hausse due au vieillissement, pour chaque composant et pour la chaîne, dans les 16 catégories EF 3.1.
-- **★** : apport de ce travail. Le détail de chaque étape est dans [docs/METHOD.fr.md](docs/METHOD.fr.md).
+1. **Performance de référence** : à partir des mesures, le code ajuste une courbe de polarisation de l'électrolyseur et de la pile à l'état neuf.
+2. **Vieillissement** : à partir de cette performance de référence, il fait vieillir chaque stack sur 15 ans selon le cas choisi ; la tension de la pile baisse, celle de l'électrolyseur monte.
+3. **Fin de vie et nombre de stacks** : à partir de cette tension, il trouve l'âge où elle a varié de 10 %, puis le nombre de stacks nécessaires sur 15 ans.
+4. **Flux de la chaîne** : à partir de la même tension, il calcule l'électricité par kg d'hydrogène et l'hydrogène par km ; leur hausse est la surconsommation.
+5. **ACV** : il multiplie ces flux et le nombre de stacks par les impacts caractérisés, ce qui donne l'impact de la surconsommation et celui du remplacement.
+6. **Résultats** : la hausse due au vieillissement, pour chaque composant et pour la chaîne, dans les 16 catégories EF 3.1.
+
+Les cases marquées ★ sont l'apport de ce travail. Le détail de chaque étape est dans [docs/METHOD.fr.md](docs/METHOD.fr.md).
 
 ### Les trois cas de vieillissement
 
