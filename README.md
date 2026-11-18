@@ -363,7 +363,7 @@ The rise due to ageing, split into its two routes. Each line gives the part of t
 What these numbers show:
 
 - **The fuel cell is dominated by replacement.** One fuel cell stack is spread over the 200 000 km of a single vehicle; a second stack adds 18.5 g CO2-eq/km, that is 30 % of the impact of the fuel cell without ageing (61.9 g/km). In the central case, 91 % of the fuel cell rise comes from the extra stack.
-- **The electrolyser is dominated by over-consumption.** One electrolyser stack is spread over about 1.19 million kg of hydrogen and weighs 0.8 % of the impact of 1 kg; the extra electricity matters more.
+- **The electrolyser is dominated by over-consumption.** Over 15 years, the electrolyser runs 90 000 h and produces about 1.19 million kg of hydrogen. The fabrication of one stack (39 509 kg CO2-eq) is spread over all this hydrogen: 0.033 kg CO2-eq/kg, that is 0.8 % of the impact of 1 kg (4.31). In the central case, the extra stacks add 0.07 kg CO2-eq/kg, but the extra electricity adds 0.19: over-consumption weighs almost three times more than replacement.
 - **The result moves in steps, because the number of stacks is a whole number.** The fuel cell runs 5 554 h over 200 000 km: above that, 1 stack is enough (+6 %); between 2 777 and 5 554 h, 2 are needed (+31 %). What matters is crossing the 5 554 h threshold, not gaining a few hours.
 - **The fuel cell lifetime is the key input.** In the global sensitivity analysis, it explains almost all the variation of the rise (total Sobol index 0.94).
 
