@@ -121,7 +121,13 @@ flowchart TB
     class m2,m3,m4,r2 key
 ```
 
-**Lecture du schéma.** Les **entrées** alimentent la **chaîne**, reliée par le kg d'hydrogène : l'électrolyseur le produit, la compression et le réservoir le stockent, la pile le consomme à chaque km. Le **code** ajuste la performance de référence sur les mesures, fait vieillir les stacks sur 15 ans, en déduit leur fin de vie (10 % de variation de tension) et leur nombre, puis calcule l'ACV en séparant la surconsommation et le remplacement. Les **résultats** donnent la hausse due au vieillissement, pour chaque composant et pour la chaîne, dans les 16 catégories EF 3.1. Les cases marquées ★ sont l'apport de ce travail ; le détail de chaque étape est dans [docs/METHOD.fr.md](docs/METHOD.fr.md).
+**Lecture du schéma :**
+
+- **Entrées** : mesures, cas de vieillissement, inventaires et impacts caractérisés.
+- **Chaîne**, reliée par le kg d'hydrogène : l'électrolyseur le produit, la compression et le réservoir le stockent, la pile le consomme à chaque km.
+- **Code** : performance de référence ajustée sur les mesures → vieillissement des stacks sur 15 ans → fin de vie (10 % de variation de tension) et nombre de stacks → ACV, en séparant la surconsommation et le remplacement.
+- **Résultats** : hausse due au vieillissement, pour chaque composant et pour la chaîne, dans les 16 catégories EF 3.1.
+- **★** : apport de ce travail. Le détail de chaque étape est dans [docs/METHOD.fr.md](docs/METHOD.fr.md).
 
 ### Les trois cas de vieillissement
 

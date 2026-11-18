@@ -121,7 +121,13 @@ flowchart TB
     class m2,m3,m4,r2 key
 ```
 
-**Reading the diagram.** The **inputs** feed the **chain**, linked by the kg of hydrogen: the electrolyser produces it, compression and the tank store it, the fuel cell uses it at every km. The **code** fits the reference performance on the measurements, ages the stacks over 15 years, derives their end of life (10 % voltage change) and their number, then computes the LCA, separating over-consumption and replacement. The **results** give the rise due to ageing, for each component and for the chain, in the 16 EF 3.1 categories. The boxes marked ★ are the contribution of this work; each step is detailed in [docs/METHOD.md](docs/METHOD.md).
+**Reading the diagram:**
+
+- **Inputs**: measurements, ageing cases, inventories and characterised impacts.
+- **Chain**, linked by the kg of hydrogen: the electrolyser produces it, compression and the tank store it, the fuel cell uses it at every km.
+- **Code**: reference performance fitted on the measurements → ageing of the stacks over 15 years → end of life (10 % voltage change) and number of stacks → LCA, separating over-consumption and replacement.
+- **Results**: rise due to ageing, for each component and for the chain, in the 16 EF 3.1 categories.
+- **★**: contribution of this work. Each step is detailed in [docs/METHOD.md](docs/METHOD.md).
 
 ### The three ageing cases
 
