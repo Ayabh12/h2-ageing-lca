@@ -27,7 +27,7 @@ CC = "climate_change"
 TEXT = {
     "fr": dict(
         x="Durée de vie d'un stack de pile (h)", y1="Hausse de la chaîne\ndue au vieillissement (%)",
-        y2="dont surconsommation\n(points de %)", stacks="{n} stack{s}",
+        y2="dont surconsommation (%)", stacks="{n} stack{s}",
         half="2 777 h : moitié de l'horizon\n(en dessous : 3 stacks)", horizon="5 554 h : la pile fonctionne\n5 554 h sur 200 000 km",
         cases={"pessimistic": ("pessimiste", "2 895 h : fin de vie calculée\npar le modèle semi-empirique"),
                "central": ("central", "4 100 h : état actuel\nmesuré par le DOE"),
@@ -35,7 +35,7 @@ TEXT = {
         over="La surconsommation varie peu et sans à-coup ;\nce sont les remplacements qui font les marches.", dec=","),
     "en": dict(
         x="Lifetime of one fuel cell stack (h)", y1="Rise of the chain\ndue to ageing (%)",
-        y2="of which over-consumption\n(percentage points)", stacks="{n} stack{s}",
+        y2="of which\nover-consumption (%)", stacks="{n} stack{s}",
         half="2 777 h: half the horizon\n(below: 3 stacks)", horizon="5 554 h: the fuel cell runs\n5 554 h over 200 000 km",
         cases={"pessimistic": ("pessimistic", "2 895 h: end of life computed\nby the semi-empirical model"),
                "central": ("central", "4 100 h: current status\nmeasured by the DOE"),
