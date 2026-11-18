@@ -361,7 +361,7 @@ Ce que montrent ces chiffres :
 
 ![Hausse de la chaîne selon la durée de vie d'un stack de pile](docs/figures/steps.fr.png)
 
-*En haut : hausse de la chaîne selon la durée de vie d'un stack de pile ; la courbe fait varier seulement cette durée de vie (modèle linéaire, autres valeurs du cas central), les points sont les trois cas, et les pointillés donnent l'origine de chaque durée de vie. En bas, sur une échelle propre : la part de la hausse due à la surconsommation (usage de toute la chaîne), qui varie peu et sans à-coup. Figure produite par `scripts/plot_steps.py`.*
+*Hausse de la chaîne selon la durée de vie d'un stack de pile. La courbe fait varier seulement cette durée de vie (modèle linéaire, autres valeurs du cas central) ; les points sont les trois cas, et les pointillés donnent l'origine de chaque durée de vie. Figure produite par `scripts/plot_steps.py`.*
 
 - **La durée de vie de la pile est l'entrée clé.** Dans l'analyse de sensibilité globale, elle explique presque toute la variation de la hausse (indice de Sobol total 0,94).
 

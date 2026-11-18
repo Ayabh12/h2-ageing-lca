@@ -1,8 +1,6 @@
 """Figure: rise of the chain as a function of the fuel cell stack lifetime, with the three cases.
 
-Top panel: the rise moves in steps, because the number of stacks is a whole number.
-Bottom panel: the share of the rise due to over-consumption, on its own scale, which
-varies smoothly within each step.
+The rise moves in steps, because the number of stacks is a whole number.
 
 The curve varies only the fuel cell stack lifetime (linear model); the electrolyser and the
 tank keep the values of the central case. The points are the three ageing cases.
@@ -80,19 +78,16 @@ def main():
     chain = res["chain"].set_index("case")
     life = res["life"].set_index("case")
 
-    fig, (ax, bx) = plt.subplots(2, 1, figsize=(8, 6.2), sharex=True, gridspec_kw={"height_ratios": [2.3, 1]})
+    fig, ax = plt.subplots(figsize=(8, 4.6))
     cols = {3: "#f6e0e0", 2: "#fcecd6", 1: "#e3f0e3"}
     for n in (3, 2, 1):
         lo, hi = max(L / n, 1900), (L / (n - 1) if n > 1 else 9000)
-        for axx in (ax, bx):
-            axx.axvspan(lo, min(hi, 9000), color=cols[n], lw=0)
+        ax.axvspan(lo, min(hi, 9000), color=cols[n], lw=0)
         ax.text((lo + min(hi, 9000)) / 2, 70, t["stacks"].format(n=n, s="s" if n > 1 else ""),
                 ha="center", fontsize=10, weight="bold", color="0.3")
     ax.step(h, rise, where="post", color="#3b6ea5", lw=2)
-    bx.plot(h, over, color="#c9892b", lw=2)
     for x, lab in [(L / 2, t["half"]), (L, t["horizon"])]:
-        for axx in (ax, bx):
-            axx.axvline(x, color="firebrick", ls="--", lw=1)
+        ax.axvline(x, color="firebrick", ls="--", lw=1)
         ax.text(x + 60, 62, lab, color="firebrick", fontsize=7.5, va="center")
     place = {"pessimistic": (3000, 42, "left"), "central": (4170, 26, "left"), "optimistic": (8000, 11, "center")}
     for case, (tx, ty, ha) in place.items():
@@ -108,10 +103,7 @@ def main():
     ax.set_xlim(1900, 9000)
     ax.set_ylim(0, 75)
     ax.set_ylabel(t["y1"])
-    bx.set_ylim(0, max(8, over.max() * 1.25))
-    bx.set_ylabel(t["y2"])
-    bx.set_xlabel(t["x"])
-    bx.text(8900, bx.get_ylim()[1] * 0.92, t["over"], ha="right", va="top", fontsize=7.5, color="0.3")
+    ax.set_xlabel(t["x"])
     fig.tight_layout()
     out = Path(a.out or f"results/steps.{a.lang}.png")
     out.parent.mkdir(parents=True, exist_ok=True)

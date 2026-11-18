@@ -361,7 +361,7 @@ What these numbers show:
 
 ![Rise of the chain as a function of the fuel cell stack lifetime](docs/figures/steps.png)
 
-*Top: rise of the chain as a function of the lifetime of one fuel cell stack; the curve varies only this lifetime (linear model, other values of the central case), the points are the three cases, and the dotted lines give the origin of each lifetime. Bottom, on its own scale: the share of the rise due to over-consumption (use of the whole chain), which varies little and smoothly. Figure made by `scripts/plot_steps.py`.*
+*Rise of the chain as a function of the lifetime of one fuel cell stack. The curve varies only this lifetime (linear model, other values of the central case); the points are the three cases, and the dotted lines give the origin of each lifetime. Figure made by `scripts/plot_steps.py`.*
 
 - **The fuel cell lifetime is the key input.** In the global sensitivity analysis, it explains almost all the variation of the rise (total Sobol index 0.94).
 
