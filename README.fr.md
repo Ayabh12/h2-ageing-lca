@@ -365,7 +365,7 @@ Ce que montrent ces chiffres :
 - **La pile est dominée par le remplacement.** Un stack de pile est réparti sur les 200 000 km d'un seul véhicule ; un second stack ajoute 18,5 g CO2-éq/km, soit 30 % de l'impact de la pile sans vieillissement (61,9 g/km). Dans le cas central, 91 % de la hausse de la pile vient du stack en plus.
 - **L'électrolyseur est dominé par la surconsommation.** En 15 ans, l'électrolyseur fonctionne 90 000 h et produit environ 1,19 million de kg d'hydrogène. La fabrication d'un stack (39 509 kg CO2-éq) est répartie sur tout cet hydrogène : 0,033 kg CO2-éq/kg, soit 0,8 % de l'impact d'1 kg (4,31). Dans le cas central, les stacks en plus ajoutent 0,07 kg CO2-éq/kg, mais l'électricité en plus en ajoute 0,19 : la surconsommation pèse près de trois fois plus que le remplacement.
 - **Le résultat avance par paliers, car le nombre de stacks est entier.** La pile fonctionne 5 554 h sur 200 000 km : au-dessus, 1 stack suffit (+6 %) ; entre 2 777 et 5 554 h, il en faut 2 (+31 %). Ce qui compte est de franchir le seuil de 5 554 h, pas de gagner quelques heures.
-- **La durée de vie de la pile est l'entrée clé.** Dans l'analyse de sensibilité globale, elle explique presque toute la variation de la hausse (indice de Sobol total 0,94).
+- **La durée de vie de la pile est l'entrée clé.** Dans l'analyse de sensibilité globale, elle explique presque toute la variation de la hausse (indice de Sobol total 0,94 ; méthode dans [docs/METHOD.fr.md](docs/METHOD.fr.md#6-analyses-de-sensibilité), résultats dans [docs/USE_CASES.fr.md](docs/USE_CASES.fr.md#6-quelles-entrées-comptent-le-plus-toutes-ensemble)).
 
 ## 11. Citer, licence, contact
 
