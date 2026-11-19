@@ -155,7 +155,7 @@ No ecoinvent dataset is distributed, in line with its licence. The model can be 
 | | Without an ecoinvent licence | With an ecoinvent licence |
 |---|---|---|
 | **What you can change** | every input of the model: lifetimes and ageing constants, ageing laws, mileage, electrolyser hours, compression, stack counting rule, electricity source (among the five shipped, or a new one if you have its impact per kWh); and the **fabrication impact** of a stack or of the tank, by giving your own value directly | everything possible without a licence, plus the **content of the fabrication inventories**: amounts of materials and energy, linked ecoinvent datasets, place of manufacture; the impact is then recomputed |
-| **What you cannot change** | the **content** of a fabrication inventory (for example the platinum mass of a stack): without the ecoinvent data, its impact cannot be recomputed | the ecoinvent data themselves (the background processes), which the repository uses without changing them |
+| **What you cannot change** | anything that needs an impact recomputed from ecoinvent: changing an amount of material or energy in a fabrication inventory, adding or removing a flow, linking another ecoinvent dataset, changing the place of manufacture, computing the impact of a new component, or that of a new electricity source | the ecoinvent data themselves (the background processes), which the repository uses without changing them |
 | What is used | `data/impacts`: characterised results only (impact of 1 kWh, of 1 kg of water, of one manufactured stack or tank) | your own ecoinvent 3.11 cut-off, imported in Brightway with your ecoinvent login |
 | What to install | `requirements.txt` | `requirements.txt` and `requirements-brightway.txt` |
 
