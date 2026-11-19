@@ -66,6 +66,24 @@ Les tableaux écrits dans le dossier de sortie (`--out`) sont :
 | `chain.csv` | chaîne complète par km, par poste, hausse et score unique |
 | `categories.csv` | les 16 catégories EF 3.1 : part de la fabrication et hausse de chaque cas |
 
+
+### Reproduire chaque résultat
+
+| Résultat | Commande | Durée |
+|---|---|---|
+| Trois cas : fin de vie, stacks, chaque composant, chaîne complète, 16 catégories | `python scripts/run.py --out results` | ~2 s |
+| Vérification par rapport aux valeurs de référence | `python tests/test_reference_results.py` (lancé aussi automatiquement à chaque envoi) | ~10 s |
+| Diagramme en barres de la chaîne par poste (après `run.py`) | `python scripts/plot.py --results results` | ~2 s |
+| Sources d'électricité, heures de l'électrolyseur, comptage des stacks | `run.py` avec `--set` (voir les [exemples commentés](#5-exemples-commentés)) | ~2 s chacun |
+| Impact en fonction de la durée de vie du stack (paliers et seuils) | `python scripts/threshold.py --out results` | ~30 s |
+| Loi de crossover du modèle semi-empirique de la pile, vitesse moyenne | `python scripts/fuel_cell_tests.py` | ~10 s |
+| Effet de chaque constante semi-empirique (autres valeurs publiées) | `python scripts/semi_empirical_constants.py` | ~5 s |
+| Sensibilité globale (indices de Sobol, 10 240 calculs) | `python scripts/sobol.py --out results` | ~15 min (2 cœurs) |
+| Ajustements de polarisation (ils réécrivent `data/parameters/` et redonnent les paramètres fournis) | `python scripts/fit_pemfc.py`, `python scripts/fit_pemwe.py` | ~5 s chacun |
+| Impacts de fabrication à partir des inventaires | `python scripts/build_fabrication_brightway.py --project <nom>` (nécessite ecoinvent) | – |
+
+Les notebooks de recherche d'origine (en français, sorties comprises) sont dans [notebooks/](../notebooks/README.fr.md) ; ils donnent les mêmes résultats, avec plus de figures.
+
 ## 2. Changer une valeur
 
 Trois façons, au choix ; le fichier `config/default.yaml` n'est jamais modifié :
@@ -166,9 +184,36 @@ Pour essayer une autre loi de vieillissement, changez ces fonctions (ou ajoutez 
 
 ### 3.4 Fabrication
 
-**Sans ecoinvent** : modifiez `data/impacts/fabrication_per_unit.csv` (impact d'un stack de pile, d'un stack d'électrolyseur et d'un réservoir dans les 16 catégories), ou ajoutez une colonne et faites-y pointer `fabrication.fuel_cell_stack`, `fabrication.electrolyser_stack` ou `fabrication.tank`. Un stack d'une autre taille peut être représenté avec `electrolyser.stack_inventory_scale`.
+**Sans licence ecoinvent.** Le modèle utilise alors des impacts déjà calculés avec ecoinvent 3.11 (dans `data/impacts`, pour les 16 catégories EF 3.1) : l'impact d'**1 kWh** d'électricité pour chacune des cinq sources, d'**1 kg** d'eau déionisée, et de la **fabrication d'une unité** de chaque composant (un stack de pile, un stack d'électrolyseur, un réservoir). Le modèle calcule les quantités (kWh, kg d'eau, nombre de stacks) et les multiplie par ces impacts. On peut donc changer toutes les quantités, mais pas le contenu d'un inventaire de fabrication.
 
-**Avec ecoinvent** : changez les quantités dans `data/inventories/*.csv`, installez Brightway (`pip install -r requirements-brightway.txt`) et lancez `scripts/build_fabrication_brightway.py --project <votre projet> --import-ecoinvent`. Avec votre identifiant ecoinvent, il importe ecoinvent 3.11 cut-off (la première fois seulement), recalcule les impacts et écrit un nouveau fichier de fabrication, que vous indiquez avec `fabrication.file`.
+Pour utiliser votre propre impact de fabrication, modifiez `data/impacts/fabrication_per_unit.csv` (impact d'un stack de pile, d'un stack d'électrolyseur et d'un réservoir dans les 16 catégories), ou ajoutez une colonne et faites-y pointer `fabrication.fuel_cell_stack`, `fabrication.electrolyser_stack` ou `fabrication.tank`. Un stack d'une autre taille peut être représenté avec `electrolyser.stack_inventory_scale`.
+
+**Avec une licence ecoinvent :**
+
+1. **Installer Brightway** (une fois) : `pip install -U -r requirements-brightway.txt`.
+2. **Donner votre identifiant ecoinvent.** Deux façons :
+   - laisser le script le demander : il demande votre identifiant, puis votre mot de passe (le mot de passe ne s'affiche pas pendant la saisie) ;
+   - ou le définir avant, dans deux variables d'environnement, `EI_USERNAME` et `EI_PASSWORD` : dans un terminal Windows `set EI_USERNAME=...`, sous macOS ou Linux `export EI_USERNAME=...` (de même pour `EI_PASSWORD`) ; dans Jupyter, `os.environ["EI_USERNAME"] = input()` et `os.environ["EI_PASSWORD"] = getpass.getpass()`.
+
+   L'identifiant peut être le vôtre ou celui d'une licence partagée par votre établissement, si ses conditions le permettent. Il est seulement envoyé à ecoinvent pour télécharger la base et n'est jamais écrit dans un fichier. Ne mettez jamais d'identifiant dans ce dépôt ni dans une cellule de notebook que vous partagez : les licences ecoinvent sont personnelles ou propres à un établissement.
+3. **Importer ecoinvent et recalculer les impacts** : `python scripts/build_fabrication_brightway.py --project <projet> --import-ecoinvent --out results/<fichier>.csv`. La première fois, ecoinvent 3.11 cut-off, sa biosphère et ses méthodes d'impact sont téléchargés et importés dans le projet Brightway `<projet>` ; cela prend d'environ 20 minutes à moins d'une heure. Les fois suivantes, le script trouve ecoinvent dans le projet et ne fait que recalculer (environ une minute). Il affiche les 16 méthodes EF 3.1 utilisées, puis l'impact de chaque composant sur le changement climatique.
+4. **Vérifier votre installation** (une fois) : lancez l'étape 3 sur les inventaires tels que fournis, puis comparez le fichier écrit avec les impacts fournis, en pourcentage :
+
+   ```python
+   import pandas as pd
+   nouveau = pd.read_csv("results/<fichier>.csv").set_index("category")
+   fourni = pd.read_csv("data/impacts/fabrication_per_unit.csv").set_index("category")
+   ((nouveau - fourni) / fourni * 100).round(2)
+   ```
+
+   Toutes les valeurs doivent être à 0 (ou −0, un arrondi) : avec ecoinvent 3.11 cut-off, l'écart avec les impacts fournis (calculés avec Activity Browser) est inférieur à 0,01 % dans les 16 catégories et pour les trois composants.
+5. **Changer un inventaire** : dans `data/inventories/*.csv`, changez une quantité, l'activité ecoinvent ou sa localisation, ou mettez `included` à `no` pour retirer une ligne (colonnes expliquées dans [data/inventories/README.fr.md](../data/inventories/README.fr.md)).
+6. **Recalculer** : relancez l'étape 3 avec un autre fichier de sortie.
+7. **Utiliser les nouveaux impacts dans le modèle** : `python scripts/run.py --set fabrication.file=results/<fichier>.csv --out results/<nom>`.
+
+Si le script s'arrête avec « 0 matches » ou « 2 matches », l'activité ecoinvent nommée dans l'inventaire n'a pas été trouvée, ou pas une seule fois : vérifiez son nom, sa localisation et son produit de référence dans votre base ecoinvent. Si le téléchargement échoue, vérifiez que votre compte ecoinvent donne accès à la version 3.11.
+
+Toutes ces étapes, avec la vérification des 16 catégories et des exemples avec et sans licence, dont des exemples qui changent une constante, une loi ou le modèle d'un cas, puis les 16 catégories d'impact et la sensibilité (source d'électricité, seuil de durée de vie, Sobol) (valeurs attendues indiquées), sont prêtes à lancer dans Jupyter : [examples/check_and_examples.fr.ipynb](../examples/check_and_examples.fr.ipynb).
 
 ### 3.5 Mesures, équipements et données
 

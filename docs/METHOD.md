@@ -4,7 +4,7 @@
 
 This page summarises what the code computes and why. Each value of `config/default.yaml` gives its source.
 
-**Contents:** [1. Functional units and system](#1-functional-units-and-system) · [2. Fuel cell](#2-fuel-cell) · [3. Electrolyser](#3-electrolyser) · [4. Tank](#4-tank) · [5. LCA](#5-lca) · [6. Sensitivity analyses](#6-sensitivity-analyses) · [7. Main limits](#7-main-limits) · [References](#references-for-the-model-structure-and-the-fit-bounds)
+**Contents:** [1. Functional units and system](#1-functional-units-and-system) · [2. Fuel cell](#2-fuel-cell) · [3. Electrolyser](#3-electrolyser) · [4. Tank](#4-tank) · [5. LCA](#5-lca) · [6. Sensitivity analyses](#6-sensitivity-analyses) · [7. Detailed results](#7-detailed-results) · [References](#references-for-the-model-structure-and-the-fit-bounds)
 
 ---
 
@@ -277,14 +277,48 @@ Energy and hydrogen are integrated over the horizon (20 001 points).
 
 ---
 
-## 7. Main limits
+## 7. Detailed results
 
-The complete list, with the effect of each limit and how it is tested, is in [LIMITS.md](LIMITS.md).
+Default configuration (climate change, whole chain, 200 000 km over 15 years). Main table: [README](../README.md#6-main-results).
 
-- No degradation rate has been measured on the stacks studied.
-- Laboratory constants (pessimistic case) are measured on more stressed cells than commercial stacks; the semi-empirical laws are extrapolated beyond the duration of the tests.
-- The linear model sees neither the rise of the fuel cell crossover nor the fast loss of anode activity.
-- Inventories are taken from the literature and scaled (Mori et al. 2023, Lundberg 2019, Benitez et al. 2021); auxiliaries are excluded.
+Each value is a total: **use and fabrication**. For the whole chain, in g CO2-eq/km (rounded values):
+
+| | No ageing | Optimistic | Central | Pessimistic |
+|---|---|---|---|---|
+| Use: electricity and water of electrolysis | 41.5 | 44.8 | 45.2 | 48.0 |
+| Use: compression | 2.2 | 2.2 | 2.3 | 2.4 |
+| Fabrication: fuel cell stacks | 18.5 | 18.5 | 37.0 | 37.0 |
+| Fabrication: tank | 11.7 | 11.7 | 11.7 | 11.7 |
+| Fabrication: electrolyser stacks | 0.3 | 0.7 | 1.0 | 1.1 |
+| **Total** | **74.1** | **77.8** | **97.2** | **100.1** |
+
+The hydrogen lost by permeation is counted in use, as extra hydrogen to produce.
+
+The rise due to ageing, split into its two routes. Each line gives the part of the rise due to one route, as a % of the impact without ageing; the two lines add up to the total rise (within 0.1 because of rounding).
+
+| Component | Route | Optimistic | Central | Pessimistic |
+|---|---|---|---|---|
+| Electrolyser alone | over-consumption (more electricity and water per kg) | +4.3 % | +4.3 % | +6.6 % |
+| | replacement (extra stacks) | +0.8 % | +1.5 % | +1.5 % |
+| | **both** | **+5.1 %** | **+5.9 %** | **+8.2 %** |
+| Tank alone | over-consumption (hydrogen lost by permeation) | 0.0 % | +1.3 % | +6.4 % |
+| | replacement (one tank in all cases) | 0.0 % | 0.0 % | 0.0 % |
+| | **both** | **0.0 %** | **+1.3 %** | **+6.4 %** |
+| Fuel cell alone | over-consumption (more hydrogen per km) | +2.4 % | +2.9 % | +4.8 % |
+| | replacement (extra stack) | 0.0 % | +29.9 % | +29.9 % |
+| | **both** | **+2.4 %** | **+32.8 %** | **+34.6 %** |
+| Whole chain | over-consumption (electricity, water and compression) | +4.5 % | +5.2 % | +9.1 % |
+| | replacement (fuel cell and electrolyser stacks) | +0.5 % | +25.9 % | +25.9 % |
+| | **both** | **+5.0 %** | **+31.1 %** | **+35.0 %** |
+
+What these numbers show:
+
+- **The fuel cell is dominated by replacement.** One fuel cell stack is spread over the 200 000 km of a single vehicle; a second stack adds 18.5 g CO2-eq/km, that is 30 % of the impact of the fuel cell without ageing (61.9 g/km). In the central case, 91 % of the fuel cell rise comes from the extra stack.
+- **The electrolyser is dominated by over-consumption.** Over 15 years, the electrolyser runs 90 000 h and produces about 1.19 million kg of hydrogen. The fabrication of one stack (39 509 kg CO2-eq) is spread over all this hydrogen: 0.033 kg CO2-eq/kg, that is 0.8 % of the impact of 1 kg (4.31). In the central case, the extra stacks add 0.07 kg CO2-eq/kg, but the extra electricity adds 0.19: over-consumption weighs almost three times more than replacement.
+- **The result moves in steps, because the number of stacks is a whole number.** The fuel cell runs 5 554 h over 200 000 km: above that, 1 stack is enough (+6 %); between 2 777 and 5 554 h, 2 are needed (+31 %). What matters is crossing the 5 554 h threshold, not gaining a few hours.
+- **The fuel cell lifetime is the key input.** The global sensitivity analysis (Sobol method) varies the eight uncertain inputs at the same time and measures the share of the variation of the result due to each one: its total index goes from 0 (the input does not matter) to 1 (it explains everything). The fuel cell lifetime explains almost all the variation of the rise (total Sobol index 0.94; method in [section 6](#6-sensitivity-analyses), results in [GUIDE.md](GUIDE.md#8-which-inputs-matter-most-all-together)).
+
+The limits, their effect and the validity domain are in [LIMITS.md](LIMITS.md).
 
 ---
 

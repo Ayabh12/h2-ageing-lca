@@ -4,7 +4,7 @@
 
 Cette page résume ce que calcule le code, et pourquoi. Chaque valeur de `config/default.yaml` est accompagnée de sa source.
 
-**Sommaire :** [1. Unités fonctionnelles et système](#1-unités-fonctionnelles-et-système) · [2. Pile à combustible](#2-pile-à-combustible) · [3. Électrolyseur](#3-électrolyseur) · [4. Réservoir](#4-réservoir) · [5. ACV](#5-acv) · [6. Analyses de sensibilité](#6-analyses-de-sensibilité) · [7. Limites principales](#7-limites-principales) · [Références](#références-pour-la-structure-du-modèle-et-les-bornes-dajustement)
+**Sommaire :** [1. Unités fonctionnelles et système](#1-unités-fonctionnelles-et-système) · [2. Pile à combustible](#2-pile-à-combustible) · [3. Électrolyseur](#3-électrolyseur) · [4. Réservoir](#4-réservoir) · [5. ACV](#5-acv) · [6. Analyses de sensibilité](#6-analyses-de-sensibilité) · [7. Résultats détaillés](#7-résultats-détaillés) · [Références](#références-pour-la-structure-du-modèle-et-les-bornes-dajustement)
 
 ---
 
@@ -277,14 +277,48 @@ L'énergie et l'hydrogène sont intégrés sur l'horizon (20 001 points).
 
 ---
 
-## 7. Limites principales
+## 7. Résultats détaillés
 
-La liste complète, avec l'effet de chaque limite et la façon de la tester, est dans [LIMITS.fr.md](LIMITS.fr.md).
+Configuration par défaut (changement climatique, chaîne complète, 200 000 km en 15 ans). Tableau principal : [README](../README.fr.md#6-résultats-principaux).
 
-- Aucune vitesse de dégradation n'a été mesurée sur les stacks étudiés.
-- Les constantes de laboratoire (cas pessimiste) sont mesurées sur des cellules plus sollicitées que des stacks commerciaux ; les lois semi-empiriques sont extrapolées au-delà de la durée des essais.
-- Le modèle linéaire ne voit ni la hausse du crossover de la pile, ni la perte rapide d'activité de l'anode.
-- Les inventaires sont pris dans la littérature et mis à l'échelle (Mori et al. 2023, Lundberg 2019, Benitez et al. 2021) ; les auxiliaires sont exclus.
+Chaque valeur est un total : **usage et fabrication**. Pour la chaîne complète, en g CO2-éq/km (valeurs arrondies) :
+
+| | Sans vieillissement | Optimiste | Central | Pessimiste |
+|---|---|---|---|---|
+| Usage : électricité et eau de l'électrolyse | 41,5 | 44,8 | 45,2 | 48,0 |
+| Usage : compression | 2,2 | 2,2 | 2,3 | 2,4 |
+| Fabrication : stacks de pile | 18,5 | 18,5 | 37,0 | 37,0 |
+| Fabrication : réservoir | 11,7 | 11,7 | 11,7 | 11,7 |
+| Fabrication : stacks d'électrolyseur | 0,3 | 0,7 | 1,0 | 1,1 |
+| **Total** | **74,1** | **77,8** | **97,2** | **100,1** |
+
+L'hydrogène perdu par perméation est compté dans l'usage, comme de l'hydrogène à produire en plus.
+
+La hausse due au vieillissement, séparée selon ses deux voies. Chaque ligne donne la part de la hausse due à une voie, en % de l'impact sans vieillissement ; les deux lignes s'additionnent pour donner la hausse totale (à 0,1 près, à cause des arrondis).
+
+| Composant | Voie | Optimiste | Central | Pessimiste |
+|---|---|---|---|---|
+| Électrolyseur seul | surconsommation (plus d'électricité et d'eau par kg) | +4,3 % | +4,3 % | +6,6 % |
+| | remplacement (stacks en plus) | +0,8 % | +1,5 % | +1,5 % |
+| | **les deux** | **+5,1 %** | **+5,9 %** | **+8,2 %** |
+| Réservoir seul | surconsommation (hydrogène perdu par perméation) | 0,0 % | +1,3 % | +6,4 % |
+| | remplacement (un seul réservoir dans tous les cas) | 0,0 % | 0,0 % | 0,0 % |
+| | **les deux** | **0,0 %** | **+1,3 %** | **+6,4 %** |
+| Pile seule | surconsommation (plus d'hydrogène par km) | +2,4 % | +2,9 % | +4,8 % |
+| | remplacement (stack en plus) | 0,0 % | +29,9 % | +29,9 % |
+| | **les deux** | **+2,4 %** | **+32,8 %** | **+34,6 %** |
+| Chaîne complète | surconsommation (électricité, eau et compression) | +4,5 % | +5,2 % | +9,1 % |
+| | remplacement (stacks de pile et d'électrolyseur) | +0,5 % | +25,9 % | +25,9 % |
+| | **les deux** | **+5,0 %** | **+31,1 %** | **+35,0 %** |
+
+Ce que montrent ces chiffres :
+
+- **La pile est dominée par le remplacement.** Un stack de pile est réparti sur les 200 000 km d'un seul véhicule ; un second stack ajoute 18,5 g CO2-éq/km, soit 30 % de l'impact de la pile sans vieillissement (61,9 g/km). Dans le cas central, 91 % de la hausse de la pile vient du stack en plus.
+- **L'électrolyseur est dominé par la surconsommation.** En 15 ans, l'électrolyseur fonctionne 90 000 h et produit environ 1,19 million de kg d'hydrogène. La fabrication d'un stack (39 509 kg CO2-éq) est répartie sur tout cet hydrogène : 0,033 kg CO2-éq/kg, soit 0,8 % de l'impact d'1 kg (4,31). Dans le cas central, les stacks en plus ajoutent 0,07 kg CO2-éq/kg, mais l'électricité en plus en ajoute 0,19 : la surconsommation pèse près de trois fois plus que le remplacement.
+- **Le résultat avance par paliers, car le nombre de stacks est entier.** La pile fonctionne 5 554 h sur 200 000 km : au-dessus, 1 stack suffit (+6 %) ; entre 2 777 et 5 554 h, il en faut 2 (+31 %). Ce qui compte est de franchir le seuil de 5 554 h, pas de gagner quelques heures.
+- **La durée de vie de la pile est l'entrée clé.** L'analyse de sensibilité globale (méthode de Sobol) fait varier les huit entrées incertaines en même temps et mesure la part de la variation du résultat due à chacune : son indice total va de 0 (l'entrée ne compte pas) à 1 (elle explique tout). La durée de vie de la pile explique presque toute la variation de la hausse (indice de Sobol total 0,94 ; méthode dans [section 6](#6-analyses-de-sensibilité), résultats dans [GUIDE.fr.md](GUIDE.fr.md#8-quelles-entrées-comptent-le-plus-toutes-ensemble-)).
+
+Les limites, leur effet et le domaine de validité sont dans [LIMITS.fr.md](LIMITS.fr.md).
 
 ---
 
