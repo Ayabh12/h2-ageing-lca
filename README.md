@@ -74,7 +74,11 @@ flowchart TB
 
     subgraph M["What the code computes · ★ contribution of this work"]
         direction LR
-        m1["1 · Reference<br/>performance"] --> m2["★ 2 · Ageing<br/>over 15 years, three cases"] --> m3["★ 3 · End of life<br/>and number of stacks"] --> m4["★ 4 · LCA of ageing<br/>over-consumption + replacement"]
+        m1["1 · Reference<br/>performance<br/>(new stacks)"] --> m2["★ 2 · Ageing over 15 years<br/>three cases<br/>fuel cell voltage ↓<br/>electrolyser voltage ↑<br/>tank permeation ↑"]
+        m2 --> m3["★ 3 · Over-consumption<br/>+ electricity per kg H₂<br/>+ hydrogen lost by permeation<br/>+ hydrogen per km"]
+        m2 --> m4["★ 4 · Replacement<br/>end of life: voltage changed by 10 %<br/>→ number of stacks over 15 years"]
+        m3 --> m5["★ 5 · LCA of ageing<br/>impact of over-consumption<br/>+ impact of replacement"]
+        m4 --> m5
     end
 
     subgraph R["Results"]
@@ -93,23 +97,26 @@ flowchart TB
     classDef res fill:#e3f1e3,stroke:#3d8b3d,color:#163016
     class e1,e2,e3,e4 inp
     class c1,c2,c3,c4,c5,c6 chain
-    class m1,m2,m3,m4 code
+    class m1,m2,m3,m4,m5 code
     class r1,r2,r3 res
     style E fill:#ffffff,stroke:#3b6ea5
     style C fill:#ffffff,stroke:#c9892b
     style M fill:#ffffff,stroke:#6c4fa3
     style R fill:#ffffff,stroke:#3d8b3d
     classDef key fill:#fde3e1,stroke:#c0392b,stroke-width:3px,color:#4a1410,font-weight:bold
-    class m2,m3,m4,r2 key
+    class m2,m3,m4,m5,r2 key
 ```
 
 **Reading the diagram, step by step:**
 
-1. **Reference performance**: from the measurements, the code fits a polarisation curve of the electrolyser and of the fuel cell when new.
-2. **Ageing**: from this reference performance, it ages each stack over 15 years according to the chosen case; the fuel cell voltage falls, the electrolyser voltage rises.
-3. **End of life and number of stacks**: from this voltage, it finds the age at which it has changed by 10 %, then the number of stacks needed over 15 years.
-4. **Chain flows**: from the same voltage, it computes the electricity per kg of hydrogen and the hydrogen per km; their rise is the over-consumption.
-5. **LCA**: it multiplies these flows and the number of stacks by the characterised impacts, which gives the impact of over-consumption and that of replacement.
+1. **Reference performance**: from the measurements, the code fits the polarisation curve of the electrolyser and of the fuel cell when new.
+2. **Ageing**: it ages each component over 15 years according to the chosen case: the fuel cell voltage falls, the electrolyser voltage rises, the tank permeation increases.
+3. **Over-consumption**: from these changes, it computes what the chain consumes in addition:
+   - the electrolyser needs more electricity per kg of hydrogen;
+   - the tank loses more hydrogen by permeation;
+   - the fuel cell uses more hydrogen per km, so more hydrogen must be produced and compressed.
+4. **Replacement**: it finds the age at which the voltage has changed by 10 % (end of life), then the number of stacks needed over 15 years.
+5. **LCA**: it multiplies the over-consumption and the number of stacks by the characterised impacts, which gives the impact of over-consumption and that of replacement.
 6. **Results**: the rise due to ageing, for each component and for the chain, in the 16 EF 3.1 categories.
 
 The boxes marked ★ are the contribution of this work. Each step is detailed in [docs/METHOD.md](docs/METHOD.md).
