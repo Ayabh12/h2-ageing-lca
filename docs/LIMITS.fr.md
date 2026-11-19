@@ -44,4 +44,29 @@ Cette page liste ce que le modèle ne sait pas ou ne comprend pas, l'effet sur l
 
 ## Domaine de validité
 
-Les résultats s'appliquent directement à une chaîne proche de celle étudiée : électrolyse PEM raccordée au réseau, à l'échelle du MW, compression à 700 bar, réservoir de type IV, pile PEM dans une voiture particulière, sur 15 ans. Pour un autre équipement, la structure du modèle reste valable, mais les modèles de polarisation doivent être réajustés sur ses propres mesures, et ses propres données de vieillissement doivent être saisies.
+Le modèle répond à une question précise : **de combien le vieillissement des stacks change l'ACV d'une chaîne hydrogène PEM**. Selon ce que vous changez, il s'applique directement, après adaptation des données, ou pas du tout.
+
+**1. Utilisable directement, en changeant une valeur** (section 3 du [guide](GUIDE.fr.md)) :
+
+- une autre source d'électricité (une des cinq fournies, ou une nouvelle si vous avez son impact par kWh) ;
+- une autre durée de vie ou vitesse de dégradation des stacks, d'autres constantes de vieillissement ;
+- un autre kilométrage, un autre horizon, d'autres heures de fonctionnement de l'électrolyseur ;
+- une autre énergie de compression, un autre impact de fabrication, une autre règle de comptage des stacks.
+
+**2. Utilisable après adaptation des données, sans changer le code :**
+
+- **un autre stack PEM** (électrolyseur ou pile) : réajuster les courbes de polarisation sur ses propres mesures (`scripts/fit_pemfc.py`, `scripts/fit_pemwe.py`), donner son nombre de cellules, sa surface active et ses propres données de vieillissement ;
+- **un autre trajet ou un autre profil de fonctionnement** : remplacer les fichiers de mesures ;
+- **un autre véhicule à pile PEM** (bus, camion) : donner son trajet mesuré, son stack et son kilométrage ; les durées de vie du DOE, établies pour des voitures, ne s'appliquent alors plus et doivent être remplacées ;
+- **un autre réservoir** (autre type ou autre volume) : donner son inventaire et sa perméation ;
+- **un autre inventaire de fabrication** : avec une licence ecoinvent.
+
+**3. Hors du domaine : le modèle ne fournit pas de résultat valable** et il faudrait écrire de nouvelles équations :
+
+- **une autre technologie** : électrolyse alcaline, à oxyde solide (SOEC) ou à membrane échangeuse d'anions (AEM), pile à oxyde solide (SOFC). Les courbes de polarisation et les lois de vieillissement sont propres au PEM (platine, membrane, iridium) ;
+- **un autre mode de stockage** : hydrogène liquide, hydrures, transport par canalisation ;
+- **des auxiliaires** : compresseur d'air, humidificateur, refroidissement, électronique de puissance, équipements de l'électrolyseur hors stack. Ni leur consommation, ni leur fabrication, ni leur vieillissement ne sont modélisés ; en ajouter un demande de nouvelles équations, pas seulement une donnée ;
+- **des étapes hors périmètre** : transport et distribution de l'hydrogène, station hors compression, fin de vie et recyclage des stacks (platine, iridium) ;
+- **d'autres formes de vieillissement** : vieillissement de la compression, défaillances brutales (rupture de membrane), effet propre des démarrages et des arrêts, températures variables, démarrages à froid ;
+- **une électricité qui change au fil des 15 ans** : le modèle utilise une même source sur tout l'horizon ;
+- **l'empreinte totale d'un véhicule** : seuls les stacks, le réservoir et la production d'hydrogène sont comptés. Le résultat mesure l'effet du vieillissement, pas l'impact complet du véhicule.

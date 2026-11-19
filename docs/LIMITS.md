@@ -44,4 +44,29 @@ This page lists what the model does not know or does not include, the effect on 
 
 ## Validity domain
 
-The results apply directly to a chain close to the one studied: grid-connected PEM electrolysis at MW scale, 700 bar compression, type IV tank, PEM fuel cell in a passenger car, over 15 years. For another equipment, the structure of the model still applies, but the polarisation models should be refitted on its own measurements and its own ageing data should be entered.
+The model answers one precise question: **how much stack ageing changes the LCA of a PEM hydrogen chain**. Depending on what you change, it applies directly, after adapting the data, or not at all.
+
+**1. Usable directly, by changing a value** (section 3 of the [guide](GUIDE.md)):
+
+- another electricity source (one of the five shipped, or a new one if you have its impact per kWh);
+- another lifetime or degradation rate of the stacks, other ageing constants;
+- another mileage, another horizon, other operating hours of the electrolyser;
+- another compression energy, another fabrication impact, another stack counting rule.
+
+**2. Usable after adapting the data, without changing the code:**
+
+- **another PEM stack** (electrolyser or fuel cell): refit the polarisation curves on its own measurements (`scripts/fit_pemfc.py`, `scripts/fit_pemwe.py`), give its number of cells, its active area and its own ageing data;
+- **another trip or another operating profile**: replace the measurement files;
+- **another PEM fuel cell vehicle** (bus, truck): give its measured trip, its stack and its mileage; the DOE lifetimes, set for cars, then no longer apply and must be replaced;
+- **another tank** (another type or volume): give its inventory and its permeation;
+- **another fabrication inventory**: with an ecoinvent licence.
+
+**3. Outside the domain: the model gives no valid result**, and new equations would be needed:
+
+- **another technology**: alkaline, solid oxide (SOEC) or anion exchange membrane (AEM) electrolysis, solid oxide fuel cell (SOFC). The polarisation curves and ageing laws are specific to PEM (platinum, membrane, iridium);
+- **another storage mode**: liquid hydrogen, hydrides, pipeline transport;
+- **auxiliaries**: air compressor, humidifier, cooling, power electronics, electrolyser equipment outside the stack. Neither their consumption, nor their fabrication, nor their ageing is modelled; adding one needs new equations, not only data;
+- **steps outside the boundary**: hydrogen transport and distribution, station except compression, end of life and recycling of the stacks (platinum, iridium);
+- **other forms of ageing**: ageing of the compression, sudden failures (membrane rupture), the specific effect of starts and stops, varying temperatures, cold starts;
+- **electricity that changes over the 15 years**: the model uses one source over the whole horizon;
+- **the total footprint of a vehicle**: only the stacks, the tank and hydrogen production are counted. The result measures the effect of ageing, not the full impact of the vehicle.
