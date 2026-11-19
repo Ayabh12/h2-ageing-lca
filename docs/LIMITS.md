@@ -31,7 +31,6 @@ What the model does not know, the effect on the results, and what is done.
 | Limit | What it means |
 |---|---|
 | Stacks and tank only | auxiliaries, station except compression, rest of the vehicle, transport and end of life outside the system |
-| Compression does not age | 2.8 kWh/kg in all cases |
 | Inventories from the literature, scaled (Mori 2023, Lundberg 2019, Benitez 2021) | with the original values, central rise from +22.9 to +28.2 % instead of +31.1 %, same number of stacks |
 | ecoinvent not distributed | results run without a licence; recomputing a fabrication needs one |
 | Linear model (optimistic, central) | sees neither the crossover rise nor the fast early loss of the anode |
@@ -43,4 +42,4 @@ What the model does not know, the effect on the results, and what is done.
 |---|---|
 | **Usable directly** (change a value, [GUIDE](GUIDE.md) section 3) | electricity, lifetimes and ageing constants, mileage, electrolyser hours, compression, fabrication impact, stack counting |
 | **Usable after adapting the data** (code unchanged) | another PEM stack (refit the curves, `fit_pemfc.py`, `fit_pemwe.py`); another trip or profile; another PEM vehicle (bus, truck: replace the DOE lifetimes); another tank; another inventory (ecoinvent licence) |
-| **Outside the domain** (new equations needed) | another technology (alkaline, SOEC, AEM, SOFC); another storage (liquid, hydrides); auxiliaries; transport, distribution, recycling; other ageing (compression, membrane rupture, cold starts, varying temperatures); electricity changing over 15 years; total vehicle footprint |
+| **Outside the domain** (new equations needed) | another technology (alkaline, SOEC, AEM, SOFC); another storage (liquid, hydrides); auxiliaries; transport, distribution, recycling; other ageing (membrane rupture, cold starts, varying temperatures); electricity changing over 15 years; total vehicle footprint |

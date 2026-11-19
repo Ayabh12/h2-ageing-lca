@@ -31,7 +31,6 @@ Ce que le modèle ne sait pas, l'effet sur les résultats, et ce qui est fait.
 | Limite | Ce que cela veut dire |
 |---|---|
 | Stacks et réservoir seulement | auxiliaires, station hors compression, reste du véhicule, transports et fin de vie hors système |
-| Compression sans vieillissement | 2,8 kWh/kg dans tous les cas |
 | Inventaires tirés de la littérature et mis à l'échelle (Mori 2023, Lundberg 2019, Benitez 2021) | avec les valeurs d'origine, hausse centrale de +22,9 à +28,2 % au lieu de +31,1 %, même nombre de stacks |
 | ecoinvent non distribué | les résultats tournent sans licence ; recalculer une fabrication en demande une |
 | Modèle linéaire (optimiste, central) | ne voit ni la hausse du crossover ni la perte rapide de l'anode en début de vie |
@@ -43,4 +42,4 @@ Ce que le modèle ne sait pas, l'effet sur les résultats, et ce qui est fait.
 |---|---|
 | **Utilisable directement** (changer une valeur, [GUIDE](GUIDE.fr.md) section 3) | électricité, durées de vie et constantes de vieillissement, kilométrage, heures de l'électrolyseur, compression, impact de fabrication, comptage des stacks |
 | **Utilisable après adaptation des données** (sans toucher au code) | autre stack PEM (réajuster les courbes, `fit_pemfc.py`, `fit_pemwe.py`) ; autre trajet ou profil ; autre véhicule PEM (bus, camion : remplacer les durées de vie DOE) ; autre réservoir ; autre inventaire (licence ecoinvent) |
-| **Hors domaine** (nouvelles équations nécessaires) | autre technologie (alcalin, SOEC, AEM, SOFC) ; autre stockage (liquide, hydrures) ; auxiliaires ; transport, distribution, recyclage ; autres vieillissements (compression, rupture de membrane, démarrages à froid, températures variables) ; électricité qui change sur 15 ans ; empreinte totale du véhicule |
+| **Hors domaine** (nouvelles équations nécessaires) | autre technologie (alcalin, SOEC, AEM, SOFC) ; autre stockage (liquide, hydrures) ; auxiliaires ; transport, distribution, recyclage ; autres vieillissements (rupture de membrane, démarrages à froid, températures variables) ; électricité qui change sur 15 ans ; empreinte totale du véhicule |
