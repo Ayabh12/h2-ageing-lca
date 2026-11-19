@@ -280,7 +280,7 @@ python scripts/threshold.py --out results    # impact versus stack lifetime, mod
 python scripts/sobol.py --out results        # Sobol indices of the chain (about 15 min on 2 cores)
 ```
 
-**The threshold** is the lifetime at which the number of stacks changes. Over 200 000 km the fuel cell runs 5 554 h: above 5 554 h one stack is enough; between 2 777 and 5 554 h two are needed; below 2 777 h, three. At each threshold the impact jumps by one stack.
+**The threshold** is the lifetime at which the number of stacks changes. Over 200 000 km the fuel cell runs 5 554 h: above 5 554 h one stack is enough; between 2 777 and 5 554 h two are needed; between 1 851 and 2 777 h, three, and so on. The number of stacks is 5 554 h divided by the lifetime of one stack, rounded up; at each threshold the impact jumps by one stack.
 
 `threshold.py` varies the stack lifetime with the linear model and places each configured case on the curve. It also separates the two effects of the choice of ageing model: the predicted end of life, and the shape of the trajectory at equal end of life (linear model set to the end of life of the semi-empirical model).
 
