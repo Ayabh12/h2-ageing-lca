@@ -89,7 +89,7 @@ All keys are listed in section 3.
 | Compression energy | `usage.compression_kWh_per_kg` | `--set usage.compression_kWh_per_kg=3.2` |
 | Water per kg of hydrogen | `usage.water_kg_per_kg_h2` | `--set usage.water_kg_per_kg_h2=9` |
 | Electricity of the electrolyser | `usage.electricity_electrolyser` | `residual_mix_FR`, `average_mix_FR`, `nuclear_FR`, `wind_FR`, `photovoltaic` |
-| Electricity of the compression | `usage.electricity_compression` | same choices |
+| Electricity of the compression | `usage.electricity_compression` | the same five sources as for the electrolyser, chosen separately (default `residual_mix_FR`) |
 | Hours of the electrolyser per year | `usage.electrolyser_hours_per_year` | `--set usage.electrolyser_hours_per_year=7392` |
 | Stack counting | `usage.stack_counting` | `integer` or `prorata` |
 | Distance and horizon | `horizon.vehicle_km_total`, `horizon.years` | `--set horizon.vehicle_km_total=250000` |
