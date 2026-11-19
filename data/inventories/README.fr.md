@@ -20,7 +20,7 @@ Colonnes des fichiers CSV :
 
 Pour afficher les trois inventaires (sans licence) : `python scripts/build_fabrication_brightway.py --check`. Pour recalculer les impacts après avoir changé une quantité, avec votre propre licence ecoinvent : `pip install -r requirements-brightway.txt`, puis `python scripts/build_fabrication_brightway.py --project h2ageing --import-ecoinvent` ; le script demande votre identifiant et votre mot de passe ecoinvent, importe ecoinvent 3.11 cut-off dans Brightway et écrit un nouveau fichier d'impacts. Avec les inventaires tels que fournis, il redonne les mêmes impacts qu'Activity Browser dans les 16 catégories EF 3.1 (écart inférieur à 0,01 % ; changement climatique : 3 698,3, 39 509,4 et 2 332,0 kg CO2-éq) : lancez-le une fois ainsi pour vérifier votre installation.
 
-La dernière colonne de chaque tableau donne la donnée ecoinvent 3.11 cut-off reliée à l'entrée : le nom de l'activité et sa zone géographique (GLO : monde ; RER : Europe ; RoW : reste du monde ; FR : France). Pour le réservoir, l'activité est identifiée par son code ecoinvent, donné en entier dans le fichier CSV.
+La dernière colonne de chaque tableau donne la donnée ecoinvent 3.11 cut-off reliée à l'entrée. Pour le réservoir, l'activité est identifiée par son code ecoinvent, donné en entier dans le fichier CSV.
 
 ---
 
@@ -30,20 +30,20 @@ La dernière colonne de chaque tableau donne la donnée ecoinvent 3.11 cut-off r
 
 | Partie | Entrée | Quantité | Unité | Flux ecoinvent 3.11 cut-off utilisé |
 |---|---|---|---|---|
-| Matériaux du stack | Acier inoxydable (acier au chrome 18/8) | 59,87 | kg | `market for steel, chromium steel 18/8, hot rolled` (GLO) |
-| | Fibre de verre | 10,1 | kg | `market for glass fibre` (GLO) |
-| | Acier faiblement allié | 7,52 | kg | `steel production, low-alloyed, hot rolled` (RoW) |
-| | Polytéréphtalate d'éthylène (PET) | 4,85 | kg | `polyethylene terephthalate production, granulate, amorphous` (RER) |
-| | Silicone | 3,36 | kg | `market for silicone product` (RER) |
-| | Acrylonitrile | 3,33 | kg | `market for acrylonitrile` (GLO) |
-| | Cuivre | 2,53 | kg | `market for copper, cathode` (GLO) |
-| | Eau déionisée | 1,31 | kg | `market for water, deionised` (RoW) |
-| | Alcool éthoxylé (AE11) | 0,587 | kg | `market for ethoxylated alcohol (AE11)` (GLO) |
-| | Tétrafluoroéthylène | 0,384 | kg | `market for tetrafluoroethylene` (GLO) |
-| | Noir de carbone | 0,104 | kg | `market for carbon black` (GLO) |
-| | Platine | 0,069 | kg | `market for platinum` (GLO) |
-| | Tréfilage du cuivre (transformation des 2,53 kg de cuivre) | 2,53 | kg | `market for wire drawing, copper` (GLO) |
-| Énergie de fabrication | Électricité, mix résiduel français, haute tension | 1 096 | kWh | `electricity, high voltage, residual mix` (FR) |
+| Matériaux du stack | Acier inoxydable (acier au chrome 18/8) | 59,87 | kg | `market for steel, chromium steel 18/8, hot rolled` |
+| | Fibre de verre | 10,1 | kg | `market for glass fibre` |
+| | Acier faiblement allié | 7,52 | kg | `steel production, low-alloyed, hot rolled` |
+| | Polytéréphtalate d'éthylène (PET) | 4,85 | kg | `polyethylene terephthalate production, granulate, amorphous` |
+| | Silicone | 3,36 | kg | `market for silicone product` |
+| | Acrylonitrile | 3,33 | kg | `market for acrylonitrile` |
+| | Cuivre | 2,53 | kg | `market for copper, cathode` |
+| | Eau déionisée | 1,31 | kg | `market for water, deionised` |
+| | Alcool éthoxylé (AE11) | 0,587 | kg | `market for ethoxylated alcohol (AE11)` |
+| | Tétrafluoroéthylène | 0,384 | kg | `market for tetrafluoroethylene` |
+| | Noir de carbone | 0,104 | kg | `market for carbon black` |
+| | Platine | 0,069 | kg | `market for platinum` |
+| | Tréfilage du cuivre (transformation des 2,53 kg de cuivre) | 2,53 | kg | `market for wire drawing, copper` |
+| Énergie de fabrication | Électricité, mix résiduel français, haute tension | 1 096 | kWh | `electricity, high voltage, residual mix` |
 | **Total** | **matériaux** | **94,0** | **kg** | |
 | | **énergie** | **1 096** | **kWh** | |
 
@@ -55,15 +55,15 @@ Impact d'un stack sur le changement climatique : 3 698 kg CO2-éq.
 
 | Partie | Entrée | Quantité | Unité | Flux ecoinvent 3.11 cut-off utilisé |
 |---|---|---|---|---|
-| Plaques bipolaires | Titane | 660 | kg | `market for titanium` (GLO) |
-| Enveloppe externe | Acier inoxydable (acier au chrome 18/8) | 125 | kg | `steel production, electric, chromium steel 18/8` (RER) |
-| Collecteurs de courant | Aluminium, alliage corroyé | 33,75 | kg | `market for aluminium, wrought alloy` (GLO) |
-| | Cuivre | 5,625 | kg | `market for copper, cathode` (GLO) |
-| Membrane | Tétrafluoroéthylène | 20 | kg | `market for tetrafluoroethylene` (GLO) |
-| Électrodes | Charbon actif, granulé | 11,25 | kg | `activated carbon production, granular from hard coal` (RER) |
+| Plaques bipolaires | Titane | 660 | kg | `market for titanium` |
+| Enveloppe externe | Acier inoxydable (acier au chrome 18/8) | 125 | kg | `steel production, electric, chromium steel 18/8` |
+| Collecteurs de courant | Aluminium, alliage corroyé | 33,75 | kg | `market for aluminium, wrought alloy` |
+| | Cuivre | 5,625 | kg | `market for copper, cathode` |
+| Membrane | Tétrafluoroéthylène | 20 | kg | `market for tetrafluoroethylene` |
+| Électrodes | Charbon actif, granulé | 11,25 | kg | `activated carbon production, granular from hard coal` |
 | | Iridium (ressource, voir plus bas) | 0,9375 | kg | `Iridium` · biosphère, *natural resource::in ground* |
-| | Platine | 0,09375 | kg | `market for platinum` (GLO) |
-| Énergie d'assemblage | Électricité, mix résiduel français, moyenne tension | 6 700 | kWh | `electricity, medium voltage, residual mix` (FR) |
+| | Platine | 0,09375 | kg | `market for platinum` |
+| Énergie d'assemblage | Électricité, mix résiduel français, moyenne tension | 6 700 | kWh | `electricity, medium voltage, residual mix` |
 | **Total** | **matériaux et ressources** | **856,7** | **kg** | |
 | | **énergie** | **6 700** | **kWh** | |
 
@@ -78,8 +78,8 @@ Impact d'un stack sur le changement climatique : 39 509 kg CO2-éq. L'iridium n'
 | Coque composite | Fibre de carbone | 76 | kg | carbon fibre (code `9ad06220…`) |
 | | Résine époxy | 26 | kg | epoxy resin (code `52da7875…`) |
 | Liner (enveloppe intérieure) | Polyéthylène haute densité | 7,5 | kg | high-density polyethylene (liner) (code `1cbbd15b…`) |
-| Énergie de fabrication | Électricité, haute tension, marché mondial | 338,64 | kWh | electricity, high voltage, market group for electricity, high voltage (GLO) (code `8a929576…`) |
-| | Électricité, basse tension, cogénération au gaz naturel | 43,2 | kWh | electricity, low voltage, from heat and power co-generation, natural gas (Europe without Switzerland) (code `1f3b8a35…`) |
+| Énergie de fabrication | Électricité, haute tension, marché mondial | 338,64 | kWh | electricity, high voltage, market group for electricity, high voltage (code `8a929576…`) |
+| | Électricité, basse tension, cogénération au gaz naturel | 43,2 | kWh | electricity, low voltage, from heat and power co-generation, natural gas (code `1f3b8a35…`) |
 | **Total** | **matériaux** | **109,5** | **kg** | |
 | | **énergie** | **381,84** | **kWh** | |
 
