@@ -16,7 +16,7 @@ Ce que le modèle ne sait pas, l'effet sur les résultats, et ce qui est fait.
 | Crossover de la pile mesuré sur 1 000 h seulement | consommation d'hydrogène en fin de vie incertaine | lois linéaire, exponentielle et constante comparées |
 | Aucune loi publiée pour la perméation du réservoir | effet encadré, pas modélisé | de 6 à 46 mL/h/L (limite UN R134) : moins d'1 g CO2-éq/km |
 | Surface de la pile (297 cm²) estimée ; cellules (200) et surface (1 500 cm²) de l'électrolyseur choisies | fixent la densité de courant | justifiées dans `config/default.yaml` ; modifiables |
-| 3,64 g d'hydrogène mesuré non expliqué par le courant sur le trajet | origine inconnue | gardé constant, comme un courant de perte |
+| 3,64 g d'hydrogène non expliqués sur le trajet (écart entre l'hydrogène mesuré au réservoir, 0,196 kg, et celui calculé à partir du courant, 0,192 kg) | origine inconnue | gardé constant, comme un courant de perte |
 
 ## 2. Conditions de fonctionnement
 

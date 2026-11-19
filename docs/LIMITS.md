@@ -16,7 +16,7 @@ What the model does not know, the effect on the results, and what is done.
 | Fuel cell crossover measured over 1 000 h only | hydrogen consumption at old age uncertain | linear, exponential and constant laws compared |
 | No published law for the tank permeation | effect bracketed, not modelled | from 6 to 46 mL/h/L (UN R134 limit): less than 1 g CO2-eq/km |
 | Fuel cell area (297 cm²) estimated; electrolyser cells (200) and area (1 500 cm²) chosen | they fix the current density | justified in `config/default.yaml`; can be changed |
-| 3.64 g of measured hydrogen not explained by the current on the trip | origin unknown | kept constant, as a loss current |
+| 3.64 g of hydrogen not explained on the trip (gap between the hydrogen measured at the tank, 0.196 kg, and that computed from the current, 0.192 kg) | origin unknown | kept constant, as a loss current |
 
 ## 2. Operating conditions
 
