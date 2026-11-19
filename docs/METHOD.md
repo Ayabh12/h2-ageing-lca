@@ -263,8 +263,6 @@ Energy and hydrogen are integrated over the horizon (20 001 points).
 
 ## 6. Sensitivity analyses
 
-**What a Sobol analysis is.** It varies all the inputs together, many times (10 240 runs), and measures which share of the variation of the result each input explains. Its total index goes from 0 (the input does not matter) to 1 (the input explains all the variation, alone or together with the others).
-
 | Test | Question | Script |
 |---|---|---|
 | Electricity source | does the conclusion hold with a cleaner electricity? | `run.py --set usage.electricity_electrolyser=...` |
@@ -274,6 +272,8 @@ Energy and hydrogen are integrated over the horizon (20 001 points).
 | Crossover law | does the unknown shape of the crossover growth change the result? | `fuel_cell_tests.py` |
 | Semi-empirical constants | which laboratory constant changes the result most? | `semi_empirical_constants.py` |
 | Global (Sobol) | which of eight inputs, varying together, explains the result? | `sobol.py` |
+
+**What a Sobol analysis is.** It varies all the inputs together, many times (10 240 runs), and measures which share of the variation of the result each input explains. Its total index goes from 0 (the input does not matter) to 1 (the input explains all the variation, alone or together with the others).
 
 ---
 

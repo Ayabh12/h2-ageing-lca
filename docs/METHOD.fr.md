@@ -263,8 +263,6 @@ L'énergie et l'hydrogène sont intégrés sur l'horizon (20 001 points).
 
 ## 6. Analyses de sensibilité
 
-**Ce qu'est l'analyse de Sobol.** Elle fait varier toutes les entrées en même temps, un grand nombre de fois (10 240 calculs), et mesure la part de la variation du résultat expliquée par chaque entrée. Son indice total va de 0 (l'entrée ne compte pas) à 1 (l'entrée explique toute la variation, seule ou avec les autres).
-
 | Test | Question | Script |
 |---|---|---|
 | Source d'électricité | la conclusion tient-elle avec une électricité plus propre ? | `run.py --set usage.electricity_electrolyser=...` |
@@ -274,6 +272,8 @@ L'énergie et l'hydrogène sont intégrés sur l'horizon (20 001 points).
 | Loi de crossover | la forme inconnue de la hausse du crossover change-t-elle le résultat ? | `fuel_cell_tests.py` |
 | Constantes semi-empiriques | quelle constante de laboratoire change le plus le résultat ? | `semi_empirical_constants.py` |
 | Globale (Sobol) | laquelle des huit entrées, variant ensemble, explique le résultat ? | `sobol.py` |
+
+**Ce qu'est l'analyse de Sobol.** Elle fait varier toutes les entrées en même temps, un grand nombre de fois (10 240 calculs), et mesure la part de la variation du résultat expliquée par chaque entrée. Son indice total va de 0 (l'entrée ne compte pas) à 1 (l'entrée explique toute la variation, seule ou avec les autres).
 
 ---
 
