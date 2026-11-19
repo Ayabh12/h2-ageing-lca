@@ -170,7 +170,7 @@ Default configuration: climate change (EF 3.1), French residual mix (79.6 g CO2-
 - **The fuel cell is dominated by replacement**: in the central case, 91 % of its rise comes from the second stack.
 - **The electrolyser is dominated by over-consumption**: one stack is spread over 1.19 million kg of hydrogen, the extra electricity weighs more.
 
-Detailed breakdown (use and fabrication, two routes per component) and explanation of each point: [docs/METHOD.md](docs/METHOD.md#7-detailed-results). Limits and validity domain: [docs/LIMITS.md](docs/LIMITS.md).
+Detailed breakdown (use and fabrication, two routes per component) and explanation of each result: [docs/METHOD.md](docs/METHOD.md#7-detailed-results). Limits and validity domain: [docs/LIMITS.md](docs/LIMITS.md).
 
 ## 7. Cite, licence, contact
 

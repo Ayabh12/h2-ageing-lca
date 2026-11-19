@@ -170,7 +170,7 @@ Configuration par défaut : changement climatique (EF 3.1), mix résiduel franç
 - **La pile est dominée par le remplacement** : dans le cas central, 91 % de sa hausse vient du second stack.
 - **L'électrolyseur est dominé par la surconsommation** : un stack est réparti sur 1,19 million de kg d'hydrogène, l'électricité en plus pèse davantage.
 
-Décomposition détaillée (usage et fabrication, deux voies par composant) et explication de chaque point : [docs/METHOD.fr.md](docs/METHOD.fr.md#7-résultats-détaillés). Limites et domaine de validité : [docs/LIMITS.fr.md](docs/LIMITS.fr.md).
+Décomposition détaillée (usage et fabrication, deux voies par composant) et explication de chaque résultat : [docs/METHOD.fr.md](docs/METHOD.fr.md#7-résultats-détaillés). Limites et domaine de validité : [docs/LIMITS.fr.md](docs/LIMITS.fr.md).
 
 ## 7. Citer, licence, contact
 
