@@ -221,8 +221,6 @@ Configuration par défaut : changement climatique (EF 3.1), mix résiduel franç
 
 - **La pile est dominée par le remplacement** : dans le cas central, 91 % de sa hausse vient du second stack.
 - **L'électrolyseur est dominé par la surconsommation** : un stack est réparti sur 1,19 million de kg d'hydrogène, l'électricité en plus pèse davantage.
-- **Le résultat avance par paliers** : au-delà de 5 554 h de durée de vie, un seul stack de pile suffit.
-- **La durée de vie de la pile est l'entrée clé** de la hausse (indice de Sobol total 0,94 ; [méthode de Sobol](docs/METHOD.fr.md#6-analyses-de-sensibilité)).
 
 Décomposition détaillée (usage et fabrication, deux voies par composant) et explication de chaque point : [docs/METHOD.fr.md](docs/METHOD.fr.md#7-résultats-détaillés). Limites et domaine de validité : [docs/LIMITS.fr.md](docs/LIMITS.fr.md).
 
