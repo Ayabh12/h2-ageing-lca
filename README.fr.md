@@ -77,14 +77,12 @@ flowchart TB
         m1["1 · Performance<br/>de référence<br/>(stacks neufs)"] --> m2["★ 2 · Vieillissement sur 15 ans<br/>trois cas<br/>tension de la pile ↓<br/>tension de l'électrolyseur ↑<br/>perméation du réservoir ↑"]
         m2 --> m3["★ 3 · Surconsommation<br/>+ électricité par kg H₂<br/>+ hydrogène perdu par perméation<br/>+ hydrogène par km"]
         m2 --> m4["★ 4 · Remplacement<br/>fin de vie : tension changée de 10 %<br/>→ nombre de stacks sur 15 ans"]
-        m3 --> m5["★ 5 · ACV du vieillissement<br/>impact de la surconsommation<br/>+ impact du remplacement"]
-        m4 --> m5
     end
 
     subgraph R["Résultats"]
         direction LR
-        r1["Chaque composant<br/>et la chaîne complète"]
-        r2["★ Hausse due au vieillissement<br/>avec / sans, 16 catégories EF 3.1"]
+        r1["Impact sans vieillissement<br/>(référence)"]
+        r2["★ 5 · Impact du vieillissement (ACV)<br/>surconsommation + remplacement<br/>chaque composant et la chaîne<br/>16 catégories EF 3.1"]
         r3["Tests de sensibilité"]
         r1 ~~~ r2 ~~~ r3
     end
@@ -97,14 +95,14 @@ flowchart TB
     classDef res fill:#e3f1e3,stroke:#3d8b3d,color:#163016
     class e1,e2,e3,e4 inp
     class c1,c2,c3,c4,c5,c6 chain
-    class m1,m2,m3,m4,m5 code
+    class m1,m2,m3,m4 code
     class r1,r2,r3 res
     style E fill:#ffffff,stroke:#3b6ea5
     style C fill:#ffffff,stroke:#c9892b
     style M fill:#ffffff,stroke:#6c4fa3
     style R fill:#ffffff,stroke:#3d8b3d
     classDef key fill:#fde3e1,stroke:#c0392b,stroke-width:3px,color:#4a1410,font-weight:bold
-    class m2,m3,m4,m5,r2 key
+    class m2,m3,m4,r2 key
 ```
 
 **Lecture du schéma, étape par étape :**
@@ -116,8 +114,7 @@ flowchart TB
    - le réservoir perd plus d'hydrogène par perméation ;
    - la pile consomme plus d'hydrogène par km, donc il faut produire et comprimer plus d'hydrogène.
 4. **Remplacement** : il trouve l'âge où la tension a changé de 10 % (fin de vie), puis le nombre de stacks nécessaires sur 15 ans.
-5. **ACV** : il multiplie la surconsommation et le nombre de stacks par les impacts caractérisés, ce qui donne l'impact de la surconsommation et celui du remplacement.
-6. **Résultats** : la hausse due au vieillissement, pour chaque composant et pour la chaîne, dans les 16 catégories EF 3.1.
+5. **Résultats (ACV)** : il multiplie la surconsommation et le nombre de stacks par les impacts caractérisés. On obtient l'impact de la surconsommation et celui du remplacement, donc la hausse due au vieillissement, pour chaque composant et pour la chaîne, dans les 16 catégories EF 3.1.
 
 Les cases marquées ★ sont l'apport de ce travail. Le détail de chaque étape est dans [docs/METHOD.fr.md](docs/METHOD.fr.md).
 
