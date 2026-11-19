@@ -20,30 +20,32 @@ Columns of the CSV files:
 
 To print the three inventories (no licence needed): `python scripts/build_fabrication_brightway.py --check`. To recompute the impacts after changing an amount, with your own ecoinvent licence: `pip install -r requirements-brightway.txt`, then `python scripts/build_fabrication_brightway.py --project h2ageing --import-ecoinvent`; the script asks for your ecoinvent username and password, imports ecoinvent 3.11 cut-off into Brightway and writes a new impact file. With the inventories as shipped, it gives the same impacts as Activity Browser in the 16 EF 3.1 categories (difference below 0.01 %; climate change 3 698.3, 39 509.4 and 2 332.0 kg CO2-eq): run it once like this to check your installation.
 
+The last column of each table gives the ecoinvent 3.11 cut-off dataset linked to the input: the activity name and its geography (GLO: global; RER: Europe; RoW: rest of the world; FR: France). For the tank, the activity is identified by its ecoinvent code, given in full in the CSV file.
+
 ---
 
 ## Inventory of the fuel cell stack (128 kW)
 
 `fuel_cell_stack_128kW.csv` · Source: Mori et al. 2023 (48 kW stack), scaled by 128/48. The source gives the materials of the whole stack, not their split by part.
 
-| Part | Input | Amount | Unit |
-|---|---|---|---|
-| Stack materials | Stainless steel (chromium steel 18/8) | 59.87 | kg |
-| | Glass fibre | 10.1 | kg |
-| | Low-alloyed steel | 7.52 | kg |
-| | Polyethylene terephthalate (PET) | 4.85 | kg |
-| | Silicone | 3.36 | kg |
-| | Acrylonitrile | 3.33 | kg |
-| | Copper | 2.53 | kg |
-| | Deionised water | 1.31 | kg |
-| | Ethoxylated alcohol (AE11) | 0.587 | kg |
-| | Tetrafluoroethylene | 0.384 | kg |
-| | Carbon black | 0.104 | kg |
-| | Platinum | 0.069 | kg |
-| | Copper wire drawing (processing of the 2.53 kg of copper) | 2.53 | kg |
-| Manufacturing energy | Electricity, French residual mix, high voltage | 1 096 | kWh |
-| **Total** | **materials** | **94.0** | **kg** |
-| | **energy** | **1 096** | **kWh** |
+| Part | Input | Amount | Unit | ecoinvent 3.11 cut-off flow used |
+|---|---|---|---|---|
+| Stack materials | Stainless steel (chromium steel 18/8) | 59.87 | kg | `market for steel, chromium steel 18/8, hot rolled` (GLO) |
+| | Glass fibre | 10.1 | kg | `market for glass fibre` (GLO) |
+| | Low-alloyed steel | 7.52 | kg | `steel production, low-alloyed, hot rolled` (RoW) |
+| | Polyethylene terephthalate (PET) | 4.85 | kg | `polyethylene terephthalate production, granulate, amorphous` (RER) |
+| | Silicone | 3.36 | kg | `market for silicone product` (RER) |
+| | Acrylonitrile | 3.33 | kg | `market for acrylonitrile` (GLO) |
+| | Copper | 2.53 | kg | `market for copper, cathode` (GLO) |
+| | Deionised water | 1.31 | kg | `market for water, deionised` (RoW) |
+| | Ethoxylated alcohol (AE11) | 0.587 | kg | `market for ethoxylated alcohol (AE11)` (GLO) |
+| | Tetrafluoroethylene | 0.384 | kg | `market for tetrafluoroethylene` (GLO) |
+| | Carbon black | 0.104 | kg | `market for carbon black` (GLO) |
+| | Platinum | 0.069 | kg | `market for platinum` (GLO) |
+| | Copper wire drawing (processing of the 2.53 kg of copper) | 2.53 | kg | `market for wire drawing, copper` (GLO) |
+| Manufacturing energy | Electricity, French residual mix, high voltage | 1 096 | kWh | `electricity, high voltage, residual mix` (FR) |
+| **Total** | **materials** | **94.0** | **kg** | |
+| | **energy** | **1 096** | **kWh** | |
 
 Climate change impact of one stack: 3 698 kg CO2-eq.
 
@@ -51,19 +53,19 @@ Climate change impact of one stack: 3 698 kg CO2-eq.
 
 `electrolyser_stack_1p25MW.csv` · Source: Lundberg 2019 (per MW of stack), scaled to 1.25 MW.
 
-| Part | Input | Amount | Unit |
-|---|---|---|---|
-| Bipolar plates | Titanium | 660 | kg |
-| Outer casing | Stainless steel (chromium steel 18/8) | 125 | kg |
-| Current collectors | Aluminium, wrought alloy | 33.75 | kg |
-| | Copper | 5.625 | kg |
-| Membrane | Tetrafluoroethylene | 20 | kg |
-| Electrodes | Activated carbon, granular | 11.25 | kg |
-| | Iridium (resource, see below) | 0.9375 | kg |
-| | Platinum | 0.09375 | kg |
-| Assembly energy | Electricity, French residual mix, medium voltage | 6 700 | kWh |
-| **Total** | **materials and resources** | **856.7** | **kg** |
-| | **energy** | **6 700** | **kWh** |
+| Part | Input | Amount | Unit | ecoinvent 3.11 cut-off flow used |
+|---|---|---|---|---|
+| Bipolar plates | Titanium | 660 | kg | `market for titanium` (GLO) |
+| Outer casing | Stainless steel (chromium steel 18/8) | 125 | kg | `steel production, electric, chromium steel 18/8` (RER) |
+| Current collectors | Aluminium, wrought alloy | 33.75 | kg | `market for aluminium, wrought alloy` (GLO) |
+| | Copper | 5.625 | kg | `market for copper, cathode` (GLO) |
+| Membrane | Tetrafluoroethylene | 20 | kg | `market for tetrafluoroethylene` (GLO) |
+| Electrodes | Activated carbon, granular | 11.25 | kg | `activated carbon production, granular from hard coal` (RER) |
+| | Iridium (resource, see below) | 0.9375 | kg | `Iridium` · biosphere, *natural resource::in ground* |
+| | Platinum | 0.09375 | kg | `market for platinum` (GLO) |
+| Assembly energy | Electricity, French residual mix, medium voltage | 6 700 | kWh | `electricity, medium voltage, residual mix` (FR) |
+| **Total** | **materials and resources** | **856.7** | **kg** | |
+| | **energy** | **6 700** | **kWh** | |
 
 Climate change impact of one stack: 39 509 kg CO2-eq. Iridium has no ecoinvent dataset: it is counted as a resource taken from the ground, so its extraction weighs on resource depletion but no impact of its processing is counted.
 
@@ -71,14 +73,14 @@ Climate change impact of one stack: 39 509 kg CO2-eq. Iridium has no ecoinvent d
 
 `tank_type_IV.csv` · Source: Benitez et al. 2021.
 
-| Part | Input | Amount | Unit |
-|---|---|---|---|
-| Composite shell | Carbon fibre | 76 | kg |
-| | Epoxy resin | 26 | kg |
-| Liner | High-density polyethylene | 7.5 | kg |
-| Manufacturing energy | Electricity, high voltage, global market | 338.64 | kWh |
-| | Electricity, low voltage, natural gas heat and power co-generation | 43.2 | kWh |
-| **Total** | **materials** | **109.5** | **kg** |
-| | **energy** | **381.84** | **kWh** |
+| Part | Input | Amount | Unit | ecoinvent 3.11 cut-off flow used |
+|---|---|---|---|---|
+| Composite shell | Carbon fibre | 76 | kg | carbon fibre (code `9ad06220…`) |
+| | Epoxy resin | 26 | kg | epoxy resin (code `52da7875…`) |
+| Liner | High-density polyethylene | 7.5 | kg | high-density polyethylene (liner) (code `1cbbd15b…`) |
+| Manufacturing energy | Electricity, high voltage, global market | 338.64 | kWh | electricity, high voltage, market group for electricity, high voltage (GLO) (code `8a929576…`) |
+| | Electricity, low voltage, natural gas heat and power co-generation | 43.2 | kWh | electricity, low voltage, from heat and power co-generation, natural gas (Europe without Switzerland) (code `1f3b8a35…`) |
+| **Total** | **materials** | **109.5** | **kg** | |
+| | **energy** | **381.84** | **kWh** | |
 
 Climate change impact of one tank: 2 332 kg CO2-eq, of which 2 075 kg for the materials and 257 kg for the manufacturing energy.
