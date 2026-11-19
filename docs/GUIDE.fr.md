@@ -16,13 +16,36 @@ Des exemples prêts à lancer dans Jupyter : [`examples/adapt_the_model.fr.ipynb
 
 ## 1. Installer et lancer
 
-Installation, une seule fois (Python 3.10 ou plus récent) :
+Prérequis : Python 3.10 ou plus récent, et Git (ou téléchargez le dépôt en ZIP : bouton vert **Code**, **Download ZIP**).
+
+**Dans un terminal** (Anaconda Prompt, PowerShell, terminal macOS ou Linux) :
 
 ```bash
 git clone https://github.com/Ayabh12/h2-ageing-lca
 cd h2-ageing-lca
 pip install -r requirements.txt
+python scripts/run.py                    # configuration par défaut, environ 2 s
+python tests/test_reference_results.py   # 13 tests : la configuration par défaut redonne les résultats de référence
 ```
+
+**Dans Jupyter**, cette méthode marche partout, avec ou sans Git installé. Copiez ces deux cellules dans un nouveau notebook :
+
+```python
+# cellule 1 : télécharger le dépôt (sans Git) et installer, une seule fois
+import sys, urllib.request, zipfile
+urllib.request.urlretrieve("https://github.com/Ayabh12/h2-ageing-lca/archive/refs/heads/main.zip", "h2-ageing-lca.zip")
+zipfile.ZipFile("h2-ageing-lca.zip").extractall(".")
+%cd h2-ageing-lca-main
+!{sys.executable} -m pip install -r requirements.txt
+```
+
+```python
+# cellule 2 : lancer le modèle, puis vérifier les résultats de référence
+!{sys.executable} scripts/run.py
+!{sys.executable} tests/test_reference_results.py
+```
+
+Dans Jupyter, `!` lance une commande du terminal, `%cd` entre dans un dossier, et `{sys.executable}` désigne le Python du notebook. Si le dossier existe déjà, lancez seulement `import sys` puis `%cd h2-ageing-lca-main`. Un notebook prêt à lancer est aussi dans [examples/adapt_the_model.fr.ipynb](../examples/adapt_the_model.fr.ipynb).
 
 En Python ou dans Jupyter, depuis le dossier qui contient `h2-ageing-lca` :
 

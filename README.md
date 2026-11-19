@@ -140,43 +140,7 @@ The three cases are always given side by side; the central case is highlighted b
 
 What can be changed is detailed in [docs/GUIDE.md](docs/GUIDE.md), section 3.
 
-### Installation
-
-Requirements: Python 3.10 or later, and Git (or download the repository as a ZIP: green **Code** button, **Download ZIP**).
-
-**In a terminal** (Anaconda Prompt, PowerShell, macOS or Linux terminal):
-
-```bash
-git clone https://github.com/Ayabh12/h2-ageing-lca
-cd h2-ageing-lca
-pip install -r requirements.txt
-python scripts/run.py                    # default configuration, about 2 s
-python tests/test_reference_results.py   # 13 tests: the default configuration gives the reference results
-```
-
-**In Jupyter**, this method works everywhere, with or without Git installed. Copy these two cells into a new notebook:
-
-```python
-# cell 1: download the repository (no Git needed) and install, once
-import sys, urllib.request, zipfile
-urllib.request.urlretrieve("https://github.com/Ayabh12/h2-ageing-lca/archive/refs/heads/main.zip", "h2-ageing-lca.zip")
-zipfile.ZipFile("h2-ageing-lca.zip").extractall(".")
-%cd h2-ageing-lca-main
-!{sys.executable} -m pip install -r requirements.txt
-```
-
-```python
-# cell 2: run the model, then check the reference results
-!{sys.executable} scripts/run.py
-!{sys.executable} tests/test_reference_results.py
-```
-
-In Jupyter, `!` runs a terminal command, `%cd` enters a folder, and `{sys.executable}` is the Python of the notebook. If the folder already exists, only run `import sys` and `%cd h2-ageing-lca-main`. A ready-made notebook is also in [examples/adapt_the_model.ipynb](examples/adapt_the_model.ipynb).
-
-**Next:**
-
-- **without a licence**, change a value or a case: [docs/GUIDE.md](docs/GUIDE.md), sections 2 and 3;
-- **with a licence**, recompute the fabrication impacts with Brightway (ecoinvent login, import, check): [docs/GUIDE.md](docs/GUIDE.md#34-fabrication), section 3.4.
+**Install and run** (terminal or Jupyter, with or without Git): [docs/GUIDE.md](docs/GUIDE.md#1-install-and-run), section 1. Then, without a licence, change a value or a case (sections 2 and 3); with a licence, recompute the fabrication impacts with Brightway ([section 3.4](docs/GUIDE.md#34-fabrication)).
 
 ## 5. Documentation
 
