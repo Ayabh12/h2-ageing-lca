@@ -78,6 +78,13 @@ python scripts/run.py --out results
 python scripts/plot.py --results results
 ```
 
+To **compare** a change with results already written, add `--compare` and the folder of those results. The code prints, for each case, the number of stacks before and now, then the impact before, now and the difference (in g CO2-eq/km and in %), for the chain, the fuel cell and the tank:
+
+```bash
+python scripts/run.py --out results/reference                       # once: the reference
+python scripts/run.py --set cases.central.fuel_cell.hours_to_end_of_life=6000 --out results/fc_6000h --compare results/reference
+```
+
 The tables written to the output folder (`--out`) are:
 
 | File | Content |

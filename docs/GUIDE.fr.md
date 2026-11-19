@@ -78,6 +78,13 @@ python scripts/run.py --out results
 python scripts/plot.py --results results
 ```
 
+Pour **comparer** un changement avec des résultats déjà écrits, ajoutez `--compare` et le dossier de ces résultats. Le code affiche, pour chaque cas, le nombre de stacks avant et maintenant, puis l'impact avant, maintenant et l'écart (en g CO2-éq/km et en %), pour la chaîne, la pile et le réservoir :
+
+```bash
+python scripts/run.py --out results/reference                       # une fois : la référence
+python scripts/run.py --set cases.central.fuel_cell.hours_to_end_of_life=6000 --out results/pile_6000h --compare results/reference
+```
+
 Les tableaux écrits dans le dossier de sortie (`--out`) sont :
 
 | Fichier | Contenu |
