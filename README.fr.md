@@ -17,7 +17,7 @@ Ce dépôt contient les modèles, les données et le code d'une analyse du cycle
 2. [Qui peut l'utiliser, et pour quoi](#2-qui-peut-lutiliser-et-pour-quoi)
 3. [Ce que fait le code](#3-ce-que-fait-le-code)
 4. [Démarrage rapide, sans et avec licence ecoinvent](#4-démarrage-rapide-sans-et-avec-licence-ecoinvent)
-5. [Organisation du dépôt et documentation](#5-organisation-du-dépôt-et-documentation)
+5. [Documentation](#5-documentation)
 6. [Résultats principaux](#6-résultats-principaux)
 7. [Citer, licence, contact](#7-citer-licence-contact)
 
@@ -134,10 +134,11 @@ Les trois cas sont toujours donnés côte à côte ; le cas central est mis en a
 
 | | Sans licence ecoinvent | Avec une licence ecoinvent |
 |---|---|---|
-| **Ce que vous pouvez changer** | toutes les entrées du modèle : durées de vie et constantes de vieillissement, lois de vieillissement, kilométrage, heures de l'électrolyseur, compression, règle de comptage des stacks, source d'électricité (parmi les cinq fournies, ou une nouvelle si vous avez son impact par kWh) ; et l'**impact de fabrication** d'un stack ou du réservoir, en donnant directement votre propre valeur | tout ce qui est possible sans licence, et en plus le **contenu des inventaires de fabrication** : quantités de matériaux et d'énergie, données ecoinvent reliées, lieu de fabrication ; l'impact est alors recalculé |
-| **Ce que vous ne pouvez pas changer** | tout ce qui demande de recalculer un impact à partir d'ecoinvent : changer une quantité de matériau ou d'énergie dans un inventaire de fabrication, ajouter ou retirer un flux, relier une autre donnée ecoinvent, changer le lieu de fabrication, calculer l'impact d'un nouveau composant, ou celui d'une nouvelle source d'électricité | les données ecoinvent elles-mêmes (les procédés d'arrière-plan), que le dépôt utilise sans les modifier |
-| Ce qui est utilisé | `data/impacts` : résultats caractérisés seulement (impact d'1 kWh, d'1 kg d'eau, d'un stack ou d'un réservoir fabriqué) | votre propre ecoinvent 3.11 cut-off, importé dans Brightway avec votre identifiant ecoinvent |
-| Ce qu'il faut installer | `requirements.txt` | `requirements.txt` et `requirements-brightway.txt` |
+| **Vous pouvez changer** | toutes les entrées du modèle, et l'impact de fabrication en donnant votre propre valeur | en plus, le contenu des inventaires de fabrication (matériaux, énergie, données ecoinvent, lieu) |
+| **Vous ne pouvez pas** | recalculer un impact depuis ecoinvent (inventaire modifié, nouveau composant, nouvelle électricité) | modifier les données ecoinvent elles-mêmes |
+| **À installer** | `requirements.txt` | `requirements.txt` et `requirements-brightway.txt` |
+
+Le détail de ce qui se change est dans [docs/GUIDE.fr.md](docs/GUIDE.fr.md), section 3.
 
 ### Installation
 
@@ -177,33 +178,12 @@ Dans Jupyter, `!` lance une commande du terminal, `%cd` entre dans un dossier, e
 - **sans licence**, changez une valeur ou un cas : [docs/GUIDE.fr.md](docs/GUIDE.fr.md), sections 2 et 3 ;
 - **avec une licence**, recalculez les impacts de fabrication avec Brightway (identifiant ecoinvent, import, vérification) : [docs/GUIDE.fr.md](docs/GUIDE.fr.md#34-fabrication), section 3.4.
 
-## 5. Organisation du dépôt et documentation
-
-```
-config/default.yaml        toutes les entrées, chacune avec sa source (unités dans le nom des clés)
-src/h2ageing/              les modèles (paquet Python)
-    pemfc.py               pile : polarisation, vieillissement (linéaire et semi-empirique), trajet à puissance imposée
-    pemwe.py               électrolyseur : profil de fonctionnement, vieillissement (linéaire et semi-empirique)
-    tank.py                perméation du réservoir de type IV
-    impacts.py             données d'impact EF 3.1 et score unique
-    chain.py               ACV de chaque composant et de la chaîne complète
-    run.py                 lance tous les cas, construit les tableaux de résultats
-scripts/                   outils en ligne de commande (liste dans docs/GUIDE.fr.md)
-data/
-    measurements/          mesures sur route de la pile, profil éolien de l'électrolyseur
-    parameters/            paramètres de polarisation ajustés
-    inventories/           inventaires de premier plan (masses, énergie, noms des activités ecoinvent)
-    impacts/               impacts caractérisés (par kWh, par kg d'eau, par stack ou réservoir)
-tests/                     résultats de référence et tests qui les vérifient
-notebooks/                 notebooks de recherche d'origine (en français)
-docs/                      méthode, guide d'utilisation avec exemples, limites
-examples/                  notebooks Jupyter : utiliser et adapter le modèle en six niveaux ; vérifications et exemples avec et sans ecoinvent
-```
+## 5. Documentation
 
 | Document | Ce qu'on y trouve |
 |---|---|
 | [docs/METHOD.fr.md](docs/METHOD.fr.md) | chaque équation et sa source, l'ACV, la sensibilité, les résultats détaillés |
-| [docs/GUIDE.fr.md](docs/GUIDE.fr.md) | installer, changer une valeur, tout ce qui se change, reproduire chaque résultat, exemples commentés |
+| [docs/GUIDE.fr.md](docs/GUIDE.fr.md) | installer, organisation du dépôt, changer une valeur, tout ce qui se change, reproduire chaque résultat, exemples commentés |
 | [docs/LIMITS.fr.md](docs/LIMITS.fr.md) | les limites, leur effet et le domaine de validité |
 | [data/README.fr.md](data/README.fr.md) | les sources et licences de chaque fichier de données |
 | [data/inventories/README.fr.md](data/inventories/README.fr.md) | les inventaires de fabrication et leurs données ecoinvent |

@@ -67,6 +67,29 @@ The tables written to the output folder (`--out`) are:
 | `categories.csv` | the 16 EF 3.1 categories: share of fabrication and rise of each case |
 
 
+### Repository layout
+
+```
+config/default.yaml        all inputs, each with its source (units in the key names)
+src/h2ageing/              the models (Python package)
+    pemfc.py               fuel cell: polarisation, ageing (linear and semi-empirical), trip at constant power
+    pemwe.py               electrolyser: operating profile, ageing (linear and semi-empirical)
+    tank.py                permeation of the type IV tank
+    impacts.py             EF 3.1 impact data and single score
+    chain.py               LCA of each component and of the whole chain
+    run.py                 runs all cases, builds the result tables
+scripts/                   command-line tools (list in docs/GUIDE.md)
+data/
+    measurements/          fuel cell road measurements, electrolyser wind profile
+    parameters/            fitted polarisation parameters
+    inventories/           foreground inventories (masses, energy, ecoinvent activity names)
+    impacts/               characterised impacts (per kWh, per kg of water, per stack or tank)
+tests/                     reference results and the tests that check them
+notebooks/                 original research notebooks (French)
+docs/                      method, user guide with examples, limits
+examples/                  Jupyter notebooks: use and adapt the model in six levels; checks and examples with and without ecoinvent
+```
+
 ### Reproduce every result
 
 | Result | Command | Time |

@@ -17,7 +17,7 @@ This repository contains the models, data and code of a life cycle assessment (L
 2. [Who can use it, and for what](#2-who-can-use-it-and-for-what)
 3. [What the code does](#3-what-the-code-does)
 4. [Quick start, without and with an ecoinvent licence](#4-quick-start-without-and-with-an-ecoinvent-licence)
-5. [Repository layout and documentation](#5-repository-layout-and-documentation)
+5. [Documentation](#5-documentation)
 6. [Main results](#6-main-results)
 7. [Cite, licence, contact](#7-cite-licence-contact)
 
@@ -134,10 +134,11 @@ The three cases are always given side by side; the central case is highlighted b
 
 | | Without an ecoinvent licence | With an ecoinvent licence |
 |---|---|---|
-| **What you can change** | every input of the model: lifetimes and ageing constants, ageing laws, mileage, electrolyser hours, compression, stack counting rule, electricity source (among the five shipped, or a new one if you have its impact per kWh); and the **fabrication impact** of a stack or of the tank, by giving your own value directly | everything possible without a licence, plus the **content of the fabrication inventories**: amounts of materials and energy, linked ecoinvent datasets, place of manufacture; the impact is then recomputed |
-| **What you cannot change** | anything that needs an impact recomputed from ecoinvent: changing an amount of material or energy in a fabrication inventory, adding or removing a flow, linking another ecoinvent dataset, changing the place of manufacture, computing the impact of a new component, or that of a new electricity source | the ecoinvent data themselves (the background processes), which the repository uses without changing them |
-| What is used | `data/impacts`: characterised results only (impact of 1 kWh, of 1 kg of water, of one manufactured stack or tank) | your own ecoinvent 3.11 cut-off, imported in Brightway with your ecoinvent login |
-| What to install | `requirements.txt` | `requirements.txt` and `requirements-brightway.txt` |
+| **You can change** | every input of the model, and the fabrication impact by giving your own value | in addition, the content of the fabrication inventories (materials, energy, ecoinvent datasets, place) |
+| **You cannot** | recompute an impact from ecoinvent (changed inventory, new component, new electricity) | change the ecoinvent data themselves |
+| **To install** | `requirements.txt` | `requirements.txt` and `requirements-brightway.txt` |
+
+What can be changed is detailed in [docs/GUIDE.md](docs/GUIDE.md), section 3.
 
 ### Installation
 
@@ -177,33 +178,12 @@ In Jupyter, `!` runs a terminal command, `%cd` enters a folder, and `{sys.execut
 - **without a licence**, change a value or a case: [docs/GUIDE.md](docs/GUIDE.md), sections 2 and 3;
 - **with a licence**, recompute the fabrication impacts with Brightway (ecoinvent login, import, check): [docs/GUIDE.md](docs/GUIDE.md#34-fabrication), section 3.4.
 
-## 5. Repository layout and documentation
-
-```
-config/default.yaml        all inputs, each with its source (units in the key names)
-src/h2ageing/              the models (Python package)
-    pemfc.py               fuel cell: polarisation, ageing (linear and semi-empirical), trip at constant power
-    pemwe.py               electrolyser: operating profile, ageing (linear and semi-empirical)
-    tank.py                permeation of the type IV tank
-    impacts.py             EF 3.1 impact data and single score
-    chain.py               LCA of each component and of the whole chain
-    run.py                 runs all cases, builds the result tables
-scripts/                   command-line tools (list in docs/GUIDE.md)
-data/
-    measurements/          fuel cell road measurements, electrolyser wind profile
-    parameters/            fitted polarisation parameters
-    inventories/           foreground inventories (masses, energy, ecoinvent activity names)
-    impacts/               characterised impacts (per kWh, per kg of water, per stack or tank)
-tests/                     reference results and the tests that check them
-notebooks/                 original research notebooks (French)
-docs/                      method, user guide with examples, limits
-examples/                  Jupyter notebooks: use and adapt the model in six levels; checks and examples with and without ecoinvent
-```
+## 5. Documentation
 
 | Document | What you find there |
 |---|---|
 | [docs/METHOD.md](docs/METHOD.md) | every equation and its source, the LCA, the sensitivity, the detailed results |
-| [docs/GUIDE.md](docs/GUIDE.md) | install, change a value, everything that can be changed, reproduce every result, worked examples |
+| [docs/GUIDE.md](docs/GUIDE.md) | install, repository layout, change a value, everything that can be changed, reproduce every result, worked examples |
 | [docs/LIMITS.md](docs/LIMITS.md) | the limits, their effect and the validity domain |
 | [data/README.md](data/README.md) | the sources and licences of each data file |
 | [data/inventories/README.md](data/inventories/README.md) | the fabrication inventories and their ecoinvent datasets |

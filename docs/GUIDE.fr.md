@@ -67,6 +67,29 @@ Les tableaux écrits dans le dossier de sortie (`--out`) sont :
 | `categories.csv` | les 16 catégories EF 3.1 : part de la fabrication et hausse de chaque cas |
 
 
+### Organisation du dépôt
+
+```
+config/default.yaml        toutes les entrées, chacune avec sa source (unités dans le nom des clés)
+src/h2ageing/              les modèles (paquet Python)
+    pemfc.py               pile : polarisation, vieillissement (linéaire et semi-empirique), trajet à puissance imposée
+    pemwe.py               électrolyseur : profil de fonctionnement, vieillissement (linéaire et semi-empirique)
+    tank.py                perméation du réservoir de type IV
+    impacts.py             données d'impact EF 3.1 et score unique
+    chain.py               ACV de chaque composant et de la chaîne complète
+    run.py                 lance tous les cas, construit les tableaux de résultats
+scripts/                   outils en ligne de commande (liste dans docs/GUIDE.fr.md)
+data/
+    measurements/          mesures sur route de la pile, profil éolien de l'électrolyseur
+    parameters/            paramètres de polarisation ajustés
+    inventories/           inventaires de premier plan (masses, énergie, noms des activités ecoinvent)
+    impacts/               impacts caractérisés (par kWh, par kg d'eau, par stack ou réservoir)
+tests/                     résultats de référence et tests qui les vérifient
+notebooks/                 notebooks de recherche d'origine (en français)
+docs/                      méthode, guide d'utilisation avec exemples, limites
+examples/                  notebooks Jupyter : utiliser et adapter le modèle en six niveaux ; vérifications et exemples avec et sans ecoinvent
+```
+
 ### Reproduire chaque résultat
 
 | Résultat | Commande | Durée |
