@@ -280,6 +280,8 @@ python scripts/threshold.py --out results    # impact en fonction de la durée d
 python scripts/sobol.py --out results        # indices de Sobol de la chaîne (environ 15 min sur 2 cœurs)
 ```
 
+**Le seuil** est la durée de vie à partir de laquelle le nombre de stacks change. Sur 200 000 km, la pile fonctionne 5 554 h : au-dessus de 5 554 h, un seul stack suffit ; entre 2 777 et 5 554 h, il en faut deux ; en dessous de 2 777 h, trois. À chaque seuil, l'impact fait un saut d'un stack.
+
 `threshold.py` fait varier la durée de vie du stack avec le modèle linéaire et place chaque cas configuré sur la courbe. Il sépare aussi les deux effets du choix du modèle de vieillissement : la fin de vie prédite, et la forme de la trajectoire à fin de vie égale (modèle linéaire réglé sur la fin de vie du modèle semi-empirique).
 
 `semi_empirical_constants.py` change chaque constante du modèle semi-empirique seule, vers une autre valeur publiée, et classe leurs effets ; modifiez `VARIANTS` pour tester vos propres valeurs.
