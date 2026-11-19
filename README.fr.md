@@ -45,12 +45,6 @@ Ce dépôt répond à deux questions :
 - **Des résultats contrôlés automatiquement** : des tests vérifient les résultats à chaque modification du dépôt.
 - **Ouvert et bilingue** : chaque page existe en français et en anglais, et n'importe qui peut reproduire les résultats ou tester son propre cas.
 
-**À essayer en une commande.** Si la pile dure 6 000 h au lieu de 4 100 h, un seul stack suffit sur toute la vie du véhicule, et la hausse du cas central passe de +31,1 % à +6,4 % :
-
-```bash
-python scripts/run.py --set cases.central.fuel_cell.hours_to_end_of_life=6000
-```
-
 ## 2. Qui peut l'utiliser, et pour quoi
 
 | Vous êtes | Ce que vous pouvez faire | Par où commencer |

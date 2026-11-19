@@ -45,12 +45,6 @@ This repository answers two questions:
 - **Results checked automatically**: tests check the results at every change of the repository.
 - **Open and bilingual**: every page exists in English and French, and anyone can reproduce the results or test their own case.
 
-**Try it in one command.** If the fuel cell lasts 6 000 h instead of 4 100 h, one stack lasts the whole vehicle life, and the rise of the central case falls from +31.1 % to +6.4 %:
-
-```bash
-python scripts/run.py --set cases.central.fuel_cell.hours_to_end_of_life=6000
-```
-
 ## 2. Who can use it, and for what
 
 | You are | What you can do | Where to start |
