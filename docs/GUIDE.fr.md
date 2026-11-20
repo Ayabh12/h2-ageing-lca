@@ -398,7 +398,7 @@ Le script change chaque constante du modèle semi-empirique seule, vers une autr
 | Constante changée | Fin de vie de la pile ; stacks | Hausse de la chaîne |
 |---|---|---|
 | aucune (référence pessimiste) | 2 895 h ; 2 | +35,0 % |
-| perte de la pile à fort courant : 27 mV au lieu de 45 mV | 5 652 h ; 1 | +12,8 % |
+| perte de tension de la pile à fort courant (1,8 A/cm², après 1 000 h d'essai) : 27 mV (cellule B) au lieu de 45 mV (cellule C, Colombo et al. 2023) | 5 652 h ; 1 | +12,8 % |
 | facteur de crossover de la pile : 1,4 au lieu de 2,6 | 2 895 h ; 2 | +33,2 % |
 | surface de platine de la pile : 0,65 au lieu de 0,67 | 2 909 h ; 2 | +35,0 % |
 | dérive de la HFR de l'électrolyseur : 0 | 2 895 h ; 2 | +34,6 % |

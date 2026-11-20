@@ -398,7 +398,7 @@ It changes each constant of the semi-empirical model alone, to another published
 | Constant changed | Fuel cell end of life ; stacks | Chain rise |
 |---|---|---|
 | none (pessimistic reference) | 2 895 h ; 2 | +35.0 % |
-| fuel cell high-current loss 27 mV instead of 45 mV | 5 652 h ; 1 | +12.8 % |
+| fuel cell voltage loss at high current (1.8 A/cm², after 1 000 h of test): 27 mV (cell B) instead of 45 mV (cell C, Colombo et al. 2023) | 5 652 h ; 1 | +12.8 % |
 | fuel cell crossover factor 1.4 instead of 2.6 | 2 895 h ; 2 | +33.2 % |
 | fuel cell platinum surface 0.65 instead of 0.67 | 2 909 h ; 2 | +35.0 % |
 | electrolyser HFR drift 0 | 2 895 h ; 2 | +34.6 % |
