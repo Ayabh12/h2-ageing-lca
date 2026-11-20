@@ -170,6 +170,8 @@ V(j) \;=\; E_{\mathrm{rev}}(T) \;+\; \frac{RT}{2\,\alpha_a F}\,\ln\!\left(\frac{
 | $`R`$ | de 0 à 1 Ω·cm² | Weiß et al. 2019 ; Padgett et al. 2025 ; Fouda-Onana et al. 2016 |
 | $`B_c`$ | de 0 à 1 V | Almodfer et al. 2022 |
 
+**Nombre de cellules et surface.** Ni l'un ni l'autre n'est publié. La loi de Faraday ne fixe que le produit $`\eta_F N`$ : la fiche Nel (246 Nm³/h à 3 000 A) donne 196, nos mesures 195. Le nombre de cellules vaut donc au moins 196 ; 200 est retenu (premier nombre rond au-dessus), d'où $`\eta_F`$ = 97,7 %. La surface, 1 500 cm², est choisie pour que le courant maximal (3 000 A) corresponde à 2 A/cm², densité à laquelle le DOE donne l'état de l'art de la durabilité des stacks PEM. Les deux se changent avec `scripts/fit_pemwe.py --n-cells --area-cm2`.
+
 Sur le profil mesuré, le stack neuf consomme $`E_0`$ = 2 841 kWh et produit 52,93 kg d'hydrogène, soit $`\mathrm{SEC}_0`$ = 53,68 kWh/kg.
 
 ### 3.2 Vieillissement, modèle semi-empirique (cas pessimiste)
