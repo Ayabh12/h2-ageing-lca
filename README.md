@@ -108,7 +108,7 @@ flowchart TB
 **Reading the diagram, step by step:**
 
 1. **Reference performance**: from the measurements, the code fits the polarisation curve of the electrolyser and of the fuel cell when new.
-2. **Ageing**: it ages each component over 15 years according to the chosen case: the fuel cell voltage falls, the electrolyser voltage rises, the tank permeation increases.
+2. **Ageing**: it ages each component over 15 years according to the chosen case ([the three cases](docs/METHOD.md#the-three-ageing-cases)): the fuel cell voltage falls, the electrolyser voltage rises, the tank permeation increases.
 3. **Over-consumption**: from these changes, it computes what the chain consumes in addition:
    - the electrolyser needs more electricity per kg of hydrogen;
    - the tank loses more hydrogen by permeation;
@@ -117,18 +117,6 @@ flowchart TB
 5. **Results (LCA)**: it multiplies the over-consumption and the number of stacks by the characterised impacts. This gives the impact of over-consumption and that of replacement, hence the rise due to ageing, for each component and for the chain, in the 16 EF 3.1 categories.
 
 The boxes marked ★ are the contribution of this work. Each step is detailed in [docs/METHOD.md](docs/METHOD.md).
-
-### The three ageing cases
-
-| | Optimistic | Central | Pessimistic |
-|---|---|---|---|
-| Model | linear | linear | semi-empirical |
-| Fuel cell | 8 000 h to end of life (DOE target) | 4 100 h (best fleet followed by the DOE, 2006–2016) | laboratory constants (Colombo et al. 2023): end of life at 2 895 h |
-| Electrolyser | 2.3 µV/h per cell (DOE 2026 target) | 4.8 µV/h (DOE 2022 status) | laboratory constants (Padgett et al. 2025; Chandesris et al. 2015) |
-| Tank permeation (mL/h/L, from year 0 to 15) | 6 → 6 | 6 → 14 | 6 → 46 (UN R134 limit) |
-| What it represents | what the technology aims for | the current state of real systems | an upper bound, on cells more stressed than commercial stacks |
-
-The three cases are always given side by side; the central case is highlighted because it rests on real systems. The values and their sources are in `config/default.yaml`, the equations in [docs/METHOD.md](docs/METHOD.md).
 
 ## 4. Quick start, without and with an ecoinvent licence
 

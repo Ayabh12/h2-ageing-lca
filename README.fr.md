@@ -108,7 +108,7 @@ flowchart TB
 **Lecture du schéma, étape par étape :**
 
 1. **Performance de référence** : à partir des mesures, le code ajuste la courbe de polarisation de l'électrolyseur et de la pile à l'état neuf.
-2. **Vieillissement** : il fait vieillir chaque composant sur 15 ans selon le cas choisi : la tension de la pile baisse, celle de l'électrolyseur monte, la perméation du réservoir augmente.
+2. **Vieillissement** : il fait vieillir chaque composant sur 15 ans selon le cas choisi ([les trois cas](docs/METHOD.fr.md#les-trois-cas-de-vieillissement)) : la tension de la pile baisse, celle de l'électrolyseur monte, la perméation du réservoir augmente.
 3. **Surconsommation** : à partir de ces changements, il calcule ce que la chaîne consomme en plus :
    - l'électrolyseur demande plus d'électricité par kg d'hydrogène ;
    - le réservoir perd plus d'hydrogène par perméation ;
@@ -117,18 +117,6 @@ flowchart TB
 5. **Résultats (ACV)** : il multiplie la surconsommation et le nombre de stacks par les impacts caractérisés. On obtient l'impact de la surconsommation et celui du remplacement, donc la hausse due au vieillissement, pour chaque composant et pour la chaîne, dans les 16 catégories EF 3.1.
 
 Les cases marquées ★ sont l'apport de ce travail. Le détail de chaque étape est dans [docs/METHOD.fr.md](docs/METHOD.fr.md).
-
-### Les trois cas de vieillissement
-
-| | Optimiste | Central | Pessimiste |
-|---|---|---|---|
-| Modèle | linéaire | linéaire | semi-empirique |
-| Pile | 8 000 h jusqu'à la fin de vie (objectif du DOE) | 4 100 h (meilleure flotte suivie par le DOE, 2006–2016) | constantes de laboratoire (Colombo et al. 2023) : fin de vie à 2 895 h |
-| Électrolyseur | 2,3 µV/h par cellule (objectif 2026 du DOE) | 4,8 µV/h (statut 2022 du DOE) | constantes de laboratoire (Padgett et al. 2025 ; Chandesris et al. 2015) |
-| Perméation du réservoir (mL/h/L, de 0 à 15 ans) | 6 → 6 | 6 → 14 | 6 → 46 (limite UN R134) |
-| Ce qu'il représente | ce que vise la technologie | l'état actuel des systèmes réels | une borne haute, sur des cellules plus sollicitées que des stacks commerciaux |
-
-Les trois cas sont toujours donnés côte à côte ; le cas central est mis en avant parce qu'il repose sur des systèmes réels. Les valeurs et leurs sources sont dans `config/default.yaml`, les équations dans [docs/METHOD.fr.md](docs/METHOD.fr.md).
 
 ## 4. Démarrage rapide, sans et avec licence ecoinvent
 

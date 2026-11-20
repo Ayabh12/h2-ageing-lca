@@ -46,6 +46,18 @@ L'iridium (anode de l'électrolyseur) n'a pas de donnée ecoinvent : il est comp
 
 ---
 
+### Les trois cas de vieillissement
+
+| | Optimiste | Central | Pessimiste |
+|---|---|---|---|
+| Modèle | linéaire | linéaire | semi-empirique |
+| Pile | 8 000 h jusqu'à la fin de vie (objectif du DOE) | 4 100 h (meilleure flotte suivie par le DOE, 2006–2016) | constantes de laboratoire (Colombo et al. 2023) : fin de vie à 2 895 h |
+| Électrolyseur | 2,3 µV/h par cellule (objectif 2026 du DOE) | 4,8 µV/h (statut 2022 du DOE) | constantes de laboratoire (Padgett et al. 2025 ; Chandesris et al. 2015) |
+| Perméation du réservoir (mL/h/L, de 0 à 15 ans) | 6 → 6 | 6 → 14 | 6 → 46 (limite UN R134) |
+| Ce qu'il représente | ce que vise la technologie | l'état actuel des systèmes réels | une borne haute, sur des cellules plus sollicitées que des stacks commerciaux |
+
+Les trois cas sont toujours donnés côte à côte ; le cas central est mis en avant parce qu'il repose sur des systèmes réels. Les valeurs et leurs sources sont dans `config/default.yaml`, les équations dans les sections 2 à 4 ci-dessous.
+
 ## 2. Pile à combustible
 
 Code : `src/h2ageing/pemfc.py`
