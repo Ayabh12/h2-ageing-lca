@@ -395,15 +395,17 @@ python scripts/semi_empirical_constants.py
 
 Le script change chaque constante du modèle semi-empirique seule, vers une autre valeur publiée, et affiche la fin de vie, les stacks et la hausse. Sortie avec les données fournies :
 
-| Constante changée | Fin de vie de la pile ; stacks | Hausse de la chaîne |
+| Constante changée | Fin de vie du composant changé ; stacks | Hausse de la chaîne |
 |---|---|---|
-| aucune (référence pessimiste) | 2 895 h ; 2 | +35,0 % |
-| perte de tension de la pile à fort courant (1,8 A/cm², après 1 000 h d'essai) : 27 mV (cellule B) au lieu de 45 mV (cellule C, Colombo et al. 2023) | 5 652 h ; 1 | +12,8 % |
-| facteur de crossover de la pile : 1,4 au lieu de 2,6 | 2 895 h ; 2 | +33,2 % |
-| surface de platine de la pile : 0,65 au lieu de 0,67 | 2 909 h ; 2 | +35,0 % |
-| dérive de la HFR de l'électrolyseur : 0 | 2 895 h ; 2 | +34,6 % |
+| aucune (référence pessimiste) | pile 2 895 h ; 2 · électrolyseur 34 175 h ; 3 | +35,0 % |
+| pile : perte de tension à fort courant (1,8 A/cm², après 1 000 h d'essai) : 27 mV (cellule B) au lieu de 45 mV (cellule C, Colombo et al. 2023) | pile 5 652 h ; 1 | +12,8 % |
+| pile : facteur de crossover : 1,4 au lieu de 2,6 | pile 2 895 h ; 2 | +33,2 % |
+| pile : surface de platine : 0,65 au lieu de 0,67 | pile 2 909 h ; 2 | +35,0 % |
+| électrolyseur : dérive de la HFR nulle (mesurée en charge dynamique, Padgett et al. 2025) | électrolyseur 104 537 h ; 1 | +34,6 % |
+| électrolyseur à 60 °C : dérives de résistance × 0,59 (Frensch et al. 2018) | électrolyseur 57 924 h ; 2 | +34,5 % |
+| électrolyseur à 60 °C : amincissement de la membrane × 0,57 (Frensch et al. 2019) | électrolyseur 34 175 h ; 3 | +34,9 % |
 
-**Ce que ça montre :** une seule constante, la perte de tension de la pile à fort courant, décide du nombre de stacks ; c'est celle à mesurer en premier. Modifiez la liste `VARIANTS` en haut du script pour tester vos propres valeurs, ou donnez directement une constante, par exemple :
+**Ce que ça montre :** une seule constante, la perte de tension de la pile à fort courant, change nettement le résultat, car elle décide du nombre de stacks de la pile ; les constantes de l'électrolyseur, même à 60 °C, changent peu la chaîne ; c'est celle à mesurer en premier. Modifiez la liste `VARIANTS` en haut du script pour tester vos propres valeurs, ou donnez directement une constante, par exemple :
 
 ```bash
 python scripts/run.py --set cases.pessimistic.fuel_cell.voltage_loss_at_1p8_A_cm2_1000h_V=0.035

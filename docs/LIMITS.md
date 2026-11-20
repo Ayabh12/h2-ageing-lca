@@ -23,7 +23,7 @@ What the model does not know, the effect on the results, and what is done.
 | Limit | Effect | What is done |
 |---|---|---|
 | One trip (2 033 s, 20.32 km) replayed over the whole life; one 4-hour wind profile repeated | another use would change the consumption | files can be replaced ([GUIDE](GUIDE.md), section 3.5); mean speed tested (48 instead of 36 km/h) |
-| Constant temperatures (80 °C electrolyser, 70 °C fuel cell) | changes not modelled | published 60 °C ratios can be tested on the electrolyser |
+| Constant temperatures (80 °C electrolyser, 70 °C fuel cell) | changes not modelled | tested on the electrolyser with published 60 °C ratios (`semi_empirical_constants.py`): chain rise +34.5 and +34.9 % instead of +35.0 % |
 | Start-ups, shutdowns and idle periods not modelled | degradation from shutdowns not counted | a faster linear rate can represent it |
 
 ## 3. Scope and method

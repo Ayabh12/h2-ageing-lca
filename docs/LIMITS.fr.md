@@ -23,7 +23,7 @@ Ce que le modèle ne sait pas, l'effet sur les résultats, et ce qui est fait.
 | Limite | Effet | Ce qui est fait |
 |---|---|---|
 | Un seul trajet (2 033 s, 20,32 km) rejoué toute la vie ; un seul profil éolien de 4 h répété | un autre usage changerait la consommation | fichiers remplaçables ([GUIDE](GUIDE.fr.md), section 3.5) ; vitesse moyenne testée (48 au lieu de 36 km/h) |
-| Températures constantes (80 °C électrolyseur, 70 °C pile) | variations non modélisées | rapports publiés à 60 °C testables sur l'électrolyseur |
+| Températures constantes (80 °C électrolyseur, 70 °C pile) | variations non modélisées | testé sur l'électrolyseur avec des rapports publiés à 60 °C (`semi_empirical_constants.py`) : hausse de la chaîne +34,5 et +34,9 % au lieu de +35,0 % |
 | Démarrages, arrêts et attentes non modélisés | dégradation des arrêts non comptée | une vitesse linéaire plus forte peut la représenter |
 
 ## 3. Périmètre et méthode

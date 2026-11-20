@@ -395,15 +395,17 @@ python scripts/semi_empirical_constants.py
 
 It changes each constant of the semi-empirical model alone, to another published value, and prints the end of life, stacks and rise. Output with the shipped data:
 
-| Constant changed | Fuel cell end of life ; stacks | Chain rise |
+| Constant changed | End of life of the changed component; stacks | Chain rise |
 |---|---|---|
-| none (pessimistic reference) | 2 895 h ; 2 | +35.0 % |
-| fuel cell voltage loss at high current (1.8 A/cm², after 1 000 h of test): 27 mV (cell B) instead of 45 mV (cell C, Colombo et al. 2023) | 5 652 h ; 1 | +12.8 % |
-| fuel cell crossover factor 1.4 instead of 2.6 | 2 895 h ; 2 | +33.2 % |
-| fuel cell platinum surface 0.65 instead of 0.67 | 2 909 h ; 2 | +35.0 % |
-| electrolyser HFR drift 0 | 2 895 h ; 2 | +34.6 % |
+| none (pessimistic reference) | fuel cell 2 895 h; 2 · electrolyser 34 175 h; 3 | +35.0 % |
+| fuel cell: voltage loss at high current (1.8 A/cm², after 1 000 h of test): 27 mV (cell B) instead of 45 mV (cell C, Colombo et al. 2023) | fuel cell 5 652 h; 1 | +12.8 % |
+| fuel cell: crossover factor 1.4 instead of 2.6 | fuel cell 2 895 h; 2 | +33.2 % |
+| fuel cell: platinum surface 0.65 instead of 0.67 | fuel cell 2 909 h; 2 | +35.0 % |
+| electrolyser: HFR drift set to 0 (measured under dynamic load, Padgett et al. 2025) | electrolyser 104 537 h; 1 | +34.6 % |
+| electrolyser at 60 °C: resistance drifts × 0.59 (Frensch et al. 2018) | electrolyser 57 924 h; 2 | +34.5 % |
+| electrolyser at 60 °C: membrane thinning × 0.57 (Frensch et al. 2019) | electrolyser 34 175 h; 3 | +34.9 % |
 
-**What it shows:** one constant, the fuel cell voltage loss at high current, decides the number of stacks; it is the one to measure first. Edit the `VARIANTS` list at the top of the script to test your own values, or set any constant directly, for example:
+**What it shows:** only one constant, the fuel cell voltage loss at high current, changes the result clearly, because it decides the number of fuel cell stacks; the electrolyser constants, even at 60 °C, change the chain little; it is the one to measure first. Edit the `VARIANTS` list at the top of the script to test your own values, or set any constant directly, for example:
 
 ```bash
 python scripts/run.py --set cases.pessimistic.fuel_cell.voltage_loss_at_1p8_A_cm2_1000h_V=0.035
