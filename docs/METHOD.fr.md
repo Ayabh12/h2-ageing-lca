@@ -275,15 +275,19 @@ L'énergie et l'hydrogène sont intégrés sur l'horizon (20 001 points).
 
 ## 6. Analyses de sensibilité
 
-| Test | Question | Script |
+Chaque test change une entrée (ou plusieurs) et regarde si le résultat change.
+
+| Ce qu'on change | Question | Script |
 |---|---|---|
-| Source d'électricité | la conclusion tient-elle avec une électricité plus propre ? | `run.py --set usage.electricity_electrolyser=...` |
-| Heures de l'électrolyseur par an | les 6 000 h/an choisies comptent-elles ? Les heures publiées à pleine charge sont converties en heures au profil mesuré en les divisant par sa charge moyenne (710/1 250 = 0,568) | `run.py --set usage.electrolyser_hours_per_year=...` |
-| Comptage des stacks | et si le dernier stack avait une seconde vie ? | `run.py --set usage.stack_counting=prorata` |
-| Seuil de durée de vie | à partir de quelle durée de vie un seul stack suffit-il ? | `threshold.py` |
-| Loi de crossover | la forme inconnue de la hausse du crossover change-t-elle le résultat ? | `fuel_cell_tests.py` |
-| Constantes semi-empiriques | quelle constante de laboratoire change le plus le résultat ? | `semi_empirical_constants.py` |
-| Globale (Sobol) | laquelle des huit entrées, variant ensemble, explique le résultat ? | `sobol.py` |
+| La source d'électricité | Le résultat tient-il avec une électricité plus propre ? | `run.py --set usage.electricity_electrolyser=...` |
+| Les heures de l'électrolyseur par an | Les 6 000 h/an choisies comptent-elles ? | `run.py --set usage.electrolyser_hours_per_year=...` |
+| Le comptage des stacks | Et si le dernier stack avait une seconde vie ? | `run.py --set usage.stack_counting=prorata` |
+| La durée de vie de la pile | À partir de quelle durée de vie un seul stack suffit-il ? | `threshold.py` |
+| La loi de crossover | Sa forme change-t-elle le résultat ? | `fuel_cell_tests.py` |
+| Les constantes de laboratoire | Laquelle compte le plus ? | `semi_empirical_constants.py` |
+| Huit entrées à la fois (Sobol) | Laquelle explique le plus le résultat ? | `sobol.py` |
+
+**Heures de l'électrolyseur.** Les heures publiées sont à pleine charge ; elles sont converties en heures au profil mesuré en les divisant par sa charge moyenne (710/1 250 = 0,568).
 
 **Ce qu'est l'analyse de Sobol.** Elle fait varier toutes les entrées en même temps, un grand nombre de fois (10 240 calculs), et mesure la part de la variation du résultat expliquée par chaque entrée. Son indice total va de 0 (l'entrée ne compte pas) à 1 (l'entrée explique toute la variation, seule ou avec les autres).
 

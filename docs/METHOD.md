@@ -275,15 +275,19 @@ Energy and hydrogen are integrated over the horizon (20 001 points).
 
 ## 6. Sensitivity analyses
 
-| Test | Question | Script |
+Each test changes one input (or several) and checks whether the result changes.
+
+| What is changed | Question | Script |
 |---|---|---|
-| Electricity source | does the conclusion hold with a cleaner electricity? | `run.py --set usage.electricity_electrolyser=...` |
-| Electrolyser hours per year | does the chosen 6 000 h/yr matter? Published full-load hours are converted to hours at the measured profile by dividing by its mean load (710/1 250 = 0.568) | `run.py --set usage.electrolyser_hours_per_year=...` |
-| Stack counting | what if the last stack has a second life? | `run.py --set usage.stack_counting=prorata` |
-| Lifetime threshold | from which lifetime is one stack enough? | `threshold.py` |
-| Crossover law | does the unknown shape of the crossover growth change the result? | `fuel_cell_tests.py` |
-| Semi-empirical constants | which laboratory constant changes the result most? | `semi_empirical_constants.py` |
-| Global (Sobol) | which of eight inputs, varying together, explains the result? | `sobol.py` |
+| The electricity source | Does the result hold with a cleaner electricity? | `run.py --set usage.electricity_electrolyser=...` |
+| The electrolyser hours per year | Do the chosen 6 000 h/yr matter? | `run.py --set usage.electrolyser_hours_per_year=...` |
+| The stack counting | What if the last stack had a second life? | `run.py --set usage.stack_counting=prorata` |
+| The fuel cell lifetime | From which lifetime is one stack enough? | `threshold.py` |
+| The crossover law | Does its shape change the result? | `fuel_cell_tests.py` |
+| The laboratory constants | Which one matters most? | `semi_empirical_constants.py` |
+| Eight inputs at once (Sobol) | Which one explains the result most? | `sobol.py` |
+
+**Electrolyser hours.** Published hours are at full load; they are converted to hours at the measured profile by dividing by its mean load (710/1 250 = 0.568).
 
 **What a Sobol analysis is.** It varies all the inputs together, many times (10 240 runs), and measures which share of the variation of the result each input explains. Its total index goes from 0 (the input does not matter) to 1 (the input explains all the variation, alone or together with the others).
 
