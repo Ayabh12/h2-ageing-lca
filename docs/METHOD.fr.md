@@ -220,7 +220,7 @@ Hausse de tension de 10 % à la densité de courant moyenne du profil (méthode 
 
 Code : `src/h2ageing/tank.py`
 
-La perméation $`P`$ (mL/h/L à 55 °C, réservoir plein) augmente linéairement de $`P_0`$ à $`P_{15}`$ sur les 15 ans de la certification : 6 → 6, 6 → 14 et 6 → 46 (limite du règlement UN R134) dans les trois cas.
+La perméation $`P`$ (mL/h/L à 55 °C, réservoir plein) augmente linéairement de $`P_0`$ à $`P_{15}`$ sur les 15 ans de la certification : 6 → 6, 6 → 14 et 6 → 46 dans les trois cas. Les valeurs viennent de Dixon et Smutny (2022, NHTSA) : 5,86 et 14,38 mL/h/L mesurés sur deux réservoirs de type IV (arrondis à 6 et 14), et 46 mL/h/L, la limite réglementaire (GTR 13, repris dans le règlement UN R134).
 
 ```math
 m_{\mathrm{perm}} \;=\; \frac{P \cdot V \cdot \rho \cdot 8\,760}{\text{km par an}}
@@ -343,6 +343,7 @@ Les limites, leur effet et le domaine de validité sont dans [LIMITS.fr.md](LIMI
 - Almodfer R. et al. (2022). Improving parameter estimation of fuel cell using honey badger optimization algorithm. Frontiers in Energy Research 10, 875332 (Table 2 corrected in 13, 1588458, 2025).
 - Bielefeld N.M. et al. (2024). A one-dimensional computational model to identify operating conditions and cathode flow channel dimensions for a PEM fuel cell. Hydrogen 5, 624–643. doi:10.3390/hydrogen5030033
 - Colombo E. et al. (2023). PEMFC performance decay during real-world automotive operation. Journal of Power Sources 553, 232246.
+- Dixon M., Smutny T. (2022). Hydrogen Container Performance Testing. NHTSA, U.S. Department of Transportation, report DOT HS 812 988. rosap.ntl.bts.gov/view/dot/62645
 - Durst J. et al. (2014). New insights into the electrochemical hydrogen oxidation and evolution reaction mechanism. Energy & Environmental Science 7, 2255–2260.
 - Fouda-Onana F. et al. (2016). Investigation on the degradation of MEAs for PEM water electrolysers part I. International Journal of Hydrogen Energy 41, 16627–16636.
 - Marefatjouikilevaee H., Auger F., Olivier J.-C. (2023). Static and dynamic electrical models of PEM electrolysers: a comprehensive review. Energies 16, 6503. doi:10.3390/en16186503

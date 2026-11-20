@@ -220,7 +220,7 @@ Voltage rise of 10 % at the mean current density of the profile (Brent's method,
 
 Code: `src/h2ageing/tank.py`
 
-The permeation $`P`$ (mL/h/L at 55 °C, full tank) grows linearly from $`P_0`$ to $`P_{15}`$ over the 15-year certification: 6 → 6, 6 → 14 and 6 → 46 (UN R134 limit) in the three cases.
+The permeation $`P`$ (mL/h/L at 55 °C, full tank) grows linearly from $`P_0`$ to $`P_{15}`$ over the 15-year certification: 6 → 6, 6 → 14 and 6 → 46 in the three cases. The values come from Dixon and Smutny (2022, NHTSA): 5.86 and 14.38 mL/h/L measured on two type IV tanks (rounded to 6 and 14), and 46 mL/h/L, the regulatory limit (GTR 13, taken up in UN Regulation R134).
 
 ```math
 m_{\mathrm{perm}} \;=\; \frac{P \cdot V \cdot \rho \cdot 8\,760}{\text{km per year}}
@@ -343,6 +343,7 @@ The limits, their effect and the validity domain are in [LIMITS.md](LIMITS.md).
 - Almodfer R. et al. (2022). Improving parameter estimation of fuel cell using honey badger optimization algorithm. Frontiers in Energy Research 10, 875332 (Table 2 corrected in 13, 1588458, 2025).
 - Bielefeld N.M. et al. (2024). A one-dimensional computational model to identify operating conditions and cathode flow channel dimensions for a PEM fuel cell. Hydrogen 5, 624–643. doi:10.3390/hydrogen5030033
 - Colombo E. et al. (2023). PEMFC performance decay during real-world automotive operation. Journal of Power Sources 553, 232246.
+- Dixon M., Smutny T. (2022). Hydrogen Container Performance Testing. NHTSA, U.S. Department of Transportation, report DOT HS 812 988. rosap.ntl.bts.gov/view/dot/62645
 - Durst J. et al. (2014). New insights into the electrochemical hydrogen oxidation and evolution reaction mechanism. Energy & Environmental Science 7, 2255–2260.
 - Fouda-Onana F. et al. (2016). Investigation on the degradation of MEAs for PEM water electrolysers part I. International Journal of Hydrogen Energy 41, 16627–16636.
 - Marefatjouikilevaee H., Auger F., Olivier J.-C. (2023). Static and dynamic electrical models of PEM electrolysers: a comprehensive review. Energies 16, 6503. doi:10.3390/en16186503

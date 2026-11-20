@@ -66,6 +66,7 @@ tank:
   h2_density_kg_per_NmL: 8.988e-8
   certification_years: 15
   # permeation at 55 C, full tank, linear from P0 to P15 (mL/h/L), UN R134 limit 46
+  # Dixon & Smutny 2022 (NHTSA DOT HS 812 988): 5.86 and 14.38 measured on two type IV tanks; limit 46 (GTR 13 / UN R134)
 
 # -----------------------------------------------------------------------------
 # Fabrication impacts (one unit of each component, EF 3.1, ecoinvent 3.11 cut-off)
