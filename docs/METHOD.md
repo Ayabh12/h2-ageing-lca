@@ -280,7 +280,7 @@ Each test changes one input (or several) and checks whether the result changes.
 | What is changed | Question | Script |
 |---|---|---|
 | The electricity source | Does the result hold with a cleaner electricity? | `run.py --set usage.electricity_electrolyser=...` |
-| The electrolyser hours per year | Do the chosen 6 000 h/yr matter? | `run.py --set usage.electrolyser_hours_per_year=...` |
+| The electrolyser hours per year | Does the result change if the electrolyser runs more or less than 6 000 h per year? | `run.py --set usage.electrolyser_hours_per_year=...` |
 | The stack counting | What if the last stack had a second life? | `run.py --set usage.stack_counting=prorata` |
 | The fuel cell lifetime | From which lifetime is one stack enough? | `threshold.py` |
 | The crossover law | Does its shape change the result? | `fuel_cell_tests.py` |
