@@ -25,25 +25,18 @@ This repository contains the models, data and code of a life cycle assessment (L
 
 ## 1. Why this matters
 
-Most LCAs of hydrogen mobility treat the electrolyser and the fuel cell as if they never aged: the same efficiency for 15 years and a single stack. In reality, a stack loses performance with use and must be replaced at the end of its life. Ignoring this underestimates the impact, but by how much was not known.
+Most LCAs of hydrogen mobility assume stacks that never age: the same efficiency for 15 years and a single stack. Yet a stack wears out and must be replaced. This repository measures what this omission changes:
 
-This repository answers two questions:
-
-- **How much?** The rise of the impact due to ageing, for each component alone and for the whole chain.
-- **Through which route?** Ageing acts at two levels:
-  1. **Over-consumption**: the aged fuel cell uses more hydrogen per km, the electrolyser more electricity per kg, and the tank loses more hydrogen.
-  2. **Replacement**: a stack is replaced when its voltage has changed by 10 % (DOE criterion); each new stack adds its fabrication impact.
-
-**The result in short.** Over the vehicle life (15 years, 200 000 km), stack ageing raises the climate change impact of the chain, compared with the same chain without ageing, by **+5.0 %** (optimistic case, DOE targets), **+31.1 %** (central case, current status measured by the DOE) and **+35.0 %** (pessimistic case, semi-empirical model and laboratory constants).
+- **How much?** The rise of the impact due to ageing, for each component and for the chain.
+- **Through which route?** **Over-consumption** (more hydrogen per km, more electricity per kg, more tank losses) and **replacement** (a new stack when the voltage has changed by 10 %, DOE criterion).
 
 **What this repository brings**
 
-- **A ready-to-use method.** The ageing models, the end-of-life search, the stack counting and the LCA are already linked, and every equation is documented with its source ([docs/METHOD.md](docs/METHOD.md)).
-- **Any value or any inventory can be changed without rewriting the code.** The inputs are in one configuration file, the fabrication inventories in CSV tables; after a change, the end of life, the number of stacks and the impact are recomputed automatically.
-- **Models built on real measurements**: a Toyota Mirai II fuel cell recorded on the road, and a Nel MC250 electrolyser following a wind production profile (public NLR data).
-- **Usable without an ecoinvent licence**, and complete with one: both ways are described step by step ([section 4](#4-quick-start-without-and-with-an-ecoinvent-licence)).
-- **Results checked automatically**: tests check the results at every change of the repository.
-- **Open and bilingual**: every page exists in English and French, and anyone can reproduce the results or test their own case.
+- **A complete, ready-to-use method**: ageing, end of life, number of stacks and LCA are linked, every equation is sourced ([docs/METHOD.md](docs/METHOD.md)).
+- **Models built on real measurements**: a Toyota Mirai II fuel cell on the road, a Nel MC250 electrolyser under a wind profile (NLR data).
+- **Everything can be changed without touching the code**: a value in one configuration file, an inventory in a CSV table; the rest is recomputed.
+- **With or without an ecoinvent licence**: both ways are described ([section 4](#4-quick-start-without-and-with-an-ecoinvent-licence)).
+- **Reliable and open**: tests check the results at every change; every page exists in English and French.
 
 ## 2. Who can use it, and for what
 
@@ -143,6 +136,8 @@ What can be changed is detailed in [docs/GUIDE.md](docs/GUIDE.md), section 3.
 | [notebooks/](notebooks/README.md) | original research notebooks |
 
 ## 6. Main results
+
+**In short.** Over the vehicle life (15 years, 200 000 km), stack ageing raises the climate change impact of the chain by **+5.0 %** (optimistic case), **+31.1 %** (central case) and **+35.0 %** (pessimistic case), compared with the same chain without ageing.
 
 Default configuration: climate change (EF 3.1), French residual mix (79.6 g CO2-eq/kWh, AIB 2024 data), 200 000 km over 15 years. "No ageing": the same chain with stacks that never age. Each value includes use and fabrication.
 

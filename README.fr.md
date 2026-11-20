@@ -25,25 +25,18 @@ Ce dépôt contient les modèles, les données et le code d'une analyse du cycle
 
 ## 1. Pourquoi c'est important
 
-La plupart des ACV de la mobilité hydrogène traitent l'électrolyseur et la pile à combustible comme s'ils ne vieillissaient jamais : le même rendement pendant 15 ans et un seul stack. En réalité, un stack perd en performance avec l'usage et doit être remplacé en fin de vie. Ignorer ce phénomène sous-estime l'impact, mais on ne savait pas de combien.
+La plupart des ACV de la mobilité hydrogène supposent des stacks qui ne vieillissent jamais : le même rendement pendant 15 ans et un seul stack. Or un stack s'use et doit être remplacé. Ce dépôt mesure ce que cet oubli change :
 
-Ce dépôt répond à deux questions :
-
-- **De combien ?** La hausse de l'impact due au vieillissement, pour chaque composant seul et pour la chaîne complète.
-- **Par quelle voie ?** Le vieillissement agit à deux niveaux :
-  1. **La surconsommation** : la pile vieillie consomme plus d'hydrogène par km, l'électrolyseur plus d'électricité par kg, et le réservoir perd plus d'hydrogène.
-  2. **Le remplacement** : un stack est remplacé quand sa tension a varié de 10 % (critère du DOE) ; chaque stack neuf ajoute son impact de fabrication.
-
-**Le résultat en bref.** Sur la vie du véhicule (15 ans, 200 000 km), le vieillissement des stacks augmente l'impact de la chaîne sur le changement climatique, par rapport à la même chaîne sans vieillissement, de **+5,0 %** (cas optimiste, objectifs du DOE), **+31,1 %** (cas central, état actuel mesuré par le DOE) et **+35,0 %** (cas pessimiste, modèle semi-empirique et constantes de laboratoire).
+- **De combien ?** La hausse de l'impact due au vieillissement, pour chaque composant et pour la chaîne.
+- **Par quelle voie ?** La **surconsommation** (plus d'hydrogène par km, plus d'électricité par kg, plus de pertes du réservoir) et le **remplacement** (un stack neuf quand la tension a varié de 10 %, critère du DOE).
 
 **Ce que ce dépôt apporte**
 
-- **Une méthode prête à l'emploi.** Les modèles de vieillissement, la recherche de la fin de vie, le comptage des stacks et l'ACV sont déjà reliés entre eux, et chaque équation est documentée avec sa source ([docs/METHOD.fr.md](docs/METHOD.fr.md)).
-- **N'importe quelle valeur ou n'importe quel inventaire se change sans réécrire le code.** Les valeurs d'entrée sont dans un seul fichier de configuration, les inventaires de fabrication dans des tableaux CSV ; après un changement, la fin de vie, le nombre de stacks et l'impact sont recalculés automatiquement.
-- **Des modèles construits sur des mesures réelles** : une pile de Toyota Mirai II enregistrée sur route, et un électrolyseur Nel MC250 qui suit un profil de production éolienne (données publiques du NLR).
-- **Utilisable sans licence ecoinvent**, et complet avec une licence : les deux façons de faire sont décrites pas à pas ([section 4](#4-démarrage-rapide-sans-et-avec-licence-ecoinvent)).
-- **Des résultats contrôlés automatiquement** : des tests vérifient les résultats à chaque modification du dépôt.
-- **Ouvert et bilingue** : chaque page existe en français et en anglais, et n'importe qui peut reproduire les résultats ou tester son propre cas.
+- **Une méthode complète, prête à l'emploi** : vieillissement, fin de vie, nombre de stacks et ACV sont reliés, chaque équation est sourcée ([docs/METHOD.fr.md](docs/METHOD.fr.md)).
+- **Des modèles fondés sur des mesures réelles** : une pile de Toyota Mirai II sur route, un électrolyseur Nel MC250 sous profil éolien (données du NLR).
+- **Tout se change sans toucher au code** : une valeur dans un fichier de configuration, un inventaire dans un tableau CSV ; le reste est recalculé.
+- **Avec ou sans licence ecoinvent** : les deux façons sont décrites ([section 4](#4-démarrage-rapide-sans-et-avec-licence-ecoinvent)).
+- **Fiable et ouvert** : des tests vérifient les résultats à chaque modification ; chaque page existe en français et en anglais.
 
 ## 2. Qui peut l'utiliser, et pour quoi
 
@@ -143,6 +136,8 @@ Le détail de ce qui se change est dans [docs/GUIDE.fr.md](docs/GUIDE.fr.md), se
 | [notebooks/](notebooks/README.fr.md) | notebooks de recherche d'origine |
 
 ## 6. Résultats principaux
+
+**En bref.** Sur la vie du véhicule (15 ans, 200 000 km), le vieillissement des stacks augmente l'impact de la chaîne sur le changement climatique de **+5,0 %** (cas optimiste), **+31,1 %** (cas central) et **+35,0 %** (cas pessimiste), par rapport à la même chaîne sans vieillissement.
 
 Configuration par défaut : changement climatique (EF 3.1), mix résiduel français (79,6 g CO2-éq/kWh, données AIB 2024), 200 000 km en 15 ans. « Sans vieillissement » : la même chaîne avec des stacks qui ne vieillissent jamais. Chaque valeur comprend l'usage et la fabrication.
 
