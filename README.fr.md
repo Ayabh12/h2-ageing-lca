@@ -137,7 +137,7 @@ Le détail de ce qui se change est dans [docs/GUIDE.fr.md](docs/GUIDE.fr.md), se
 
 ## 6. Résultats principaux
 
-**En bref.** Sur la vie du véhicule (200 000 km, objectif de Toyota pour le stack de la Mirai II, Takahashi et al. 2022 ; 15 ans, durée de certification du réservoir, UN R134), le vieillissement des stacks augmente l'impact de la chaîne sur le changement climatique de **+5,0 %** (cas optimiste), **+31,1 %** (cas central) et **+35,0 %** (cas pessimiste), par rapport à la même chaîne sans vieillissement.
+**En bref.** Sur la vie du véhicule (200 000 km, objectif de Toyota pour la pile ; 15 ans, durée de certification du réservoir), le vieillissement des stacks augmente l'impact de la chaîne sur le changement climatique de **+5,0 %** (cas optimiste), **+31,1 %** (cas central) et **+35,0 %** (cas pessimiste), par rapport à la même chaîne sans vieillissement.
 
 Configuration par défaut : changement climatique (EF 3.1), mix résiduel français (79,6 g CO2-éq/kWh, données AIB 2024), 200 000 km en 15 ans. « Sans vieillissement » : la même chaîne avec des stacks qui ne vieillissent jamais. Chaque valeur comprend l'usage et la fabrication.
 
