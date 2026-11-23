@@ -105,7 +105,7 @@ The four parameters $`i_{0c}`$, $`R_0`$, $`B_c`$ and $`i_{\mathrm{lim}}`$ are fi
 The measured trip (time, current, voltage; 2 033 s, 20.32 km) is replayed at each age **at constant power**:
 
 - **Current at each second.** The current that delivers the measured power is found by bisection (40 iterations).
-- **Anchoring factor.** A factor, computed second by second, makes the model give exactly the measured current at age zero; the rise in consumption then comes only from ageing.
+- **Anchoring factor.** The fitted polarisation curve does not give exactly the measured voltage at every second. At each second, the factor is measured voltage ÷ voltage of the new model; it corrects the model so that at age zero it gives exactly the measured current and hydrogen. The same factor is kept at all ages: the difference between age zero and a given age thus comes only from ageing, not from the fitting error.
 - **Hydrogen.** The hydrogen consumed is Faraday's law plus a loss current. The gap between the measured hydrogen (0.196 kg) and Faraday's law is kept constant; the rise of the crossover is added to it.
 
 ### 2.3 Ageing, semi-empirical model (pessimistic case)

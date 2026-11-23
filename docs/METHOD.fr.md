@@ -105,7 +105,7 @@ Les quatre paramètres $`i_{0c}`$, $`R_0`$, $`B_c`$ et $`i_{\mathrm{lim}}`$ sont
 Le trajet mesuré (temps, courant, tension ; 2 033 s, 20,32 km) est rejoué à chaque âge **à puissance imposée** :
 
 - **Courant à chaque seconde.** Le courant qui fournit la puissance mesurée est trouvé par dichotomie (40 itérations).
-- **Facteur d'ancrage.** Un facteur, calculé seconde par seconde, fait que le modèle redonne exactement le courant mesuré à l'âge zéro ; la hausse de consommation ne vient alors que du vieillissement.
+- **Facteur d'ancrage.** La courbe de polarisation ajustée ne redonne pas exactement la tension mesurée à chaque seconde. À chaque seconde, le facteur vaut tension mesurée ÷ tension du modèle neuf ; il corrige le modèle pour qu'à l'âge zéro il redonne exactement le courant et l'hydrogène mesurés. Le même facteur est gardé à tous les âges : l'écart entre l'âge zéro et un âge donné ne vient donc que du vieillissement, pas de l'erreur d'ajustement.
 - **Hydrogène.** L'hydrogène consommé suit la loi de Faraday, plus un courant de perte. L'écart entre l'hydrogène mesuré (0,196 kg) et la loi de Faraday est gardé constant ; la hausse du crossover s'y ajoute.
 
 ### 2.3 Vieillissement, modèle semi-empirique (cas pessimiste)
