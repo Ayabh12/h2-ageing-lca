@@ -10,7 +10,7 @@
 # =============================================================================
 
 horizon:
-  years: 15                      # vehicle and equipment horizon
+  years: 15                      # vehicle and equipment horizon; certification period of the type IV tank (UN R134)
   vehicle_km_total: 200000       # Takahashi et al. 2022 (Toyota target for the Mirai II stack)
 
 # -----------------------------------------------------------------------------

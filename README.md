@@ -137,7 +137,7 @@ What can be changed is detailed in [docs/GUIDE.md](docs/GUIDE.md), section 3.
 
 ## 6. Main results
 
-**In short.** Over the vehicle life (15 years, 200 000 km), stack ageing raises the climate change impact of the chain by **+5.0 %** (optimistic case), **+31.1 %** (central case) and **+35.0 %** (pessimistic case), compared with the same chain without ageing.
+**In short.** Over the vehicle life (200 000 km, Toyota's target for the Mirai II stack, Takahashi et al. 2022; 15 years, certification period of the tank, UN R134), stack ageing raises the climate change impact of the chain by **+5.0 %** (optimistic case), **+31.1 %** (central case) and **+35.0 %** (pessimistic case), compared with the same chain without ageing.
 
 Default configuration: climate change (EF 3.1), French residual mix (79.6 g CO2-eq/kWh, AIB 2024 data), 200 000 km over 15 years. "No ageing": the same chain with stacks that never age. Each value includes use and fabrication.
 
