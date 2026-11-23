@@ -13,7 +13,7 @@ Ce dépôt contient les modèles, les données et le code d'une analyse du cycle
 
 ## Sommaire
 
-1. [Pourquoi c'est important](#1-pourquoi-cest-important)
+1. [Pourquoi ce dépôt et ce qu'il apporte](#1-pourquoi-ce-dépôt-et-ce-quil-apporte)
 2. [Qui peut l'utiliser, et pour quoi](#2-qui-peut-lutiliser-et-pour-quoi)
 3. [Ce que fait le code](#3-ce-que-fait-le-code)
 4. [Démarrage rapide, sans et avec licence ecoinvent](#4-démarrage-rapide-sans-et-avec-licence-ecoinvent)
@@ -23,7 +23,7 @@ Ce dépôt contient les modèles, les données et le code d'une analyse du cycle
 
 ---
 
-## 1. Pourquoi c'est important
+## 1. Pourquoi ce dépôt et ce qu'il apporte
 
 La plupart des ACV de la mobilité hydrogène supposent des stacks qui ne vieillissent jamais : le même rendement pendant 15 ans et un seul stack. Or un stack s'use et doit être remplacé. Ce dépôt mesure ce que cet oubli change :
 

@@ -13,7 +13,7 @@ This repository contains the models, data and code of a life cycle assessment (L
 
 ## Contents
 
-1. [Why this matters](#1-why-this-matters)
+1. [Why this repository and what it brings](#1-why-this-repository-and-what-it-brings)
 2. [Who can use it, and for what](#2-who-can-use-it-and-for-what)
 3. [What the code does](#3-what-the-code-does)
 4. [Quick start, without and with an ecoinvent licence](#4-quick-start-without-and-with-an-ecoinvent-licence)
@@ -23,7 +23,7 @@ This repository contains the models, data and code of a life cycle assessment (L
 
 ---
 
-## 1. Why this matters
+## 1. Why this repository and what it brings
 
 Most LCAs of hydrogen mobility assume stacks that never age: the same efficiency for 15 years and a single stack. Yet a stack wears out and must be replaced. This repository measures what this omission changes:
 
