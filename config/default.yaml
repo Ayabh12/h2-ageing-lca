@@ -21,7 +21,7 @@ usage:
   water_kg_per_kg_h2: 10.0       # Lundberg 2019 inventory (stoichiometric minimum: 8.9 kg)
   electricity_electrolyser: residual_mix_FR   # column of data/impacts/electricity_per_kWh.csv
   electricity_compression: residual_mix_FR    # idem (kept on the residual mix in the reference results)
-  electrolyser_hours_per_year: 6000           # hours at the measured profile (mean load 0.568)
+  electrolyser_hours_per_year: 6000           # hours at the measured profile; published full-load hours / mean load 0.568 (710/1250 kW)
   stack_counting: integer        # "integer": n = ceil(L / t_EoL) ; "prorata": n = max(1, L / t_EoL)
 
 # -----------------------------------------------------------------------------

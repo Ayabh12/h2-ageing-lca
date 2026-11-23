@@ -289,7 +289,7 @@ Chaque test change une entrée (ou plusieurs) et regarde si le résultat change.
 | Les constantes de laboratoire | Laquelle compte le plus ? | `semi_empirical_constants.py` |
 | Huit entrées à la fois (Sobol) | Laquelle explique le plus le résultat ? | `sobol.py` |
 
-**Heures de l'électrolyseur.** Les heures publiées sont à pleine charge ; elles sont converties en heures au profil mesuré en les divisant par sa charge moyenne (710/1 250 = 0,568).
+**Comptage des stacks.** Dans le cas central, la pile doit fonctionner 5 554 h et un stack dure 4 100 h : le second stack n'est utilisé qu'à 35 % de sa vie. Par défaut, il est compté en entier (2 stacks) ; au prorata, seuls 35 % sont comptés (1,35 stack), comme si le reste avait une seconde vie.
 
 **Ce qu'est l'analyse de Sobol.** Elle fait varier toutes les entrées en même temps, un grand nombre de fois (10 240 calculs), et mesure la part de la variation du résultat expliquée par chaque entrée. Son indice total va de 0 (l'entrée ne compte pas) à 1 (l'entrée explique toute la variation, seule ou avec les autres).
 

@@ -289,7 +289,7 @@ Each test changes one input (or several) and checks whether the result changes.
 | The laboratory constants | Which one matters most? | `semi_empirical_constants.py` |
 | Eight inputs at once (Sobol) | Which one explains the result most? | `sobol.py` |
 
-**Electrolyser hours.** Published hours are at full load; they are converted to hours at the measured profile by dividing by its mean load (710/1 250 = 0.568).
+**Stack counting.** In the central case, the fuel cell must run 5 554 h and a stack lasts 4 100 h: the second stack is used for only 35 % of its life. By default it is counted in full (2 stacks); with prorata, only 35 % is counted (1.35 stacks), as if the rest had a second life.
 
 **What a Sobol analysis is.** It varies all the inputs together, many times (10 240 runs), and measures which share of the variation of the result each input explains. Its total index goes from 0 (the input does not matter) to 1 (the input explains all the variation, alone or together with the others).
 
