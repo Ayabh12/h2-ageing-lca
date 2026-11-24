@@ -190,11 +190,13 @@ f_A(t) \;=\; f_{\min} + (1-f_{\min})\,e^{-t/\tau}, \qquad \Delta V_{\mathrm{act}
 R(t) \;=\; R_0 \;+\; \frac{\text{dérive de la HFR} + \text{dérive de la couche catalytique}}{j_{\mathrm{essai}}}\;t
 ```
 
-**Rendement faradique**, à partir de l'amincissement de la membrane :
+**Rendement faradique**, à partir de l'amincissement de la membrane. L'épaisseur $`e`$ baisse linéairement, et l'hydrogène qui la traverse, donc la perte faradique, est inversement proportionnel à l'épaisseur :
 
 ```math
-\frac{\eta_F(t)}{\eta_{F,0}} \;=\; 1 - 0{,}5\,\frac{t}{t_{50}}
+\frac{e(t)}{e_0} \;=\; 1 - 0{,}5\,\frac{t}{t_{50}}, \qquad 1-\eta_F(t) \;=\; \frac{1-\eta_{F,0}}{e(t)/e_0}
 ```
+
+$`t_{50}`$ = 80 700 h est le temps pour perdre la moitié de l'épaisseur à 80 °C (modèle couplé de Chandesris et al. 2015). En fin de vie (34 175 h), $`e/e_0`$ = 0,79 et $`\eta_F`$ passe de 97,7 % à 97,1 %.
 
 ### 3.3 Vieillissement, modèle linéaire (cas optimiste et central)
 

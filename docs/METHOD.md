@@ -190,11 +190,13 @@ f_A(t) \;=\; f_{\min} + (1-f_{\min})\,e^{-t/\tau}, \qquad \Delta V_{\mathrm{act}
 R(t) \;=\; R_0 \;+\; \frac{\text{HFR drift} + \text{catalyst-layer drift}}{j_{\mathrm{test}}}\;t
 ```
 
-**Faraday efficiency**, from the membrane thinning:
+**Faraday efficiency**, from the membrane thinning. The membrane thickness $`e`$ falls linearly, and the hydrogen crossing it, hence the Faraday loss, is inversely proportional to the thickness:
 
 ```math
-\frac{\eta_F(t)}{\eta_{F,0}} \;=\; 1 - 0.5\,\frac{t}{t_{50}}
+\frac{e(t)}{e_0} \;=\; 1 - 0.5\,\frac{t}{t_{50}}, \qquad 1-\eta_F(t) \;=\; \frac{1-\eta_{F,0}}{e(t)/e_0}
 ```
+
+$`t_{50}`$ = 80 700 h is the time to lose half of the thickness at 80 °C (coupled model of Chandesris et al. 2015). At end of life (34 175 h), $`e/e_0`$ = 0.79 and $`\eta_F`$ goes from 97.7 % to 97.1 %.
 
 ### 3.3 Ageing, linear model (optimistic and central cases)
 
